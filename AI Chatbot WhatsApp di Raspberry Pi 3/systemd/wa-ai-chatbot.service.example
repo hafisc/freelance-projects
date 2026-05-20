@@ -1,0 +1,48 @@
+# ============================================================
+# Systemd Service - WhatsApp AI Chatbot (Baileys + PicoClaw)
+# ============================================================
+#
+# Cara penggunaan:
+# 1. Copy file ini ke /etc/systemd/system/:
+#    sudo cp systemd/wa-ai-chatbot.service.example /etc/systemd/system/wa-ai-chatbot.service
+#
+# 2. Sesuaikan konfigurasi:
+#    - User=pi → ganti dengan username Raspberry Pi Anda
+#    - WorkingDirectory → ganti dengan path folder project
+#    - ExecStart → cek path npm dengan: which npm
+#
+# 3. Reload systemd:
+#    sudo systemctl daemon-reload
+#
+# 4. Enable dan start:
+#    sudo systemctl enable wa-ai-chatbot
+#    sudo systemctl start wa-ai-chatbot
+#
+# 5. Cek status:
+#    sudo systemctl status wa-ai-chatbot
+#
+# 6. Lihat log:
+#    journalctl -u wa-ai-chatbot -f
+# ============================================================
+
+[Unit]
+Description=WhatsApp AI Chatbot - Baileys + PicoClaw
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/apps/wa-ai-raspi-chatbot
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=10
+StartLimitBurst=5
+StartLimitIntervalSec=60
+NoNewPrivileges=true
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
