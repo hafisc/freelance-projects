@@ -1,0 +1,235 @@
+/* custom.css - Sistem Manajemen Data Mahasiswa */
+
+/* Reset & Basis */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #F3F6FA;
+    color: #1F2937;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Wrapper Layout Utama */
+.app-wrapper {
+    display: flex;
+    flex: 1;
+}
+
+/* Sidebar Kiri */
+.app-sidebar {
+    width: 250px;
+    background-color: #1E3A5F;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-header {
+    padding: 20px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 20px 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar-menu li {
+    margin-bottom: 5px;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-left: 4px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.sidebar-menu a:hover {
+    color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-menu li.active a {
+    color: #FFFFFF;
+    background-color: #2563EB;
+    border-left-color: #FFFFFF;
+}
+
+.sidebar-footer {
+    padding: 15px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Konten Utama di Sebelah Kanan */
+.app-content {
+    margin-left: 250px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Mencegah overflow flex */
+}
+
+/* Navbar Atas */
+.app-navbar {
+    height: 65px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E5E7EB;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+
+.navbar-brand-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1E3A5F;
+}
+
+.navbar-user-info {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #6B7280;
+}
+
+/* Kontainer Halaman Internal */
+.page-container {
+    padding: 24px;
+    flex: 1;
+}
+
+/* Custom Cards */
+.custom-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    margin-bottom: 24px;
+}
+
+.custom-card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #E5E7EB;
+    background-color: #FFFFFF;
+    font-weight: 600;
+    color: #1F2937;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+
+.custom-card-body {
+    padding: 20px;
+}
+
+/* Custom Buttons */
+.btn-primary {
+    background-color: #2563EB;
+    border-color: #2563EB;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #1D4ED8;
+    border-color: #1D4ED8;
+}
+
+.btn-navy {
+    background-color: #1E3A5F;
+    color: #FFFFFF;
+    border: 1px solid #1E3A5F;
+}
+
+.btn-navy:hover {
+    background-color: #162C48;
+    color: #FFFFFF;
+}
+
+/* Halaman Login Admin */
+.login-body {
+    background-color: #F3F6FA;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+    padding: 30px;
+}
+
+.login-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1E3A5F;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.login-subtitle {
+    font-size: 0.9rem;
+    color: #6B7280;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Table Style */
+.table-custom {
+    vertical-align: middle;
+}
+
+.table-custom th {
+    background-color: #F8FAFC;
+    color: #475569;
+    font-weight: 600;
+    border-bottom: 2px solid #E2E8F0;
+    padding: 12px 16px;
+}
+
+.table-custom td {
+    padding: 12px 16px;
+    color: #1F2937;
+}
+
+/* Empty State */
+.empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    color: #6B7280;
+}
+
+/* Responsivitas */
+@media (max-width: 768px) {
+    .app-sidebar {
+        display: none; /* Menyederhanakan layout mobile pada project UAS dasar ini */
+    }
+    .app-content {
+        margin-left: 0;
+    }
+}

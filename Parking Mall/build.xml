@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ParkingMall" default="default" id="ParkingMall">
+    <!-- NetBeans build-impl will be generated or handled on open, but we import it -->
+    <!-- We also define a fallback target in case NetBeans build-impl isn't present when running outside NetBeans -->
+    <target name="default">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes" classpath="lib/mysql-connector-java.jar" includeantruntime="false"/>
+    </target>
+    <target name="clean">
+        <delete dir="build"/>
+        <delete dir="dist"/>
+    </target>
+</project>
