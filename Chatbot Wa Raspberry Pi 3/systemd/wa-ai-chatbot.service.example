@@ -1,0 +1,36 @@
+# ==============================================================================
+# systemd Service Example untuk WhatsApp AI Chatbot
+# ==============================================================================
+# Salin file ini ke /etc/systemd/system/wa-ai-chatbot.service
+# Perintah: sudo cp systemd/wa-ai-chatbot.service.example /etc/systemd/system/wa-ai-chatbot.service
+#
+# CATATAN PENTING:
+# - Sesuaikan nilai 'User' dengan username Raspberry Pi Anda (misal: 'pi' atau 'ubuntu').
+# - Sesuaikan 'WorkingDirectory' dengan path folder project chatbot Anda yang sebenarnya.
+# - Jalankan 'which npm' di terminal untuk mendapatkan path absolut npm (untuk ExecStart).
+# ==============================================================================
+
+[Unit]
+Description=WhatsApp AI Chatbot - Baileys + PicoClaw
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Username yang menjalankan service (jangan gunakan root demi keamanan)
+User=pi
+# Direktori kerja project Anda
+WorkingDirectory=/home/pi/apps/wa-ai-raspi-chatbot
+# Environment produksi
+Environment=NODE_ENV=production
+# Jalankan start command menggunakan path absolut npm
+ExecStart=/usr/bin/npm start
+# Otomatis restart jika service terhenti
+Restart=always
+# Waktu jeda sebelum restart otomatis (dalam detik)
+RestartSec=10
+# Batasi hak akses eskalasi privilege (keamanan)
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

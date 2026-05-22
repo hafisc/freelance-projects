@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAMITOR 3D - Matriks Minor & Kofaktor (Alat Peraga Digital Interaktif)</title>
+  
+  <meta name="description" content="MAMITOR 3D adalah media digital alat peraga interaktif untuk belajar dan menghitung Minor serta Kofaktor matriks 3x3 secara praktis dengan visualisasi 3D.">
+  <meta name="keywords" content="mamitor, matriks, minor, kofaktor, matematika, alat peraga, media pembelajaran, 3d">
+  <meta name="author" content="Antigravity Freelance Projects">
+
+  <!-- KaTeX CSS & JS for Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+  <!-- App Stylesheets (Relative paths for compatibility with Live Server & Vite) -->
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-CY91uwVM.svg">
+  <script type="module" crossorigin src="/assets/index-8QwuJru7.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-ByqHGy0i.css">
+</head>
+<body>
+
+  <!-- Layar Awal / Start Screen Intro Overlay -->
+  <div class="intro-overlay" id="introOverlay">
+    <div class="intro-card">
+      <div class="intro-logo">MAMITOR 3D</div>
+      <p class="intro-subtitle">Matriks Minor & Kofaktor</p>
+      <p class="intro-desc">
+        Selamat datang di <strong>MAMITOR 3D</strong>, sebuah media digital alat peraga interaktif. 
+        Di sini kamu akan belajar menentukan matriks sisa, menghitung Minor, dan Kofaktor dari matriks 3x3 
+        menggunakan visualisasi ruang 3 dimensi yang interaktif.
+      </p>
+      <button class="btn-primary" id="btnStart">
+        <span>Mulai Bermain</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Aplikasi Utama / App Container -->
+  <div class="app-container" id="appContainer">
+    
+    <!-- Bagian Visual Matriks 3D (Kiri) -->
+    <div class="visual-panel">
+      <div class="header">
+        <h1>MAMITOR 3D</h1>
+        <p>Alat Peraga Matriks Minor & Kofaktor</p>
+      </div>
+
+      <div class="scene">
+        <div class="matrix-grid" id="matrixGrid">
+          <!-- Row 1 -->
+          <div class="block" id="b11"><input type="number" id="m11" value="2" title="Elemen a11"></div>
+          <div class="block" id="b12"><input type="number" id="m12" value="3" title="Elemen a12"></div>
+          <div class="block" id="b13"><input type="number" id="m13" value="1" title="Elemen a13"></div>
+          
+          <!-- Row 2 -->
+          <div class="block" id="b21"><input type="number" id="m21" value="0" title="Elemen a21"></div>
+          <div class="block" id="b22"><input type="number" id="m22" value="1" title="Elemen a22"></div>
+          <div class="block" id="b23"><input type="number" id="m23" value="4" title="Elemen a23"></div>
+          
+          <!-- Row 3 -->
+          <div class="block" id="b31"><input type="number" id="m31" value="5" title="Elemen a31"></div>
+          <div class="block" id="b32"><input type="number" id="m32" value="6" title="Elemen a32"></div>
+          <div class="block" id="b33"><input type="number" id="m33" value="0" title="Elemen a33"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bagian Kontrol dan Worksheet (Kanan) -->
+    <div class="controls-panel">
+      <div class="input-group">
+        <select id="rowSelect" aria-label="Pilih Baris">
+          <option value="1">Baris 1</option>
+          <option value="2">Baris 2</option>
+          <option value="3">Baris 3</option>
+        </select>
+        <select id="colSelect" aria-label="Pilih Kolom">
+          <option value="1">Kolom 1</option>
+          <option value="2" selected>Kolom 2</option>
+          <option value="3">Kolom 3</option>
+        </select>
+      </div>
+
+      <button class="btn-primary" id="btnTutup">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+        <span>Tutup Baris & Kolom</span>
+      </button>
+
+      <!-- Lembar Kerja / Worksheet Panel (Muncul setelah tombol diklik) -->
+      <div class="result-panel" id="resultPanel">
+        
+        <!-- Matriks Sisa -->
+        <div>
+          <div class="section-header" style="color: var(--text-main);">Matriks Sisa</div>
+          <div class="math-row">
+            <span id="label_submatrix"></span>
+            <div class="submatrix-container">
+              <input type="number" class="math-input" id="inp_m11" placeholder="a11" aria-label="Matriks sisa baris 1 kolom 1">
+              <input type="number" class="math-input" id="inp_m12" placeholder="a12" aria-label="Matriks sisa baris 1 kolom 2">
+              <input type="number" class="math-input" id="inp_m21" placeholder="a21" aria-label="Matriks sisa baris 2 kolom 1">
+              <input type="number" class="math-input" id="inp_m22" placeholder="a22" aria-label="Matriks sisa baris 2 kolom 2">
+            </div>
+          </div>
+        </div>
+
+        <!-- Perhitungan Minor -->
+        <div>
+          <div class="section-header" style="color: var(--primary);">Minor</div>
+          <div class="math-row"><span id="label_m0"></span></div>
+          <div class="math-row">
+            <span id="label_m1"></span>
+            ( ( <input type="number" class="math-input" id="inp_a" placeholder="a" aria-label="Elemen a"> &times; <input type="number" class="math-input" id="inp_d" placeholder="d" aria-label="Elemen d"> ) ) 
+            &minus; 
+            ( ( <input type="number" class="math-input" id="inp_b" placeholder="b" aria-label="Elemen b"> &times; <input type="number" class="math-input" id="inp_c" placeholder="c" aria-label="Elemen c"> ) )
+          </div>
+          <div class="math-row">
+            <span id="label_m2"></span>
+            <input type="number" class="math-input" id="inp_minor" style="width: 100px;" placeholder="Hasil Minor" aria-label="Hasil Minor Akhir">
+          </div>
+        </div>
+
+        <!-- Perhitungan Kofaktor -->
+        <div>
+          <div class="section-header" style="color: var(--accent);">Kofaktor</div>
+          <div class="math-row"><span id="label_c1"></span></div>
+          <div class="math-row">
+            <span id="label_c2"></span>
+            <input type="number" class="math-input" id="inp_cofaktor" style="width: 100px;" placeholder="Hasil Kofaktor" aria-label="Hasil Kofaktor Akhir">
+          </div>
+        </div>
+
+        <!-- Cek Jawaban & Feedback -->
+        <button class="btn-success" id="btnCek">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Cek Jawaban</span>
+        </button>
+        <div class="feedback-msg" id="feedback"></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

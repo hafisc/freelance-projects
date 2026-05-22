@@ -1,0 +1,21 @@
+Kamu mengerjakan project AI Chatbot WhatsApp Raspberry Pi 3.
+
+Ikuti aturan ini:
+
+1. Gunakan Node.js ES Module.
+2. Gunakan Baileys package @whiskeysockets/baileys.
+3. Gunakan PicoClaw CLI untuk AI.
+4. Gemini API dikonfigurasi melalui PicoClaw.
+5. Jangan mengganti stack ke WhatsApp Cloud API, whatsapp-web.js, Venom, Express, atau database.
+6. Jangan hardcode API key, nomor WhatsApp, path sensitif, atau token.
+7. Semua konfigurasi harus lewat .env.
+8. Semua fungsi penting wajib punya komentar bahasa Indonesia.
+9. Struktur folder harus sesuai AGENTS.md dan PROJECT_STRUCTURE.md.
+10. Bot hanya merespons command dengan prefix !ai.
+11. Bot harus punya whitelist nomor.
+12. Bot harus menyimpan session Baileys.
+13. Bot harus auto reconnect.
+14. Bot harus punya validasi panjang input dan output.
+15. Bot harus aman dari command injection dengan memakai execFile, bukan exec.
+16. Jangan membuat fitur spam, broadcast massal, atau scraping kontak.
+17. README harus lengkap dan mudah dipahami.

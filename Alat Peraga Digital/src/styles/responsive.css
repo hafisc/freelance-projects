@@ -1,0 +1,127 @@
+@media (max-width: 900px) {
+  body {
+    padding: 10px;
+  }
+
+  .app-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 30px 24px;
+    border-radius: 24px;
+  }
+
+  .visual-panel {
+    gap: 20px;
+    text-align: center;
+  }
+
+  .header h1 {
+    font-size: 2.3rem;
+  }
+
+  .scene {
+    aspect-ratio: auto;
+    height: 320px;
+  }
+
+  .matrix-grid {
+    grid-template-columns: repeat(3, 65px);
+    grid-template-rows: repeat(3, 65px);
+    gap: 15px;
+  }
+
+  .block input {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-container {
+    padding: 20px 16px;
+    border-radius: 20px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .header p {
+    font-size: 0.95rem;
+  }
+
+  .scene {
+    height: 280px;
+  }
+
+  .matrix-grid {
+    grid-template-columns: repeat(3, 55px);
+    grid-template-rows: repeat(3, 55px);
+    gap: 12px;
+  }
+
+  .block input {
+    font-size: 18px;
+    border-width: 1.5px;
+    border-radius: 10px;
+  }
+
+  .input-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  select {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .btn-primary, .btn-success {
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+
+  .result-panel {
+    padding: 20px 15px;
+    gap: 20px;
+  }
+
+  .section-header {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+  }
+
+  .math-row {
+    font-size: 1rem;
+    gap: 8px;
+  }
+
+  .submatrix-container {
+    padding: 4px 8px;
+    gap: 6px;
+    margin-left: 4px;
+  }
+
+  .math-input {
+    width: 48px;
+    height: 36px;
+    font-size: 15px;
+    border-radius: 6px;
+  }
+
+  .intro-card {
+    padding: 40px 20px;
+  }
+
+  .intro-logo {
+    font-size: 3rem;
+  }
+
+  .intro-card p.intro-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .intro-desc {
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+  }
+}
