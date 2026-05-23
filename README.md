@@ -85,17 +85,18 @@ Here is a quick directory of all the projects available in this repository:
     <tr>
       <td align="center">4</td>
       <td>
-        <a href="./Alat%20Peraga%20Digital/">
+        <a href="./Mamitor%203D/">
           <b>📐 MAMITOR 3D (Alat Peraga Digital)</b>
         </a>
       </td>
       <td>
         Interactive 3D web-based math learning tool for matrix minors & cofactors with real-time feedback.
         <br />
-        <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5" />
-        <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3" />
-        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript" />
-        <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
+        <img src="https://img.shields.io/badge/Next.js_16-000000?style=flat-square&logo=nextdotjs&logoColor=white" alt="Next.js" />
+        <img src="https://img.shields.io/badge/React_19-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React" />
+        <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+        <img src="https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=threedotjs&logoColor=white" alt="Three.js" />
+        <img src="https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
       </td>
       <td align="center">
         <img src="https://img.shields.io/badge/EdTech_%26_3D-green?style=flat-square" alt="EdTech Badge" />
@@ -186,20 +187,21 @@ A modern administrative dashboard built with the latest Laravel framework for ed
 
 ### 📐 MAMITOR 3D (Alat Peraga Digital)
 > **Category:** Interactive 3D Web Application / Educational Technology (EdTech)  
-> **Folder Path:** [`./Alat Peraga Digital`](./Alat%20Peraga%20Digital/)
+> **Folder Path:** [`./Mamitor 3D`](./Mamitor%203D/)
 
-An interactive 3D web-based learning tool designed to help students learn matrix operations, specifically finding minors and cofactors of 3x3 matrices.
+An interactive 3D web-based learning tool designed to help students learn matrix operations, specifically finding minors and cofactors of 3x3 matrices, visualized as dynamic 3D blocks.
 
 - **Key Features:**
-  - 🧩 **Interactive 3D Grid:** Dynamic 3D card tilt effect that responds to cursor movement for immersive interaction.
-  - ⚡ **Real-Time Step-by-Step Worksheet:** Live math validation of user input with intuitive green/red status coloring.
-  - 📐 **High-Fidelity Math Rendering:** Clean and fast mathematical equations using KaTeX.
-  - 📱 **Responsive Design:** Dark mode glassmorphism layout optimized for desktop, tablet, and mobile.
+  - 🧩 **Interactive 3D Grid:** Dynamic 3D matrix visualization using Three.js and React Three Fiber with custom rotation and interactive elements.
+  - ⚡ **Real-Time Step-by-Step Worksheet:** Live math validation of user input for minor/cofactor calculations with real-time green/red feedback.
+  - 📐 **High-Fidelity Math Rendering:** Clean and fast rendering of mathematical matrices and formulas using KaTeX.
+  - 📱 **Responsive Design:** Dark mode layout optimized for desktop, tablet, and mobile with Lenis smooth scroll and Framer Motion micro-animations.
 - **Tech Stack:**
-  - ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-  - ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-  - ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-  - ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)
+  - ![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat&logo=nextdotjs&logoColor=white)
+  - ![React 19](https://img.shields.io/badge/React_19-20232A?style=flat&logo=react&logoColor=61DAFB)
+  - ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+  - ![Three.js](https://img.shields.io/badge/Three.js-000000?style=flat&logo=threedotjs&logoColor=white)
+  - ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
   - ![KaTeX](https://img.shields.io/badge/KaTeX-002F6C?style=flat&logo=katex&logoColor=white)
 
 ---
