@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  
+  --color-dark-bg: #000000;
+  --color-glass-card: rgba(10, 15, 30, 0.95);
+  --color-glass-border: #1e293b;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: #000000;
+  font-family: var(--font-sans);
+  color: #f3f4f6;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-image: radial-gradient(circle at 50% 0%, #020c1b 0%, #000000 100%);
+}
+
+/* 3D Transform Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.translate-z-10 {
+  transform: translateZ(10px);
+}
+
+.translate-z-20 {
+  transform: translateZ(20px);
+}
+
+.translate-z-50 {
+  transform: translateZ(50px);
+}
+
+/* Custom Scrollbar for premium dark UI */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #111827;
+  border-radius: 9999px;
+  border: 1px solid #000000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1e293b;
+}
+
+/* Minimalist Dark Panel */
+.glass-panel {
+  background: rgba(3, 7, 18, 0.95);
+  border: 1px solid #1e293b;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.glass-panel-hover {
+  transition: all 0.25s ease-in-out;
+}
+
+.glass-panel-hover:hover {
+  background: #000000;
+  border-color: #2563eb;
+}
+
+/* KaTeX custom style alignment */
+.katex-display {
+  margin: 0.5em 0 !important;
+}
+
+.katex {
+  font-family: var(--font-display) !important;
+  font-size: 1.15em;
+  font-weight: 500;
+}
