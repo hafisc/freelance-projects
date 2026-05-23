@@ -6,14 +6,34 @@ import makeWASocket, {
 import qrcode from 'qrcode-terminal';
 import { Boom } from '@hapi/boom';
 import pino from 'pino';
+import fs from 'fs/promises';
+import path from 'path';
 import config from '../config/env.js';
 import logger from '../utils/logger.js';
 import { handleMessagesUpsert } from './handlers.js';
 
 /**
+ * Menghapus folder session Baileys secara rekursif.
+ * Dipanggil otomatis saat sesi WhatsApp logout / expired
+ * agar bot bisa generate QR Code baru tanpa restart manual.
+ */
+async function clearSessionFolder() {
+  const authDir = path.resolve(config.baileysAuthDir);
+  try {
+    await fs.rm(authDir, { recursive: true, force: true });
+    logger.info(`Folder session "${config.baileysAuthDir}" berhasil dihapus.`);
+  } catch (err) {
+    logger.error(`Gagal menghapus folder session: ${err.message}`);
+  }
+}
+
+/**
  * Memulai dan memanage koneksi ke WhatsApp menggunakan Baileys.
  * Mengatur loading session, rendering QR Code, auto-reconnect,
  * dan mendaftarkan event handler pesan masuk.
+ * 
+ * Jika sesi WhatsApp berakhir (logged out / expired), bot akan
+ * otomatis menghapus folder session dan generate QR Code baru.
  * 
  * @returns {Promise<object>} Socket client Baileys WhatsApp.
  */
@@ -65,11 +85,16 @@ export async function connectToWhatsApp() {
       });
 
       if (shouldReconnect) {
+        // Koneksi terputus sementara (network issue, dsb.) — reconnect biasa
         logger.info('Mencoba menyambungkan kembali ke WhatsApp dalam 5 detik...');
         setTimeout(() => connectToWhatsApp(), 5000);
       } else {
-        logger.error('Sesi WhatsApp telah berakhir (Logged Out / Keluar).');
-        logger.error(`Untuk menautkan kembali, harap hapus folder session: "${config.baileysAuthDir}" lalu restart bot.`);
+        // Sesi berakhir (logged out / expired) — otomatis hapus session & generate QR baru
+        logger.warn('Sesi WhatsApp telah berakhir (Logged Out / Expired).');
+        logger.info('Menghapus folder session dan menyiapkan QR Code baru...');
+        await clearSessionFolder();
+        logger.info('Memulai ulang koneksi dalam 5 detik untuk generate QR Code baru...');
+        setTimeout(() => connectToWhatsApp(), 5000);
       }
     } 
     // Menangani koneksi berhasil dibuka

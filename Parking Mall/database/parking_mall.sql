@@ -109,12 +109,39 @@ INSERT INTO lantai (nama_lantai, keterangan) VALUES
 ('Lantai 3', 'Area parkir lantai 3 (Rooftop)');
 
 INSERT INTO slot_parkir (id_lantai, kode_slot, status) VALUES
+-- Lantai 1 (A1-A5 Mobil, M1-M5 Motor)
 (1, 'A1', 'tersedia'),
 (1, 'A2', 'tersedia'),
 (1, 'A3', 'tersedia'),
+(1, 'A4', 'tersedia'),
+(1, 'A5', 'tersedia'),
+(1, 'M1', 'tersedia'),
+(1, 'M2', 'tersedia'),
+(1, 'M3', 'tersedia'),
+(1, 'M4', 'tersedia'),
+(1, 'M5', 'tersedia'),
+
+-- Lantai 2 (B1-B5 Mobil, M6-M10 Motor)
 (2, 'B1', 'tersedia'),
 (2, 'B2', 'tersedia'),
 (2, 'B3', 'tersedia'),
+(2, 'B4', 'tersedia'),
+(2, 'B5', 'tersedia'),
+(2, 'M6', 'tersedia'),
+(2, 'M7', 'tersedia'),
+(2, 'M8', 'tersedia'),
+(2, 'M9', 'tersedia'),
+(2, 'M10', 'tersedia'),
+
+-- Lantai 3 (C1-C5 Mobil, M11-M15 Motor)
 (3, 'C1', 'tersedia'),
 (3, 'C2', 'tersedia'),
-(3, 'C3', 'tersedia');
+(3, 'C3', 'tersedia'),
+(3, 'C4', 'tersedia'),
+(3, 'C5', 'tersedia'),
+(3, 'M11', 'tersedia'),
+(3, 'M12', 'tersedia'),
+(3, 'M13', 'tersedia'),
+(3, 'M14', 'tersedia'),
+(3, 'M15', 'tersedia');
+
