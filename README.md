@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-projects-overview">
-    <img src="https://img.shields.io/badge/Projects-5_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-6_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -121,6 +121,25 @@ Here is a quick directory of all the projects available in this repository:
         <img src="https://img.shields.io/badge/CV_%26_Deep_Learning-FF6F00?style=flat-square" alt="CV & Deep Learning Badge" />
       </td>
     </tr>
+    <tr>
+      <td align="center">6</td>
+      <td>
+        <a href="./klasifikasi%20kesegaran%20ikan%20kembung/">
+          <b>🐟 Chub Mackerel Freshness Classifier</b>
+        </a>
+      </td>
+      <td>
+        Web application to evaluate chub mackerel freshness using MobileNetV3 feature extraction & SVM.
+        <br />
+        <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+        <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit" />
+        <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=tensorflow&logoColor=white" alt="TensorFlow" />
+        <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white" alt="scikit-learn" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/CV_%26_ML-blueviolet?style=flat-square" alt="CV & ML Badge" />
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -224,6 +243,26 @@ A comprehensive image classification experiment comparing five deep learning arc
   - ![Keras](https://img.shields.io/badge/Keras-D00000?style=flat&logo=keras&logoColor=white)
   - ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)
   - ![Google Colab](https://img.shields.io/badge/Google_Colab-F9AB00?style=flat&logo=googlecolab&logoColor=white)
+
+---
+
+### 🐟 Chub Mackerel Freshness Classifier
+> **Category:** Computer Vision & Machine Learning / Web Application  
+> **Folder Path:** [`./klasifikasi kesegaran ikan kembung`](./klasifikasi%20kesegaran%20ikan%20kembung/)
+
+A web-based image classification system designed to evaluate the freshness of chub mackerel (*ikan kembung*) using deep learning feature extraction combined with a classical machine learning classifier.
+
+- **Key Features:**
+  - 📤 **Image Upload & Preview:** Supports uploading photos of fish (JPG/JPEG/PNG) with instant image preview.
+  - 🧠 **Hybrid ML Architecture:** Uses a pre-trained **MobileNetV3-Large** (on ImageNet) for high-fidelity feature extraction and **Support Vector Machine (SVM)** for classification.
+  - 🏷️ **Hierarchical Classification:** Detects if the image is a *Chub Mackerel* or *Other Fish*, and if it is a Chub Mackerel, classifies it as *Fresh* or *Not Fresh*.
+  - 📊 **Confidence Score & Analysis Card:** Visualizes prediction confidence with dynamic status indicator cards (Green for Fresh, Red for Not Fresh, and Blue-grey for Other Fish).
+  - ⚙️ **End-to-End Pipeline:** Standardized scripts for dataset processing, feature extraction, SVM training, and local model evaluations.
+- **Tech Stack:**
+  - ![Python](https://img.shields.io/badge/Python_3-3776AB?style=flat&logo=python&logoColor=white)
+  - ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white)
+  - ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=tensorflow&logoColor=white)
+  - ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)
 
 ---
 

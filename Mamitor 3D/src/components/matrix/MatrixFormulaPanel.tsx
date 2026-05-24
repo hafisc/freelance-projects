@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { UserAnswers, AnswerStatus } from '@/types/matrix';
 import { LatexFormula } from '@/components/ui/LatexFormula';
 import { Button } from '@/components/ui/Button';
@@ -37,6 +37,27 @@ export const MatrixFormulaPanel: React.FC<MatrixFormulaPanelProps> = ({
   onCheck,
   onReset,
 }) => {
+  // State untuk melacak input mana yang sedang aktif (fokus) untuk tombol +/-
+  const [focusedInput, setFocusedInput] = useState<{
+    category: 'subMatrix' | 'detElements' | 'minor' | 'cofactor';
+    row?: number;
+    col?: number;
+    field?: 'a' | 'b' | 'c' | 'd';
+  } | null>(null);
+
+  // Wrapper untuk memvalidasi pengetikan karakter angka/minus
+  const handleTextChange = (
+    category: 'subMatrix' | 'detElements' | 'minor' | 'cofactor',
+    val: string,
+    row?: number,
+    col?: number,
+    field?: 'a' | 'b' | 'c' | 'd'
+  ) => {
+    if (val === '' || val === '-' || /^-?\d*\.?\d*$/.test(val)) {
+      onAnswerChange(category, val, row, col, field);
+    }
+  };
+
   // Helper untuk menentukan warna border input berdasarkan kebenaran jawaban
   const getInputClass = (status: boolean | null) => {
     if (status === null) {
@@ -74,38 +95,50 @@ export const MatrixFormulaPanel: React.FC<MatrixFormulaPanelProps> = ({
             
             <div className="grid grid-cols-2 gap-2.5">
               <input
-                type="number"
+                type="text"
+                inputMode="text"
                 placeholder="?"
                 value={userAnswers.subMatrix[0][0]}
-                onChange={(e) => onAnswerChange('subMatrix', e.target.value, 0, 0)}
-                className={`w-11 h-9 border rounded-lg text-center font-display font-bold text-base outline-none transition-all duration-300 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${getInputClass(
+                onFocus={() => setFocusedInput({ category: 'subMatrix', row: 0, col: 0 })}
+                onBlur={() => setTimeout(() => setFocusedInput(null), 150)}
+                onChange={(e) => handleTextChange('subMatrix', e.target.value, 0, 0)}
+                className={`w-11 h-9 border rounded-lg text-center font-display font-bold text-base outline-none transition-all duration-300 ${getInputClass(
                   answerStatus.subMatrix[0][0]
                 )}`}
               />
               <input
-                type="number"
+                type="text"
+                inputMode="text"
                 placeholder="?"
                 value={userAnswers.subMatrix[0][1]}
-                onChange={(e) => onAnswerChange('subMatrix', e.target.value, 0, 1)}
-                className={`w-11 h-9 border rounded-lg text-center font-display font-bold text-base outline-none transition-all duration-300 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${getInputClass(
+                onFocus={() => setFocusedInput({ category: 'subMatrix', row: 0, col: 1 })}
+                onBlur={() => setTimeout(() => setFocusedInput(null), 150)}
+                onChange={(e) => handleTextChange('subMatrix', e.target.value, 0, 1)}
+                className={`w-11 h-9 border rounded-lg text-center font-display font-bold text-base outline-none transition-all duration-300 ${getInputClass(
                   answerStatus.subMatrix[0][1]
                 )}`}
               />
               <input
-                type="number"
+                type="text"
+                inputMode="text"
                 placeholder="?"
                 value={userAnswers.subMatrix[1][0]}
-                onChange={(e) => onAnswerChange('subMatrix', e.target.value, 1, 0)}
-                className={`w-11 h-9 border rounded-lg text-center font-display font-bold text-base outline-none transition-all duration-300 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${getInputClass(
+                onFocus={() => setFocusedInput({ category: 'subMatrix', row: 1, col: 0 })}
+                onBlur={() => setTimeout(() => setFocusedInput(null), 150)}
+                onChange={(e) => handleTextChange('subMatrix', e.target.value, 1, 0)}
+                className={`w-11 h-9 border rounded-lg text-center font-display font-bold text-base outline-none transition-all duration-300 ${getInputClass(
                   answerStatus.subMatrix[1][0]
                 )}`}
               />
               <input
-                type="number"
+                type="text"
+                inputMode="text"
                 placeholder="?"
                 value={userAnswers.subMatrix[1][1]}
-                onChange={(e) => onAnswerChange('subMatrix', e.target.value, 1, 1)}
-                className={`w-11 h-9 border rounded-lg text-center font-display font-bold text-base outline-none transition-all duration-300 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${getInputClass(
+                onFocus={() => setFocusedInput({ category: 'subMatrix', row: 1, col: 1 })}
+                onBlur={() => setTimeout(() => setFocusedInput(null), 150)}
+                onChange={(e) => handleTextChange('subMatrix', e.target.value, 1, 1)}
+                className={`w-11 h-9 border rounded-lg text-center font-display font-bold text-base outline-none transition-all duration-300 ${getInputClass(
                   answerStatus.subMatrix[1][1]
                 )}`}
               />
@@ -141,21 +174,27 @@ export const MatrixFormulaPanel: React.FC<MatrixFormulaPanelProps> = ({
             <div className="flex items-center gap-1 bg-slate-950/40 px-2.5 py-1.5 rounded-xl border border-white/5">
               <span className="text-slate-500">(</span>
               <input
-                type="number"
+                type="text"
+                inputMode="text"
                 placeholder="a"
                 value={userAnswers.detElements.a}
-                onChange={(e) => onAnswerChange('detElements', e.target.value, undefined, undefined, 'a')}
-                className={`w-10 h-7.5 border rounded-md text-center font-display font-bold text-sm outline-none transition-all duration-300 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${getInputClass(
+                onFocus={() => setFocusedInput({ category: 'detElements', field: 'a' })}
+                onBlur={() => setTimeout(() => setFocusedInput(null), 150)}
+                onChange={(e) => handleTextChange('detElements', e.target.value, undefined, undefined, 'a')}
+                className={`w-10 h-7.5 border rounded-md text-center font-display font-bold text-sm outline-none transition-all duration-300 ${getInputClass(
                   answerStatus.detElements.a
                 )}`}
               />
               <span className="text-slate-500 font-extrabold text-xs mx-0.5">&times;</span>
               <input
-                type="number"
+                type="text"
+                inputMode="text"
                 placeholder="d"
                 value={userAnswers.detElements.d}
-                onChange={(e) => onAnswerChange('detElements', e.target.value, undefined, undefined, 'd')}
-                className={`w-10 h-7.5 border rounded-md text-center font-display font-bold text-sm outline-none transition-all duration-300 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${getInputClass(
+                onFocus={() => setFocusedInput({ category: 'detElements', field: 'd' })}
+                onBlur={() => setTimeout(() => setFocusedInput(null), 150)}
+                onChange={(e) => handleTextChange('detElements', e.target.value, undefined, undefined, 'd')}
+                className={`w-10 h-7.5 border rounded-md text-center font-display font-bold text-sm outline-none transition-all duration-300 ${getInputClass(
                   answerStatus.detElements.d
                 )}`}
               />
@@ -165,21 +204,27 @@ export const MatrixFormulaPanel: React.FC<MatrixFormulaPanelProps> = ({
               
               <span className="text-slate-500">(</span>
               <input
-                type="number"
+                type="text"
+                inputMode="text"
                 placeholder="b"
                 value={userAnswers.detElements.b}
-                onChange={(e) => onAnswerChange('detElements', e.target.value, undefined, undefined, 'b')}
-                className={`w-10 h-7.5 border rounded-md text-center font-display font-bold text-sm outline-none transition-all duration-300 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${getInputClass(
+                onFocus={() => setFocusedInput({ category: 'detElements', field: 'b' })}
+                onBlur={() => setTimeout(() => setFocusedInput(null), 150)}
+                onChange={(e) => handleTextChange('detElements', e.target.value, undefined, undefined, 'b')}
+                className={`w-10 h-7.5 border rounded-md text-center font-display font-bold text-sm outline-none transition-all duration-300 ${getInputClass(
                   answerStatus.detElements.b
                 )}`}
               />
               <span className="text-slate-500 font-extrabold text-xs mx-0.5">&times;</span>
               <input
-                type="number"
+                type="text"
+                inputMode="text"
                 placeholder="c"
                 value={userAnswers.detElements.c}
-                onChange={(e) => onAnswerChange('detElements', e.target.value, undefined, undefined, 'c')}
-                className={`w-10 h-7.5 border rounded-md text-center font-display font-bold text-sm outline-none transition-all duration-300 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${getInputClass(
+                onFocus={() => setFocusedInput({ category: 'detElements', field: 'c' })}
+                onBlur={() => setTimeout(() => setFocusedInput(null), 150)}
+                onChange={(e) => handleTextChange('detElements', e.target.value, undefined, undefined, 'c')}
+                className={`w-10 h-7.5 border rounded-md text-center font-display font-bold text-sm outline-none transition-all duration-300 ${getInputClass(
                   answerStatus.detElements.c
                 )}`}
               />
@@ -191,11 +236,14 @@ export const MatrixFormulaPanel: React.FC<MatrixFormulaPanelProps> = ({
           <div className="flex items-center gap-3 mt-1">
             <LatexFormula math={`M_{${selectedRow}${selectedCol}} =`} />
             <input
-              type="number"
+              type="text"
+              inputMode="text"
               placeholder="Hasil Minor"
               value={userAnswers.minor}
-              onChange={(e) => onAnswerChange('minor', e.target.value)}
-              className={`w-32 h-10 border rounded-xl text-center font-display font-extrabold text-base outline-none transition-all duration-300 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${getInputClass(
+              onFocus={() => setFocusedInput({ category: 'minor' })}
+              onBlur={() => setTimeout(() => setFocusedInput(null), 150)}
+              onChange={(e) => handleTextChange('minor', e.target.value)}
+              className={`w-32 h-10 border rounded-xl text-center font-display font-extrabold text-base outline-none transition-all duration-300 ${getInputClass(
                 answerStatus.minor
               )}`}
             />
@@ -232,17 +280,56 @@ export const MatrixFormulaPanel: React.FC<MatrixFormulaPanelProps> = ({
           <div className="flex items-center gap-3 mt-2">
             <LatexFormula math={`C_{${selectedRow}${selectedCol}} =`} />
             <input
-              type="number"
+              type="text"
+              inputMode="text"
               placeholder="Hasil Kofaktor"
               value={userAnswers.cofactor}
-              onChange={(e) => onAnswerChange('cofactor', e.target.value)}
-              className={`w-32 h-10 border rounded-xl text-center font-display font-extrabold text-base outline-none transition-all duration-300 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${getInputClass(
+              onFocus={() => setFocusedInput({ category: 'cofactor' })}
+              onBlur={() => setTimeout(() => setFocusedInput(null), 150)}
+              onChange={(e) => handleTextChange('cofactor', e.target.value)}
+              className={`w-32 h-10 border rounded-xl text-center font-display font-extrabold text-base outline-none transition-all duration-300 ${getInputClass(
                 answerStatus.cofactor
               )}`}
             />
           </div>
         </div>
       </div>
+
+      {focusedInput && !isSubmitted && (
+        <div className="flex justify-center -mt-2 animate-fade-in">
+          <button
+            type="button"
+            onMouseDown={(e) => e.preventDefault()} // Mencegah input kehilangan fokus saat diklik
+            onClick={() => {
+              const { category, row, col, field } = focusedInput;
+              let currentVal = '';
+              if (category === 'subMatrix' && row !== undefined && col !== undefined) {
+                currentVal = userAnswers.subMatrix[row][col];
+              } else if (category === 'detElements' && field) {
+                currentVal = userAnswers.detElements[field];
+              } else if (category === 'minor') {
+                currentVal = userAnswers.minor;
+              } else if (category === 'cofactor') {
+                currentVal = userAnswers.cofactor;
+              }
+
+              let newVal = '';
+              if (currentVal.startsWith('-')) {
+                newVal = currentVal.substring(1);
+              } else if (currentVal !== '') {
+                newVal = '-' + currentVal;
+              } else {
+                newVal = '-';
+              }
+
+              handleTextChange(category, newVal, row, col, field);
+            }}
+            className="flex items-center gap-1.5 px-4 py-2 bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/20 hover:border-blue-500/40 text-blue-400 font-display font-bold text-xs rounded-lg transition-all duration-200 cursor-pointer shadow-sm select-none active:scale-95"
+          >
+            <span>± Ubah Tanda Sel Aktif</span>
+          </button>
+        </div>
+      )}
 
       {/* Button Actions */}
       <div className="flex gap-4 mt-2">
