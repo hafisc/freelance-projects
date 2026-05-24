@@ -152,17 +152,22 @@ public class BookingParkirForm extends JPanel {
         leftPanel.add(lblLegendHeader);
         leftPanel.add(Box.createRigidArea(new Dimension(0, 8)));
 
-        // Legend 1: Available
-        JPanel legAvailable = createLegendRow(Color.decode("#2ECC71"), "Slot Tersedia (Kosong)");
-        leftPanel.add(legAvailable);
+        // Legend 1: Available Motor
+        JPanel legMotorAvailable = createLegendRow(Color.decode("#2ECC71"), "Slot Motor Tersedia");
+        leftPanel.add(legMotorAvailable);
         leftPanel.add(Box.createRigidArea(new Dimension(0, 8)));
 
-        // Legend 2: Occupied
+        // Legend 2: Available Mobil
+        JPanel legMobilAvailable = createLegendRow(Color.decode("#3498DB"), "Slot Mobil Tersedia");
+        leftPanel.add(legMobilAvailable);
+        leftPanel.add(Box.createRigidArea(new Dimension(0, 8)));
+
+        // Legend 3: Occupied
         JPanel legOccupied = createLegendRow(Color.decode("#EF5350"), "Slot Terisi / Booking");
         leftPanel.add(legOccupied);
         leftPanel.add(Box.createRigidArea(new Dimension(0, 8)));
 
-        // Legend 3: Selected
+        // Legend 4: Selected
         JPanel legSelected = createLegendRow(Color.decode("#FFCA28"), "Pilihan Anda");
         leftPanel.add(legSelected);
         leftPanel.add(Box.createRigidArea(new Dimension(0, 25)));
@@ -618,7 +623,7 @@ public class BookingParkirForm extends JPanel {
             btn.setToolTipText("Slot pilihan Anda");
             btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         } else {
-            bg = Color.decode("#2ECC71"); // Green Available
+            bg = isMobil ? Color.decode("#3498DB") : Color.decode("#2ECC71"); // Blue for Mobil, Green for Motor
             btn.setForeground(Color.WHITE);
             btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
             btn.setToolTipText("Klik untuk memilih Slot " + s.getKodeSlot());
