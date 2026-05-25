@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Play, Grid, HelpCircle, Award, Compass, Sparkles, BookOpen } from 'lucide-react';
 import { LatexFormula } from '@/components/ui/LatexFormula';
+import { GroupProfile } from './GroupProfile';
 
 interface StartScreenProps {
   onStart: () => void;
@@ -19,6 +20,27 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
   return (
     <div className="flex-1 w-full flex flex-col justify-center items-center px-4 py-6 md:py-12 max-w-6xl mx-auto relative select-none">
       
+      {/* Decorative Dots Pattern Background Overlay */}
+      <div className="absolute inset-0 dots-pattern pointer-events-none -z-10" />
+
+      {/* Large Glowing Ambient Orbs */}
+      <div className="glow-sphere w-[350px] h-[350px] md:w-[450px] md:h-[450px] bg-blue-600/10 top-20 left-1/2 -translate-x-1/2" />
+      <div className="glow-sphere w-[250px] h-[250px] md:w-[350px] md:h-[350px] bg-indigo-650/5 top-40 left-1/4" />
+
+      {/* Floating Decorative Math Elements */}
+      <div className="absolute top-32 left-8 text-slate-800 text-3xl font-display font-semibold select-none animate-float pointer-events-none hidden lg:block">
+        M_ij
+      </div>
+      <div className="absolute top-44 right-12 text-slate-800 text-3xl font-display font-semibold select-none animate-float-reverse pointer-events-none hidden lg:block">
+        C_ij
+      </div>
+      <div className="absolute top-[450px] left-16 text-slate-800/60 text-2xl font-mono select-none animate-float-slow pointer-events-none hidden lg:block">
+        det(A)
+      </div>
+      <div className="absolute top-[380px] right-20 text-slate-800/60 text-4xl font-display font-bold select-none animate-float pointer-events-none hidden lg:block">
+        + &minus; +
+      </div>
+
       {/* Hero Section */}
       <div className="w-full text-center mb-16 flex flex-col items-center">
         
@@ -63,7 +85,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
                   className={cn(
                     "w-full h-full rounded-xl md:rounded-2xl flex items-center justify-center font-display font-bold text-lg md:text-xl border transition-all duration-300 transform-style-3d",
                     isHighlight 
-                      ? "border-blue-500 bg-blue-950/40 text-blue-400"
+                      ? "border-blue-500 bg-blue-950/40 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
                       : "border-slate-800 bg-slate-900/10 text-slate-600"
                   )}
                 >
@@ -119,8 +141,14 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
         </motion.div>
       </div>
 
+      {/* Group Profile Section */}
+      <GroupProfile />
+
       {/* Info Section (Interactive Grid) */}
-      <div className="w-full grid md:grid-cols-2 gap-8 mt-6 px-2 overflow-hidden">
+      <div className="w-full mt-20 border-t border-slate-900/60 pt-16 grid md:grid-cols-2 gap-8 px-2 overflow-hidden relative">
+        {/* Ambient background glows for info section */}
+        <div className="glow-sphere w-[300px] h-[300px] bg-blue-600/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        
         {/* Fitur Utama */}
         <motion.div
           initial={{ opacity: 0, x: -35 }}
@@ -129,35 +157,39 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="w-full flex flex-col"
         >
-          <Card id="fitur-unggulan" variant="interactive" className="p-8 h-full flex flex-col justify-between">
-          <h3 className="text-lg md:text-xl font-display font-bold mb-6 flex items-center gap-3 text-blue-400">
-            <Compass className="w-5.5 h-5.5 text-blue-400" /> Fitur Unggulan Alat Peraga
-          </h3>
-          <div className="space-y-5">
-            <div className="flex gap-4 items-start">
-              <div className="p-3 rounded-2xl bg-blue-950/40 border border-blue-900/50 text-blue-400 shrink-0">
-                <Grid className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="font-display font-bold text-white mb-1">Visualisasi 3D Real-Time</h4>
-                <p className="text-slate-400 text-sm leading-relaxed">
-                  Elemen baris dan kolom yang ditutup bergeser ke belakang, memunculkan matriks sisa 2x2 yang bersih dalam koordinat 3D yang interaktif.
-                </p>
-              </div>
-            </div>
+          <Card id="fitur-unggulan" variant="interactive" className="group p-8 h-full flex flex-col justify-between relative overflow-hidden">
+            {/* Top light glow border line */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
             
-            <div className="flex gap-4 items-start">
-              <div className="p-3 rounded-2xl bg-blue-950/40 border border-blue-900/50 text-blue-300 shrink-0">
-                <Sparkles className="w-5 h-5" />
+            <h3 className="text-lg md:text-xl font-display font-bold mb-6 flex items-center gap-3 text-blue-400">
+              <Compass className="w-5.5 h-5.5 text-blue-400 animate-pulse" /> Fitur Unggulan Alat Peraga
+            </h3>
+            
+            <div className="space-y-6">
+              <div className="flex gap-4.5 items-start group/item">
+                <div className="p-3 rounded-2xl bg-blue-950/40 border border-blue-900/50 text-blue-400 shrink-0 transition-all duration-300 group-hover/item:scale-105 group-hover/item:border-blue-500/40 group-hover/item:bg-blue-950/60 shadow-inner">
+                  <Grid className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-display font-bold text-white mb-1 group-hover/item:text-blue-400 transition-colors duration-200">Visualisasi 3D Real-Time</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    Elemen baris dan kolom yang ditutup bergeser ke belakang, memunculkan matriks sisa 2x2 yang bersih dalam koordinat 3D yang interaktif.
+                  </p>
+                </div>
               </div>
-              <div>
-                <h4 className="font-display font-bold text-white mb-1">Evaluasi &amp; Feedback Langsung</h4>
-                <p className="text-slate-400 text-sm leading-relaxed">
-                  Masukkan jawaban hitunganmu pada worksheet, periksa jawaban dengan tombol evaluasi, dan dapatkan koreksi otomatis pada bagian yang keliru.
-                </p>
+              
+              <div className="flex gap-4.5 items-start group/item">
+                <div className="p-3 rounded-2xl bg-blue-950/40 border border-blue-900/50 text-blue-300 shrink-0 transition-all duration-300 group-hover/item:scale-105 group-hover/item:border-blue-500/40 group-hover/item:bg-blue-950/60 shadow-inner">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-display font-bold text-white mb-1 group-hover/item:text-blue-400 transition-colors duration-200">Evaluasi &amp; Feedback Langsung</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    Masukkan jawaban hitunganmu pada worksheet, periksa jawaban dengan tombol evaluasi, dan dapatkan koreksi otomatis pada bagian yang keliru.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
           </Card>
         </motion.div>
 
@@ -169,28 +201,38 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="w-full flex flex-col"
         >
-          <Card id="langkah-belajar" variant="interactive" className="p-8 h-full flex flex-col justify-between">
-          <h3 className="text-lg md:text-xl font-display font-bold mb-6 flex items-center gap-3 text-blue-400">
-            <HelpCircle className="w-5.5 h-5.5 text-blue-400" /> Langkah Belajar
-          </h3>
-          <div className="space-y-4 font-medium text-slate-350">
-            <div className="flex gap-3.5 items-center p-2 rounded-xl hover:bg-slate-900/50 transition-colors duration-200">
-              <span className="w-7 h-7 rounded-xl bg-blue-950/40 border border-blue-900/40 text-blue-400 text-sm font-bold flex items-center justify-center shrink-0">1</span>
-              <p className="text-sm">Isi atau sesuaikan nilai matriks 3x3 sesukamu.</p>
+          <Card id="langkah-belajar" variant="interactive" className="p-8 h-full flex flex-col justify-between relative overflow-hidden">
+            {/* Top light glow border line */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
+            
+            <h3 className="text-lg md:text-xl font-display font-bold mb-6 flex items-center gap-3 text-blue-400">
+              <HelpCircle className="w-5.5 h-5.5 text-blue-400 animate-pulse" /> Langkah Belajar
+            </h3>
+            
+            <div className="relative space-y-5 font-medium text-slate-350 z-10 pl-1.5">
+              {/* Timeline Connector Line */}
+              <div className="absolute left-[17px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-blue-500/40 via-blue-500/20 to-transparent border-dashed border-l border-blue-500/30" />
+              
+              <div className="flex gap-4 items-center p-1.5 rounded-xl hover:bg-slate-900/30 transition-colors duration-200 group">
+                <span className="w-7 h-7 rounded-xl bg-blue-950/40 border border-blue-900/40 text-blue-400 text-sm font-bold flex items-center justify-center shrink-0 z-10 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-400 group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300">1</span>
+                <p className="text-sm group-hover:text-slate-200 transition-colors duration-200">Isi atau sesuaikan nilai matriks 3x3 sesukamu.</p>
+              </div>
+              
+              <div className="flex gap-4 items-center p-1.5 rounded-xl hover:bg-slate-900/30 transition-colors duration-200 group">
+                <span className="w-7 h-7 rounded-xl bg-blue-950/40 border border-blue-900/40 text-blue-400 text-sm font-bold flex items-center justify-center shrink-0 z-10 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-400 group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300">2</span>
+                <p className="text-sm group-hover:text-slate-200 transition-colors duration-200">Pilih Baris &amp; Kolom target untuk dieliminasi.</p>
+              </div>
+              
+              <div className="flex gap-4 items-center p-1.5 rounded-xl hover:bg-slate-900/30 transition-colors duration-200 group">
+                <span className="w-7 h-7 rounded-xl bg-blue-950/40 border border-blue-900/40 text-blue-400 text-sm font-bold flex items-center justify-center shrink-0 z-10 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-400 group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300">3</span>
+                <p className="text-sm group-hover:text-slate-200 transition-colors duration-200">Hitung matriks sisa, determinan (Minor), dan Kofaktor.</p>
+              </div>
+              
+              <div className="flex gap-4 items-center p-1.5 rounded-xl hover:bg-slate-900/30 transition-colors duration-200 group">
+                <span className="w-7 h-7 rounded-xl bg-blue-950/40 border border-blue-900/40 text-blue-400 text-sm font-bold flex items-center justify-center shrink-0 z-10 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-400 group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300">4</span>
+                <p className="text-sm group-hover:text-slate-200 transition-colors duration-200">Klik <strong>Cek Jawaban</strong> untuk melihat evaluasi akhir.</p>
+              </div>
             </div>
-            <div className="flex gap-3.5 items-center p-2 rounded-xl hover:bg-slate-900/50 transition-colors duration-200">
-              <span className="w-7 h-7 rounded-xl bg-blue-950/40 border border-blue-900/40 text-blue-400 text-sm font-bold flex items-center justify-center shrink-0">2</span>
-              <p className="text-sm">Pilih Baris &amp; Kolom target untuk dieliminasi.</p>
-            </div>
-            <div className="flex gap-3.5 items-center p-2 rounded-xl hover:bg-slate-900/50 transition-colors duration-200">
-              <span className="w-7 h-7 rounded-xl bg-blue-950/40 border border-blue-900/40 text-blue-400 text-sm font-bold flex items-center justify-center shrink-0">3</span>
-              <p className="text-sm">Hitung matriks sisa, determinan (Minor), dan Kofaktor.</p>
-            </div>
-            <div className="flex gap-3.5 items-center p-2 rounded-xl hover:bg-slate-900/50 transition-colors duration-200">
-              <span className="w-7 h-7 rounded-xl bg-blue-950/40 border border-blue-900/40 text-blue-400 text-sm font-bold flex items-center justify-center shrink-0">4</span>
-              <p className="text-sm">Klik <strong>Cek Jawaban</strong> untuk melihat evaluasi akhir.</p>
-            </div>
-          </div>
           </Card>
         </motion.div>
       </div>
@@ -198,8 +240,10 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
       {/* Quick Math Concept Section */}
       <div
         id="konsep-dasar"
-        className="w-full mt-16 border-t border-slate-900 pt-12"
+        className="w-full mt-20 border-t border-slate-900/60 pt-16 relative"
       >
+        {/* Ambient glow sphere */}
+        <div className="glow-sphere w-[300px] h-[300px] bg-indigo-600/5 bottom-0 right-1/4" />
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -244,9 +288,9 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
               </p>
             </div>
 
-            <div className="bg-slate-900/50 border border-slate-800/80 rounded-2xl p-4 flex flex-col gap-2.5">
+            <div className="bg-slate-950 border border-slate-900 shadow-[0_0_15px_rgba(59,130,246,0.03)] rounded-2xl p-4 flex flex-col gap-2.5">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Rumus Determinan 2x2:</span>
-              <div className="flex justify-center py-2 bg-slate-950/60 rounded-xl border border-white/5">
+              <div className="flex justify-center py-2 bg-slate-900/40 rounded-xl border border-white/5">
                 <LatexFormula math="\\det \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc" block />
               </div>
               <span className="text-[10px] text-slate-500 italic mt-1 leading-normal">
@@ -282,7 +326,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-slate-900/50 border border-slate-800/80 rounded-2xl p-4 flex flex-col justify-between">
+              <div className="bg-slate-950 border border-slate-900 shadow-[0_0_15px_rgba(59,130,246,0.03)] rounded-2xl p-4 flex flex-col justify-between">
                 <div>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Pola Tanda Matriks 3x3:</span>
                   <div className="grid grid-cols-3 gap-1 w-24 mx-auto py-0.5">
@@ -293,7 +337,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
                           key={idx} 
                           className={`h-6 w-6 rounded border flex items-center justify-center font-display font-bold text-[10px] ${
                             isPlus 
-                              ? 'border-blue-500 bg-blue-950/30 text-blue-400' 
+                              ? 'border-blue-500 bg-blue-950/30 text-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.2)]' 
                               : 'border-slate-800 bg-slate-950/10 text-slate-500'
                           }`}
                         >
@@ -305,9 +349,9 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
                 </div>
               </div>
 
-              <div className="bg-slate-900/50 border border-slate-800/80 rounded-2xl p-4 flex flex-col justify-center gap-1">
+              <div className="bg-slate-950 border border-slate-900 shadow-[0_0_15px_rgba(59,130,246,0.03)] rounded-2xl p-4 flex flex-col justify-center gap-1">
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Aturan Tanda:</span>
-                <div className="py-2 px-2 bg-slate-950/60 rounded-xl border border-white/5 text-center text-[10px] font-medium text-slate-350 leading-relaxed">
+                <div className="py-2 px-2 bg-slate-900/40 rounded-xl border border-white/5 text-center text-[10px] font-medium text-slate-350 leading-relaxed">
                   Jika <code className="text-blue-400">i+j</code> Genap &rarr; <strong className="text-emerald-400 font-bold">(+)</strong> Tetap
                   <br />
                   Jika <code className="text-blue-400">i+j</code> Ganjil &rarr; <strong className="text-rose-400 font-bold">(&minus;)</strong> Berubah
