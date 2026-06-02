@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-projects-overview">
-    <img src="https://img.shields.io/badge/Projects-7_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-8_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -105,7 +105,7 @@ Here is a quick directory of all the projects available in this repository:
     <tr>
       <td align="center">5</td>
       <td>
-        <a href="./Viskom/">
+        <a href="./Image%20Classification/">
           <b>🧠 Computer Vision Classifier (Viskom)</b>
         </a>
       </td>
@@ -152,6 +152,25 @@ Here is a quick directory of all the projects available in this repository:
         <br />
         <img src="https://img.shields.io/badge/Laravel_13-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
         <img src="https://img.shields.io/badge/PHP_8.3-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
+        <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+        <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Web_App-red?style=flat-square" alt="Web App Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">8</td>
+      <td>
+        <a href="./PustakaLink/">
+          <b>📚 PustakaLink - Library System</b>
+        </a>
+      </td>
+      <td>
+        Modern and responsive library information system to manage members, book catalogs, automatic 7-day borrowing math, and instant returns.
+        <br />
+        <img src="https://img.shields.io/badge/Laravel_13-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
+        <img src="https://img.shields.io/badge/PHP_8.2+-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
         <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
         <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
       </td>
@@ -246,7 +265,7 @@ An interactive 3D web-based learning tool designed to help students learn matrix
 
 ### 🧠 Computer Vision Classifier (Viskom)
 > **Category:** Deep Learning Research / Computer Vision  
-> **Folder Path:** [`./Viskom`](./Viskom/)
+> **Folder Path:** [`./Image Classification`](./Image%20Classification/)
 
 A comprehensive image classification experiment comparing five deep learning architectures — from custom-built CNNs and Vision Transformers to ImageNet-pretrained transfer learning models — with full evaluation pipelines and result visualizations.
 
@@ -302,6 +321,28 @@ A website-based task management application designed to help students and profes
   - ![PHP](https://img.shields.io/badge/PHP_8.3+-777BB4?style=flat&logo=php&logoColor=white)
   - ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwindcss&logoColor=white)
   - ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
+
+---
+
+### 📚 PustakaLink (Library System)
+> **Category:** Full-stack Web Application / Academic Library System  
+> **Folder Path:** [`./PustakaLink`](./PustakaLink/)
+
+A modern and responsive library information system designed to streamline book circulation, manage catalogs, and track member transaction logs.
+
+- **Key Features:**
+  - 🔐 **Internal Authentication**: Secure single-login gate for administrators/librarians, preventing unauthorized public registration.
+  - 📊 **Real-time Statistics**: Interactive dashboard tracking total books, active members, ongoing borrows, and physical stock.
+  - 🗂️ **Automated Code Generators**: Smart incrementing ID generator for members (e.g., `AGT-0005`) and books (e.g., `BK-0006`).
+  - 📅 **7-Day Borrowing Math**: Automatic return deadline calculation 7 days ahead powered by Carbon, with zero-stock loan prevention.
+  - ⚡ **Instant Return & Stock Sync**: Single-click book return flow that automatically updates loan status, timestamps, and increments book stock back.
+  - 🧪 **Comprehensive Tests**: 12 automated PHPUnit test cases checking critical borrowing business logic and CRUD validation.
+- **Tech Stack:**
+  - ![Laravel](https://img.shields.io/badge/Laravel_13-FF2D20?style=flat&logo=laravel&logoColor=white)
+  - ![PHP](https://img.shields.io/badge/PHP_8.2+-777BB4?style=flat&logo=php&logoColor=white)
+  - ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwindcss&logoColor=white)
+  - ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
+  - ![PHPUnit](https://img.shields.io/badge/PHPUnit-4F5B93?style=flat&logo=phpunit&logoColor=white)
 
 ---
 
