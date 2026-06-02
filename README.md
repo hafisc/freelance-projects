@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-projects-overview">
-    <img src="https://img.shields.io/badge/Projects-6_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-7_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -140,6 +140,25 @@ Here is a quick directory of all the projects available in this repository:
         <img src="https://img.shields.io/badge/CV_%26_ML-blueviolet?style=flat-square" alt="CV & ML Badge" />
       </td>
     </tr>
+    <tr>
+      <td align="center">7</td>
+      <td>
+        <a href="./taskmate/">
+          <b>📋 TaskMate - Task Management App</b>
+        </a>
+      </td>
+      <td>
+        Web-based task management application helping users organize tasks, deadlines, priorities, status, activity calendars, and track productivity progress.
+        <br />
+        <img src="https://img.shields.io/badge/Laravel_13-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
+        <img src="https://img.shields.io/badge/PHP_8.3-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
+        <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+        <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Web_App-red?style=flat-square" alt="Web App Badge" />
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -263,6 +282,26 @@ A web-based image classification system designed to evaluate the freshness of ch
   - ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white)
   - ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=tensorflow&logoColor=white)
   - ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)
+
+---
+
+### 📋 TaskMate (Task Management App)
+> **Category:** Full-stack Web Application / Productivity Tool  
+> **Folder Path:** [`./taskmate`](./taskmate/)
+
+A website-based task management application designed to help students and professionals organize tasks, set deadlines, define priorities, track progress, and visualize schedules via an interactive activity calendar.
+
+- **Key Features:**
+  - 🔑 **User Authentication:** Secure registration, login, and user profile management powered by Laravel Breeze.
+  - 📊 **Productivity Dashboard:** Overview of task summaries, priority distributions, and completion progress.
+  - 🛠️ **Comprehensive Task CRUD:** Full ability to create, update, and delete tasks with custom priorities, statuses, and deadlines.
+  - 📅 **Activity Calendar:** Built-in interactive calendar to visualize task deadlines and plan daily schedules.
+  - 📱 **Fully Responsive Layout:** Optimized UI design using Tailwind CSS for clean usability across mobile, tablet, and desktop viewports.
+- **Tech Stack:**
+  - ![Laravel](https://img.shields.io/badge/Laravel_13-FF2D20?style=flat&logo=laravel&logoColor=white)
+  - ![PHP](https://img.shields.io/badge/PHP_8.3+-777BB4?style=flat&logo=php&logoColor=white)
+  - ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwindcss&logoColor=white)
+  - ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
 
 ---
 

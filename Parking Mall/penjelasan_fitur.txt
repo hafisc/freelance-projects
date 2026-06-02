@@ -1,0 +1,31 @@
+Jadi untuk aplikasi parkir ini ada 3 role ya: Admin, Petugas, sama Pengguna (Pelanggan).
+
+Berikut penjelasan singkat fitur dan alurnya:
+
+
+FITUR-FITUR UTAMA
+
+1. Pengguna (Pelanggan): Bisa booking slot parkir online sebelum dateng ke mall biar dapet slot yang pasti. Di menu ini, pelanggan bakal dapet 'Kode Booking'.
+
+2. Petugas: Menjaga pintu parkir. Tugasnya verifikasi kode booking pelanggan pas dateng, input kendaraan yang masuk langsung tanpa booking (walk-in), dan memproses kendaraan keluar (hitung durasi + bayar tarif parkir).
+
+3. Admin: Mengelola data petugas, lantai parkir, slot parkir, dan melihat laporan lengkap beserta total uang masuk.
+
+
+
+ALUR PENGGUNAAN
+
+Alur 1: Menggunakan Booking (Reservasi)
+- Pelanggan buka aplikasi, pilih lantai & slot kosong, lalu simpan booking untuk dapetin Kode Booking. (Slot otomatis dipesan supaya nggak diambil orang lain).
+- Pas pelanggan dateng ke mall, tunjukin Kode Booking ke petugas.
+- Petugas verifikasi kode tersebut di aplikasi. Setelah di-acc/verifikasi, status slot berubah jadi 'terisi' dan waktu masuk mulai dihitung.
+- Pas mau pulang, petugas input plat nomor di menu 'Kendaraan Keluar'. Aplikasi akan otomatis menghitung tarifnya (Mobil Rp 5.000/jam, Motor Rp 2.000/jam). Setelah dibayar, slot parkir kembali kosong (tersedia).
+
+Alur 2: Langsung Datang (Walk-in / Tanpa Booking)
+- Kendaraan dateng langsung ke mall. Petugas tinggal input plat nomor dan tipe kendaraan, lalu pilih slot kosong.
+- Pas keluar, prosesnya sama seperti di atas (input plat nomor, hitung durasi, bayar, dan slot kosong lagi).
+
+
+
+Catatan terkait Laporan:
+Untuk data booking baru akan masuk ke Laporan setelah diverifikasi petugas (waktu masuk tercatat) dan selesai bayar saat keluar (check-out) ya kak. Jadi kalau booking baru dibuat tapi belum di-acc petugas atau belum keluar, datanya belum direkap ke laporan pendapatan.
