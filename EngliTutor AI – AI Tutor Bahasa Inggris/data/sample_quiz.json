@@ -1,0 +1,37 @@
+[
+  {
+    "question": "She ___ a student.",
+    "options": ["am", "is", "are", "be"],
+    "answer": "is",
+    "explanation": "Subject 'She' menggunakan to be 'is'."
+  },
+  {
+    "question": "I ___ English every day.",
+    "options": ["study", "studies", "studying", "studied"],
+    "answer": "study",
+    "explanation": "Subject 'I' menggunakan verb bentuk dasar, yaitu 'study'."
+  },
+  {
+    "question": "They ___ playing football.",
+    "options": ["is", "am", "are", "be"],
+    "answer": "are",
+    "explanation": "Subject 'They' menggunakan to be 'are'."
+  },
+  {
+    "question": "What is the meaning of 'book' in Indonesian?",
+    "options": ["Meja", "Buku", "Kursi", "Pintu"],
+    "answer": "Buku",
+    "explanation": "'Book' berarti 'buku' dalam Bahasa Indonesia."
+  },
+  {
+    "question": "Choose the correct sentence.",
+    "options": [
+      "He go to school.",
+      "He goes to school.",
+      "He going to school.",
+      "He gone to school."
+    ],
+    "answer": "He goes to school.",
+    "explanation": "Subject 'He' pada simple present tense menggunakan verb+s, jadi 'goes'."
+  }
+]

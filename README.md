@@ -1,30 +1,30 @@
-<h1 align="center">💼 Freelance Projects</h1>
+<h1 align="center">💼 Proyek Freelance</h1>
 
 <p align="center">
-  <a href="#-projects-overview">
-    <img src="https://img.shields.io/badge/Projects-8_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+  <a href="#-ringkasan-proyek">
+    <img src="https://img.shields.io/badge/Projects-9_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
 </p>
 
 <p align="center">
-  Welcome to the <b>Freelance Projects</b>! This repository serves as a centralized portfolio showcasing production-ready freelance work, ranging from AI-powered automation on edge devices and interactive 3D educational tools to enterprise desktop applications, modern web portals, and deep learning computer vision research.
+  Selamat datang di <b>Proyek Freelance</b>! Repositori ini berfungsi sebagai portofolio terpusat yang menampilkan hasil kerja lepas (freelance) siap produksi, mulai dari otomatisasi berbasis AI pada perangkat edge dan alat peraga edukasi 3D interaktif hingga aplikasi desktop enterprise, portal web modern, dan riset computer vision deep learning.
 </p>
 
 ---
 
-## 🚀 Projects Overview
+## 🚀 Ringkasan Proyek
 
-Here is a quick directory of all the projects available in this repository:
+Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori ini:
 
 <table align="center" width="100%">
   <thead>
     <tr>
       <th align="center" width="5%">No</th>
-      <th align="left" width="30%">Project Name & Link</th>
-      <th align="left" width="45%">Description & Key Stack</th>
-      <th align="center" width="20%">Category Badge</th>
+      <th align="left" width="30%">Nama & Link Proyek</th>
+      <th align="left" width="45%">Deskripsi & Stack Utama</th>
+      <th align="center" width="20%">Kategori</th>
     </tr>
   </thead>
   <tbody>
@@ -36,7 +36,7 @@ Here is a quick directory of all the projects available in this repository:
         </a>
       </td>
       <td>
-        AI chatbot running on Raspberry Pi 3 using <i>Baileys</i> (WhatsApp API) & <i>Groq API</i>.
+        Chatbot AI yang berjalan di Raspberry Pi 3 menggunakan <i>Baileys</i> (WhatsApp API) & <i>Groq API</i>.
         <br />
         <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js" />
         <img src="https://img.shields.io/badge/Raspberry_Pi_3-A22846?style=flat-square&logo=raspberrypi&logoColor=white" alt="Raspberry Pi 3" />
@@ -54,7 +54,7 @@ Here is a quick directory of all the projects available in this repository:
         </a>
       </td>
       <td>
-        Desktop application for mall parking space reservation, check-in/out, and reporting.
+        Aplikasi desktop untuk pemesanan ruang parkir mal, check-in/out, dan pembuatan laporan.
         <br />
         <img src="https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white" alt="Java" />
         <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
@@ -72,7 +72,7 @@ Here is a quick directory of all the projects available in this repository:
         </a>
       </td>
       <td>
-        Academic admin portal for managing students, departments, search filters, and database seeds.
+        Portal admin akademik untuk mengelola mahasiswa, jurusan, filter pencarian, dan seeder database.
         <br />
         <img src="https://img.shields.io/badge/Laravel_13-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
         <img src="https://img.shields.io/badge/PHP_8.3-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
@@ -90,7 +90,7 @@ Here is a quick directory of all the projects available in this repository:
         </a>
       </td>
       <td>
-        Interactive 3D web-based math learning tool for matrix minors & cofactors with real-time feedback.
+        Alat peraga matematika interaktif berbasis web 3D untuk minor & kofaktor matriks dengan umpan balik real-time.
         <br />
         <img src="https://img.shields.io/badge/Next.js_16-000000?style=flat-square&logo=nextdotjs&logoColor=white" alt="Next.js" />
         <img src="https://img.shields.io/badge/React_19-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React" />
@@ -110,7 +110,7 @@ Here is a quick directory of all the projects available in this repository:
         </a>
       </td>
       <td>
-        Image classification experiment comparing Custom CNN, ResNet, ViT, and Pretrained Transfer Learning models.
+        Eksperimen klasifikasi gambar yang membandingkan model Custom CNN, ResNet, ViT, dan Pretrained Transfer Learning.
         <br />
         <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
         <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=tensorflow&logoColor=white" alt="TensorFlow" />
@@ -125,11 +125,11 @@ Here is a quick directory of all the projects available in this repository:
       <td align="center">6</td>
       <td>
         <a href="./klasifikasi%20kesegaran%20ikan%20kembung/">
-          <b>🐟 Chub Mackerel Freshness Classifier</b>
+          <b>🐟 Klasifikasi Kesegaran Ikan Kembung</b>
         </a>
       </td>
       <td>
-        Web application to evaluate chub mackerel freshness using MobileNetV3 feature extraction & SVM.
+        Aplikasi web untuk mengevaluasi kesegaran ikan kembung menggunakan ekstraksi fitur MobileNetV3 & SVM.
         <br />
         <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
         <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit" />
@@ -144,11 +144,11 @@ Here is a quick directory of all the projects available in this repository:
       <td align="center">7</td>
       <td>
         <a href="./taskmate/">
-          <b>📋 TaskMate - Task Management App</b>
+          <b>📋 TaskMate - Aplikasi Manajemen Tugas</b>
         </a>
       </td>
       <td>
-        Web-based task management application helping users organize tasks, deadlines, priorities, status, activity calendars, and track productivity progress.
+        Aplikasi manajemen tugas berbasis web untuk membantu pengguna mengatur tugas, tenggat waktu, prioritas, status, kalender aktivitas, dan memantau progres produktivitas.
         <br />
         <img src="https://img.shields.io/badge/Laravel_13-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
         <img src="https://img.shields.io/badge/PHP_8.3-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
@@ -163,11 +163,11 @@ Here is a quick directory of all the projects available in this repository:
       <td align="center">8</td>
       <td>
         <a href="./PustakaLink/">
-          <b>📚 PustakaLink - Library System</b>
+          <b>📚 PustakaLink - Sistem Perpustakaan</b>
         </a>
       </td>
       <td>
-        Modern and responsive library information system to manage members, book catalogs, automatic 7-day borrowing math, and instant returns.
+        Sistem informasi perpustakaan modern dan responsif untuk mengelola anggota, katalog buku, perhitungan otomatis peminjaman 7 hari, dan pengembalian instan.
         <br />
         <img src="https://img.shields.io/badge/Laravel_13-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
         <img src="https://img.shields.io/badge/PHP_8.2+-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
@@ -178,183 +178,39 @@ Here is a quick directory of all the projects available in this repository:
         <img src="https://img.shields.io/badge/Web_App-red?style=flat-square" alt="Web App Badge" />
       </td>
     </tr>
+    <tr>
+      <td align="center">9</td>
+      <td>
+        <a href="./EngliTutor%20AI%20%E2%80%93%20AI%20Tutor%20Bahasa%20Inggris/">
+          <b>🗣️ EngliTutor AI</b>
+        </a>
+      </td>
+      <td>
+        Chatbot pembelajaran Bahasa Inggris berbasis AI dengan fitur seperti Koreksi Tata Bahasa (Grammar), Asisten Kosakata (Vocabulary), Latihan Percakapan, dan Kuis.
+        <br />
+        <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+        <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit" />
+        <img src="https://img.shields.io/badge/Gemini_API-8E44AD?style=flat-square&logo=googlegemini&logoColor=white" alt="Gemini API" />
+        <img src="https://img.shields.io/badge/OpenAI_API-412991?style=flat-square&logo=openai&logoColor=white" alt="OpenAI API" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/AI_%26_EdTech-purple?style=flat-square" alt="AI & EdTech Badge" />
+      </td>
+    </tr>
   </tbody>
 </table>
 
 ---
 
-## 🔍 Detailed Project Showcases
+## 🛠️ Menavigasi Repositori
 
-### 🤖 WhatsApp AI Chatbot
-> **Category:** Internet of Things & Artificial Intelligence (IoT & AI)  
-> **Folder Path:** [`./Chatbot Wa Raspberry Pi 3`](./Chatbot%20Wa%20Raspberry%20Pi%203/)
+Setiap subfolder berisi instruksi implementasi detailnya sendiri. Untuk konfigurasi detail, pengaturan database, dan panduan menjalankan program:
 
-A smart conversational agent deployed on lightweight edge hardware (Raspberry Pi 3) that integrates direct WhatsApp Web APIs with Groq's high-speed inference engine to respond dynamically to authorized users.
-
-- **Key Features:**
-  - 📲 **Robust Connection:** QR Code authentication using Baileys with automatic session reconnects.
-  - 🧠 **Brainpower:** Integrated with Groq API (using Llama-3 models) for ultra-fast response times.
-  - 🔒 **Access Control:** Configurable telephone whitelist (`.env`) preventing unauthorized bot triggers.
-  - 🛡️ **Daemonized Execution:** Setup instructions & unit files for Linux systemd service configurations.
-- **Tech Stack:**
-  - ![NodeJS](https://img.shields.io/badge/Node.js-339933?style=flat&logo=nodedotjs&logoColor=white)
-  - ![Baileys](https://img.shields.io/badge/Baileys_Web_API-007ACC?style=flat&logo=typescript&logoColor=white)
-  - ![RaspberryPi](https://img.shields.io/badge/Raspberry_Pi_3-A22846?style=flat&logo=raspberrypi&logoColor=white)
-  - ![Groq](https://img.shields.io/badge/Groq_API-F55036?style=flat&logoColor=white)
-
----
-
-### 🚗 Parking Mall Desktop App
-> **Category:** Enterprise Desktop Application  
-> **Folder Path:** [`./Parking Mall`](./Parking%20Mall/)
-
-A client-focused Java application running locally to digitize mall parking check-ins, ticketing, real-time slot bookings, and operator reports.
-
-- **Key Features:**
-  - 👥 **Multi-role System:** Distinct flows and views for Admin, Petugas (Staff), and Pengguna (Customers).
-  - 🗺️ **Floor & Slot Grid:** Tracks dynamic availability state of parking spaces on multiple levels.
-  - 🎟️ **Ticket Lifecycle:** Generates ticket codes, prints/previews receipts, handles check-out payments.
-  - 📊 **Local DB Integration:** Solid JDBC integration connecting local UI with MySQL / phpMyAdmin.
-- **Tech Stack:**
-  - ![Java](https://img.shields.io/badge/Java_JDK-ED8B00?style=flat&logo=openjdk&logoColor=white)
-  - ![Swing](https://img.shields.io/badge/Java_Swing-007396?style=flat)
-  - ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
-  - ![Netbeans](https://img.shields.io/badge/NetBeans_IDE-1B6AC6?style=flat&logo=apache-netbeans&logoColor=white)
-
----
-
-### 🎓 Student Data Management System
-> **Category:** Full-stack Web Portal  
-> **Folder Path:** [`./Sistem Manajemen Data Mahasiswa`](./Sistem%20Manajemen%20Data%20Mahasiswa/)
-
-A modern administrative dashboard built with the latest Laravel framework for educational managers to monitor students, control majors, and quickly locate records.
-
-- **Key Features:**
-  - 🔐 **Secure Session Gate:** Restricted login gate for administrators.
-  - 🗂️ **Academic Registries:** Complete CRUD operations for Students (Mahasiswa) and Majors (Jurusan).
-  - ⚡ **Smart Search:** Fast queries based on student IDs, names, and academic departments.
-  - 🌱 **Mock Seeder:** Pre-populated developer databases containing thousands of dummy student rows.
-- **Tech Stack:**
-  - ![Laravel](https://img.shields.io/badge/Laravel_13-FF2D20?style=flat&logo=laravel&logoColor=white)
-  - ![PHP](https://img.shields.io/badge/PHP_8.3+-777BB4?style=flat&logo=php&logoColor=white)
-  - ![Bootstrap](https://img.shields.io/badge/Bootstrap_5-7952B3?style=flat&logo=bootstrap&logoColor=white)
-  - ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)
-
----
-
-### 📐 MAMITOR 3D (Alat Peraga Digital)
-> **Category:** Interactive 3D Web Application / Educational Technology (EdTech)  
-> **Folder Path:** [`./Mamitor 3D`](./Mamitor%203D/)
-
-An interactive 3D web-based learning tool designed to help students learn matrix operations, specifically finding minors and cofactors of 3x3 matrices, visualized as dynamic 3D blocks.
-
-- **Key Features:**
-  - 🧩 **Interactive 3D Grid:** Dynamic 3D matrix visualization using Three.js and React Three Fiber with custom rotation and interactive elements.
-  - ⚡ **Real-Time Step-by-Step Worksheet:** Live math validation of user input for minor/cofactor calculations with real-time green/red feedback.
-  - 📐 **High-Fidelity Math Rendering:** Clean and fast rendering of mathematical matrices and formulas using KaTeX.
-  - 📱 **Responsive Design:** Dark mode layout optimized for desktop, tablet, and mobile with Lenis smooth scroll and Framer Motion micro-animations.
-- **Tech Stack:**
-  - ![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat&logo=nextdotjs&logoColor=white)
-  - ![React 19](https://img.shields.io/badge/React_19-20232A?style=flat&logo=react&logoColor=61DAFB)
-  - ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
-  - ![Three.js](https://img.shields.io/badge/Three.js-000000?style=flat&logo=threedotjs&logoColor=white)
-  - ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
-  - ![KaTeX](https://img.shields.io/badge/KaTeX-002F6C?style=flat&logo=katex&logoColor=white)
-
----
-
-### 🧠 Computer Vision Classifier (Viskom)
-> **Category:** Deep Learning Research / Computer Vision  
-> **Folder Path:** [`./Image Classification`](./Image%20Classification/)
-
-A comprehensive image classification experiment comparing five deep learning architectures — from custom-built CNNs and Vision Transformers to ImageNet-pretrained transfer learning models — with full evaluation pipelines and result visualizations.
-
-- **Key Features:**
-  - 🏗️ **5 Architecture Comparison:** Custom VGG-style CNN, Custom ResNet (residual blocks), Custom ViT, Pretrained VGG16, and Pretrained ResNet50 — all benchmarked side by side.
-  - 🔬 **Transfer Learning:** ImageNet-pretrained backbones with frozen base layers and custom classification heads.
-  - 📊 **Full Evaluation Pipeline:** Automated training history plots, confusion matrices, and classification reports saved to `results/`.
-  - ⚙️ **Smart Callbacks:** Early stopping & model checkpointing to prevent overfitting and save best weights.
-  - ☁️ **Google Colab Ready:** Modular script design compatible with Colab GPU/TPU runtimes out of the box.
-- **Tech Stack:**
-  - ![Python](https://img.shields.io/badge/Python_3-3776AB?style=flat&logo=python&logoColor=white)
-  - ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=tensorflow&logoColor=white)
-  - ![Keras](https://img.shields.io/badge/Keras-D00000?style=flat&logo=keras&logoColor=white)
-  - ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)
-  - ![Google Colab](https://img.shields.io/badge/Google_Colab-F9AB00?style=flat&logo=googlecolab&logoColor=white)
-
----
-
-### 🐟 Chub Mackerel Freshness Classifier
-> **Category:** Computer Vision & Machine Learning / Web Application  
-> **Folder Path:** [`./klasifikasi kesegaran ikan kembung`](./klasifikasi%20kesegaran%20ikan%20kembung/)
-
-A web-based image classification system designed to evaluate the freshness of chub mackerel (*ikan kembung*) using deep learning feature extraction combined with a classical machine learning classifier.
-
-- **Key Features:**
-  - 📤 **Image Upload & Preview:** Supports uploading photos of fish (JPG/JPEG/PNG) with instant image preview.
-  - 🧠 **Hybrid ML Architecture:** Uses a pre-trained **MobileNetV3-Large** (on ImageNet) for high-fidelity feature extraction and **Support Vector Machine (SVM)** for classification.
-  - 🏷️ **Hierarchical Classification:** Detects if the image is a *Chub Mackerel* or *Other Fish*, and if it is a Chub Mackerel, classifies it as *Fresh* or *Not Fresh*.
-  - 📊 **Confidence Score & Analysis Card:** Visualizes prediction confidence with dynamic status indicator cards (Green for Fresh, Red for Not Fresh, and Blue-grey for Other Fish).
-  - ⚙️ **End-to-End Pipeline:** Standardized scripts for dataset processing, feature extraction, SVM training, and local model evaluations.
-- **Tech Stack:**
-  - ![Python](https://img.shields.io/badge/Python_3-3776AB?style=flat&logo=python&logoColor=white)
-  - ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white)
-  - ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=tensorflow&logoColor=white)
-  - ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)
-
----
-
-### 📋 TaskMate (Task Management App)
-> **Category:** Full-stack Web Application / Productivity Tool  
-> **Folder Path:** [`./taskmate`](./taskmate/)
-
-A website-based task management application designed to help students and professionals organize tasks, set deadlines, define priorities, track progress, and visualize schedules via an interactive activity calendar.
-
-- **Key Features:**
-  - 🔑 **User Authentication:** Secure registration, login, and user profile management powered by Laravel Breeze.
-  - 📊 **Productivity Dashboard:** Overview of task summaries, priority distributions, and completion progress.
-  - 🛠️ **Comprehensive Task CRUD:** Full ability to create, update, and delete tasks with custom priorities, statuses, and deadlines.
-  - 📅 **Activity Calendar:** Built-in interactive calendar to visualize task deadlines and plan daily schedules.
-  - 📱 **Fully Responsive Layout:** Optimized UI design using Tailwind CSS for clean usability across mobile, tablet, and desktop viewports.
-- **Tech Stack:**
-  - ![Laravel](https://img.shields.io/badge/Laravel_13-FF2D20?style=flat&logo=laravel&logoColor=white)
-  - ![PHP](https://img.shields.io/badge/PHP_8.3+-777BB4?style=flat&logo=php&logoColor=white)
-  - ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwindcss&logoColor=white)
-  - ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
-
----
-
-### 📚 PustakaLink (Library System)
-> **Category:** Full-stack Web Application / Academic Library System  
-> **Folder Path:** [`./PustakaLink`](./PustakaLink/)
-
-A modern and responsive library information system designed to streamline book circulation, manage catalogs, and track member transaction logs.
-
-- **Key Features:**
-  - 🔐 **Internal Authentication**: Secure single-login gate for administrators/librarians, preventing unauthorized public registration.
-  - 📊 **Real-time Statistics**: Interactive dashboard tracking total books, active members, ongoing borrows, and physical stock.
-  - 🗂️ **Automated Code Generators**: Smart incrementing ID generator for members (e.g., `AGT-0005`) and books (e.g., `BK-0006`).
-  - 📅 **7-Day Borrowing Math**: Automatic return deadline calculation 7 days ahead powered by Carbon, with zero-stock loan prevention.
-  - ⚡ **Instant Return & Stock Sync**: Single-click book return flow that automatically updates loan status, timestamps, and increments book stock back.
-  - 🧪 **Comprehensive Tests**: 12 automated PHPUnit test cases checking critical borrowing business logic and CRUD validation.
-- **Tech Stack:**
-  - ![Laravel](https://img.shields.io/badge/Laravel_13-FF2D20?style=flat&logo=laravel&logoColor=white)
-  - ![PHP](https://img.shields.io/badge/PHP_8.2+-777BB4?style=flat&logo=php&logoColor=white)
-  - ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwindcss&logoColor=white)
-  - ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
-  - ![PHPUnit](https://img.shields.io/badge/PHPUnit-4F5B93?style=flat&logo=phpunit&logoColor=white)
-
----
-
-## 🛠️ Navigating the Repositories
-
-Each subfolder contains its own detailed implementation instructions. For detailed configurations, database setup, and runtime execution guides:
-
-1. Click on the project link in the table above.
-2. Read the localized `README.md` inside each project's directory.
+1. Klik pada tautan proyek di tabel di atas.
+2. Baca file `README.md` lokal di dalam direktori masing-masing proyek.
 
 ---
 
 <p align="center">
-  <i>Created and maintained for clients by <b>Hafisc</b> ✨</i>
+  <i>Dibuat dan dipelihara untuk klien oleh <b>Hafisc</b> ✨</i>
 </p>
