@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-ringkasan-proyek">
-    <img src="https://img.shields.io/badge/Projects-9_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-10_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -195,6 +195,23 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
       </td>
       <td align="center">
         <img src="https://img.shields.io/badge/AI_%26_EdTech-purple?style=flat-square" alt="AI & EdTech Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">10</td>
+      <td>
+        <a href="./Probstat%20Bahasa%20R/">
+          <b>📊 Analisis Probstat (Bahasa R)</b>
+        </a>
+      </td>
+      <td>
+        Analisis probabilitas dan statistika menggunakan bahasa R pada Jupyter Notebook untuk uji deskriptif, normalitas, t-test, Kruskal-Wallis, ANOVA, dan Tukey HSD.
+        <br />
+        <img src="https://img.shields.io/badge/R-276F40?style=flat-square&logo=r&logoColor=white" alt="R" />
+        <img src="https://img.shields.io/badge/Jupyter_Notebook-F37626?style=flat-square&logo=jupyter&logoColor=white" alt="Jupyter Notebook" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Data_Analysis-teal?style=flat-square" alt="Data Analysis Badge" />
       </td>
     </tr>
   </tbody>
