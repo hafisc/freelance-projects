@@ -6,6 +6,7 @@
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
+  <img src="https://img.shields.io/badge/AI_Assisted-Antigravity-blueviolet?style=for-the-badge&logo=google-gemini&logoColor=white" alt="AI Assisted" />
 </p>
 
 <p align="center">
