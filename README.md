@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-ringkasan-proyek">
-    <img src="https://img.shields.io/badge/Projects-10_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-11_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -213,6 +213,25 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
       </td>
       <td align="center">
         <img src="https://img.shields.io/badge/Data_Analysis-teal?style=flat-square" alt="Data Analysis Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">11</td>
+      <td>
+        <a href="./media-gelombang/">
+          <b>🌊 FisiTera - Media Pembelajaran Gelombang</b>
+        </a>
+      </td>
+      <td>
+        Website media pembelajaran fisika interaktif materi Gelombang, Bunyi, dan Cahaya dengan simulasi interaktif, kuis, evaluasi, dan panel guru (analisis & progres siswa).
+        <br />
+        <img src="https://img.shields.io/badge/Laravel_12-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
+        <img src="https://img.shields.io/badge/PHP_8.2+-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
+        <img src="https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+        <img src="https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white" alt="SQLite" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/EdTech_%26_Web-green?style=flat-square" alt="EdTech & Web Badge" />
       </td>
     </tr>
   </tbody>

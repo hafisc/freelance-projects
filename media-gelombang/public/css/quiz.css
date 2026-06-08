@@ -1,0 +1,243 @@
+/* =========================
+QUIZ LAYOUT
+========================= */
+
+.quiz-page{
+    min-height:100vh;
+    background:#1e40af;
+    padding:40px;
+}
+
+.quiz-container{
+    display:flex;
+    align-items:flex-start;
+    gap:24px;
+    max-width:1400px;
+    margin:auto;
+}
+.quiz-page .options-list{
+    list-style: none !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+.quiz-page .options-list li{
+    list-style: none !important;
+    margin-left: 0 !important;
+    padding-left: 0;
+}
+.quiz-page .options-list li::marker{
+    display:none;
+}
+/* =========================
+AREA SOAL
+========================= */
+
+.quiz-main{
+    flex:1;
+    min-width: 0;
+}
+
+.quiz-main h1{
+    text-align:center;
+    font-size:32px;
+    font-weight:800;
+    margin-bottom:18px;
+    color:white;
+}
+
+/* header kuis */
+
+.quiz-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#2563eb;
+    color:white;
+    padding:14px 20px;
+    border-radius:14px;
+    margin-bottom:16px;
+}
+
+/* timer */
+
+.timer{
+    background:#1d4ed8;
+    padding:8px 16px;
+    border-radius:20px;
+    font-weight:700;
+    font-size:16px;
+}
+
+
+
+.question-box{
+    background:#f8fafc;
+    border-radius:16px;
+    padding:26px;
+    border-left:none !important;
+    box-shadow:none !important;
+}
+
+.question-text{
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:16px;
+    color:#1e293b;
+}
+
+.options-list{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.options-list li{
+    background:white;
+    border-radius:10px;
+    border:1px solid #cbd5f5;
+    margin-bottom:12px;
+}
+
+.options-list label{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:12px;
+    cursor:pointer;
+}
+
+/* hover jawaban */
+
+.options-list li:hover{
+    border-color:#2563eb;
+}
+
+/* =========================
+NAV BUTTON
+========================= */
+
+.quiz-actions{
+    display:flex;
+    gap:10px;
+    margin-top:16px;
+}
+
+.btn-nav{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    background:#3b82f6;
+    color:white;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.btn-nav:hover{
+    background:#2563eb;
+}
+
+/* tombol selesai */
+
+.btn-finish{
+    padding:10px 20px;
+    border:none;
+    border-radius:12px;
+    background:#facc15;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.btn-finish:hover{
+    background:#eab308;
+}
+
+/* =========================
+SIDEBAR NAVIGASI
+========================= */
+
+.quiz-sidebar{
+  width:210px;
+  background:white;
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.15);
+  position:sticky;
+  top:90px;
+  margin-top:70px;
+}
+
+.quiz-sidebar h3{
+    margin-bottom:12px;
+    color:#1e293b;
+}
+
+.sidebar-finish{
+    width:100%;
+    margin-bottom:14px;
+    background: #16a34a;
+    color: white;
+}
+
+.sidebar-finish:hover{
+    background:#004e1c;
+}
+/* =========================
+GRID NAV SOAL
+========================= */
+
+.nav-soal{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+    margin-bottom:16px;
+}
+
+.nav-btn{
+    border:none;
+    height:50px;
+    width:50px;
+    font-size:16px;
+    font-weight:700;
+    border-radius:12px;
+    cursor:pointer;
+    background:#e5e7eb;
+}
+
+/* soal aktif */
+
+.nav-current{
+    background:#2563eb;
+    color:white;
+}
+
+/* soal sudah dijawab */
+
+.nav-answered{
+    background:#22c55e;
+    color:white;
+}
+
+.btn-ragu{
+  width:100%;
+  margin-top:15px;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:#f59e0b;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.btn-ragu:hover{
+  background:#d97706;
+}
+
+.quiz-sidebar .nav-soal .nav-btn.nav-doubt{
+  background:#f59e0b;
+  color:white;
+}
+
