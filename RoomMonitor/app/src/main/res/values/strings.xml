@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RoomMonitor</string>
+    <string name="app_tagline">Sistem Monitoring Penggunaan Ruangan</string>
+    <string name="welcome_subtitle">Kelola jadwal dan penggunaan ruangan kampus dengan mudah dan terstruktur</string>
+    <string name="btn_get_started">Mulai Sekarang</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_title">Dashboard</string>
+    <string name="total_usage">Total Penggunaan</string>
+    <string name="today_usage">Hari Ini</string>
+    <string name="total_rooms">Total Ruangan</string>
+    <string name="recent_usage">Penggunaan Terbaru</string>
+    <string name="no_data">Belum ada data penggunaan ruangan</string>
+    <string name="no_data_subtitle">Tekan tombol + untuk menambah data baru</string>
+    <string name="search_hint">Cari ruangan atau pengguna...</string>
+
+    <!-- Add/Edit Form -->
+    <string name="add_title">Tambah Penggunaan</string>
+    <string name="edit_title">Edit Penggunaan</string>
+    <string name="label_room_name">Nama Ruangan</string>
+    <string name="hint_room_name">Contoh: Lab Komputer 1</string>
+    <string name="label_user_name">Nama Pengguna</string>
+    <string name="hint_user_name">Contoh: Dr. Budi Santoso</string>
+    <string name="label_date">Tanggal</string>
+    <string name="hint_date">Pilih tanggal</string>
+    <string name="label_time_start">Waktu Mulai</string>
+    <string name="hint_time_start">Pilih waktu mulai</string>
+    <string name="label_time_end">Waktu Selesai</string>
+    <string name="hint_time_end">Pilih waktu selesai</string>
+    <string name="label_purpose">Keperluan</string>
+    <string name="hint_purpose">Contoh: Kuliah Pemrograman Mobile</string>
+    <string name="label_category">Kategori</string>
+    <string name="btn_save">Simpan</string>
+    <string name="btn_update">Perbarui</string>
+    <string name="btn_cancel">Batal</string>
+
+    <!-- Detail -->
+    <string name="detail_title">Detail Penggunaan</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_delete">Hapus</string>
+
+    <!-- Dialog -->
+    <string name="delete_confirm_title">Hapus Data?</string>
+    <string name="delete_confirm_message">Apakah Anda yakin ingin menghapus data penggunaan ruangan ini? Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="btn_yes_delete">Ya, Hapus</string>
+    <string name="btn_no">Tidak</string>
+
+    <!-- Messages -->
+    <string name="msg_save_success">Data berhasil disimpan</string>
+    <string name="msg_update_success">Data berhasil diperbarui</string>
+    <string name="msg_delete_success">Data berhasil dihapus</string>
+    <string name="msg_fill_all">Harap isi semua field yang diperlukan</string>
+    <string name="msg_invalid_time">Waktu selesai harus setelah waktu mulai</string>
+
+    <!-- Categories -->
+    <string name="cat_kuliah">Kuliah</string>
+    <string name="cat_rapat">Rapat</string>
+    <string name="cat_seminar">Seminar</string>
+    <string name="cat_lainnya">Lainnya</string>
+</resources>

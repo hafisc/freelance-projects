@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-ringkasan-proyek">
-    <img src="https://img.shields.io/badge/Projects-11_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-13_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -232,6 +232,44 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
       </td>
       <td align="center">
         <img src="https://img.shields.io/badge/EdTech_%26_Web-green?style=flat-square" alt="EdTech & Web Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">12</td>
+      <td>
+        <a href="./RoomMonitor/">
+          <b>📱 RoomMonitor - Pemantau Penggunaan Ruangan</b>
+        </a>
+      </td>
+      <td>
+        Aplikasi Android native untuk mencatat, mengedit, memantau, dan menganalisis data riwayat penggunaan ruangan/kelas secara lokal.
+        <br />
+        <img src="https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white" alt="Java" />
+        <img src="https://img.shields.io/badge/Android_SDK-3DDC84?style=flat-square&logo=android&logoColor=white" alt="Android SDK" />
+        <img src="https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white" alt="SQLite" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Mobile_App-blue?style=flat-square" alt="Mobile App Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">13</td>
+      <td>
+        <a href="./Tps%203R%20Brama%20Muda/">
+          <b>♻️ TPS3R - Smart Waste Management Platform</b>
+        </a>
+      </td>
+      <td>
+        Platform pengelolaan sampah digital modern terintegrasi dengan backend API Laravel, panel admin web React, dan aplikasi mobile member Flutter.
+        <br />
+        <img src="https://img.shields.io/badge/Laravel_10-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
+        <img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React" />
+        <img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white" alt="Flutter" />
+        <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+        <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Web_%26_Mobile-orange?style=flat-square" alt="Web & Mobile Badge" />
       </td>
     </tr>
   </tbody>
