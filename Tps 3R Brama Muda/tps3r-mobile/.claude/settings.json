@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter pub *)",
+      "Bash(rm \"c:\\\\Users\\\\Agung\\\\Downloads\\\\flutter_application_1\\\\lib\\\\pages\\\\waste_page.dart\")",
+      "Bash(awk 'NR==830 || NR==831 || NR==832 || NR==856 || NR==857 || NR==858' statistics_page.dart)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\Agung\\Downloads\\flutter_application_1\\lib\\pages"
+    ]
+  }
+}
