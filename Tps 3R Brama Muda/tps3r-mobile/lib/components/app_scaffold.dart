@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../services/app_state.dart';
 import '../services/auth_service.dart';
 import '../pages/dashboard_page.dart';
-import '../pages/member_page.dart';
-import '../pages/profile_page.dart';
 import '../pages/edukasi_page.dart';
-import '../pages/statistics_page.dart';
 import '../pages/my_profile_page.dart';
+import '../pages/waste_report_page.dart';
 
 class AppShell extends StatefulWidget {
   final int initialIndex;
@@ -21,18 +17,16 @@ class _AppShellState extends State<AppShell> {
   late int selectedIndex;
 
   final List<_NavItem> navItems = [
-    _NavItem(label: 'Dashboard', icon: Icons.grid_view_rounded, page: const DashboardPage()),
-    _NavItem(label: 'Member', icon: Icons.people_alt_rounded, page: const MemberPage()),
-    _NavItem(label: 'Profil TPS', icon: Icons.location_on_outlined, page: const ProfilePage()),
-    _NavItem(label: 'Profil Member', icon: Icons.person_pin_rounded, page: const MyProfilePage()),
+    _NavItem(label: 'Beranda', icon: Icons.home_rounded, page: const DashboardPage()),
+    _NavItem(label: 'Lapor', icon: Icons.add_a_photo_rounded, page: const WasteReportPage()),
     _NavItem(label: 'Edukasi', icon: Icons.school_rounded, page: const EdukasiPage()),
-    _NavItem(label: 'Statistik', icon: Icons.bar_chart_rounded, page: const StatisticsPage()),
+    _NavItem(label: 'Profil', icon: Icons.person_pin_rounded, page: const MyProfilePage()),
   ];
 
   @override
   void initState() {
     super.initState();
-    selectedIndex = widget.initialIndex.clamp(0, navItems.length - 1);
+    selectedIndex = widget.initialIndex.clamp(0, navItems.length - 1).toInt();
   }
 
   @override
@@ -520,80 +514,76 @@ class _AppShellState extends State<AppShell> {
   }
 
   Widget _buildTopBar() {
-    return Consumer<AppState>(
-      builder: (context, appState, child) {
-        final now = DateTime.now();
-        final months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-        final monthName = months[now.month - 1];
+    final now = DateTime.now();
+    final months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    final monthName = months[now.month - 1];
 
-        return Container(
-          height: 80,
-          padding: const EdgeInsets.symmetric(horizontal: 28),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF10B981).withValues(alpha: 0.08),
-                blurRadius: 20,
-                offset: const Offset(0, 8),
-              ),
-            ],
+    return Container(
+      height: 80,
+      padding: const EdgeInsets.symmetric(horizontal: 28),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF10B981).withValues(alpha: 0.08),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    navItems[selectedIndex].label,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w800,
-                      color: Color(0xFF111827),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  const Text(
-                    'Panel operasional TPS 3R Brama Muda',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Color(0xFF6B7280),
-                    ),
-                  ),
-                ],
+              Text(
+                navItems[selectedIndex].label,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                  color: Color(0xFF111827),
+                ),
               ),
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFECFDF5),
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: const Color(0xFFD1FAE5)),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.eco, size: 18, color: Color(0xFF059669)),
-                        const SizedBox(width: 8),
-                        Text(
-                          '$monthName ${now.year}',
-                          style: const TextStyle(
-                            color: Color(0xFF059669),
-                            fontWeight: FontWeight.w700,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              const SizedBox(height: 4),
+              const Text(
+                'Aplikasi warga TPS 3R Brama Muda',
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Color(0xFF6B7280),
+                ),
               ),
             ],
           ),
-        );
-      },
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFECFDF5),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: const Color(0xFFD1FAE5)),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.eco, size: 18, color: Color(0xFF059669)),
+                    const SizedBox(width: 8),
+                    Text(
+                      '$monthName ${now.year}',
+                      style: const TextStyle(
+                        color: Color(0xFF059669),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

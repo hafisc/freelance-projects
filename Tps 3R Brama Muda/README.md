@@ -6,7 +6,7 @@ Platform pengelolaan sampah digital modern terintegrasi yang dirancang untuk men
 
 ## 📷 Preview Tampilan Aplikasi
 
-### 1. Web Admin Panel Dashboard (Vite + React)
+### 1. Web Admin Panel Dashboard (Native PHP & CSS Modern)
 Dashboard modern bagi admin untuk memantau aktivitas transaksi sampah, verifikasi bukti laporan dari member, dan mengelola data tim secara terpusat.
 
 ![Web Admin Panel Dashboard](previews/admin_preview.png)
@@ -23,9 +23,9 @@ Aplikasi seluler bagi member/komunitas untuk melaporkan tumpukan sampah, memanta
 Project ini terbagi menjadi 3 komponen utama:
 
 1. **`tps3r-backend`**: Core API & Engine utama berbasis Laravel 10.
-2. **`tps3r-admin`**: Panel dashboard admin berbasis React (TypeScript) + Vite + Material UI.
-3. **`tps3r-mobile`**: Aplikasi mobile member berbasis Flutter (Dart) yang kompatibel lintas platform (Web, Android, iOS).
-4. **`tps3r.sql`**: Dump database awal untuk di-import.
+2. **`tps3r-admin`**: Panel dashboard admin berbasis Native PHP dengan styling CSS premium dan integrasi cURL API.
+3. **`tps3r-mobile`**: Aplikasi mobile member berbasis Flutter (Dart) yang kompatibel lintas platform (Web, Android, iOS, Chrome).
+4. **`tps3r.sql`**: Dump database MySQL terbaru yang sudah di-update.
 
 ---
 
@@ -37,7 +37,7 @@ Project ini terbagi menjadi 3 komponen utama:
 
 ### Langkah 2: Setup Backend Laravel API (`tps3r-backend`)
 1. Buka terminal di folder `tps3r-backend`.
-2. Copy `.env.example` menjadi `.env` dan sesuaikan kredensial database:
+2. Salin file `.env.example` menjadi `.env` dan sesuaikan kredensial database Laragon Anda:
    ```env
    DB_HOST=127.0.0.1
    DB_PORT=3306
@@ -51,7 +51,7 @@ Project ini terbagi menjadi 3 komponen utama:
    ```bash
    composer install
    ```
-4. **Sangat Penting!** Hubungkan symbolic link storage agar media/gambar dapat diakses dari luar:
+4. **Sangat Penting!** Hubungkan symbolic link storage agar media/gambar dapat diakses secara publik:
    ```bash
    php artisan storage:link
    ```
@@ -63,15 +63,11 @@ Project ini terbagi menjadi 3 komponen utama:
 
 ### Langkah 3: Setup Web Admin Panel (`tps3r-admin`)
 1. Buka terminal di folder `tps3r-admin`.
-2. Jalankan perintah instalasi packages:
+2. Jalankan PHP Built-in Server untuk menjalankan aplikasi:
    ```bash
-   npm install
+   php -S 127.0.0.1:8001
    ```
-3. Jalankan server local development:
-   ```bash
-   npm run dev
-   ```
-   Web Admin dapat diakses via browser pada alamat `http://localhost:5173/`.
+3. Buka browser dan akses alamat `http://127.0.0.1:8001/`.
 
 ### Langkah 4: Setup Mobile Member App (`tps3r-mobile`)
 1. Buka terminal di folder `tps3r-mobile`.
@@ -87,11 +83,13 @@ Project ini terbagi menjadi 3 komponen utama:
 
 ---
 
-## 🔑 Informasi Akun Default
+## 🔑 Informasi Akun Default (Hasil Update)
 
 * **Akun Admin Dashboard Web:**
-  * **Email:** `admin@tps3r.com`
-  * **Password:** `Admin123`
+  * **Email:** `admin@gmail.com`
+  * **Password:** `admin123`
 
 * **Akun Member App:**
-  * Anda dapat mendaftarkan akun member baru secara instan langsung melalui menu **Daftar Sekarang** pada aplikasi Flutter.
+  * **Email:** `member@gmail.com`
+  * **Password:** `member123`
+  * *Anda juga dapat mendaftarkan akun member baru secara instan langsung melalui menu pendaftaran pada aplikasi Flutter.*

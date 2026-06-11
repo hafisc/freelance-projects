@@ -32,7 +32,7 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
     <tr>
       <td align="center">1</td>
       <td>
-        <a href="./Chatbot%20Wa%20Raspberry%20Pi%203/">
+        <a href="./chatbot-wa-raspberry-pi-3/">
           <b>🤖 WhatsApp AI Chatbot</b>
         </a>
       </td>
@@ -50,7 +50,7 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
     <tr>
       <td align="center">2</td>
       <td>
-        <a href="./Parking%20Mall/">
+        <a href="./parking-mall/">
           <b>🚗 Parking Mall Desktop App</b>
         </a>
       </td>
@@ -68,7 +68,7 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
     <tr>
       <td align="center">3</td>
       <td>
-        <a href="./Sistem%20Manajemen%20Data%20Mahasiswa/">
+        <a href="./sistem-manajemen-data-mahasiswa/">
           <b>🎓 Student Management System</b>
         </a>
       </td>
@@ -86,7 +86,7 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
     <tr>
       <td align="center">4</td>
       <td>
-        <a href="./Mamitor%203D/">
+        <a href="./mamitor-3d/">
           <b>📐 MAMITOR 3D (Alat Peraga Digital)</b>
         </a>
       </td>
@@ -106,7 +106,7 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
     <tr>
       <td align="center">5</td>
       <td>
-        <a href="./Image%20Classification/">
+        <a href="./image-classification/">
           <b>🧠 Computer Vision Classifier (Viskom)</b>
         </a>
       </td>
@@ -125,7 +125,7 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
     <tr>
       <td align="center">6</td>
       <td>
-        <a href="./klasifikasi%20kesegaran%20ikan%20kembung/">
+        <a href="./klasifikasi-kesegaran-ikan-kembung/">
           <b>🐟 Klasifikasi Kesegaran Ikan Kembung</b>
         </a>
       </td>
@@ -182,7 +182,7 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
     <tr>
       <td align="center">9</td>
       <td>
-        <a href="./EngliTutor%20AI%20%E2%80%93%20AI%20Tutor%20Bahasa%20Inggris/">
+        <a href="./englitutor-ai/">
           <b>🗣️ EngliTutor AI</b>
         </a>
       </td>
@@ -201,7 +201,7 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
     <tr>
       <td align="center">10</td>
       <td>
-        <a href="./Probstat%20Bahasa%20R/">
+        <a href="./probstat-bahasa-r/">
           <b>📊 Analisis Probstat (Bahasa R)</b>
         </a>
       </td>
@@ -255,7 +255,7 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
     <tr>
       <td align="center">13</td>
       <td>
-        <a href="./Tps%203R%20Brama%20Muda/">
+        <a href="./tps3r-brama-muda/">
           <b>♻️ TPS3R - Smart Waste Management Platform</b>
         </a>
       </td>

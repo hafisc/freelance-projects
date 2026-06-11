@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'auth_service.dart';
@@ -14,6 +15,15 @@ import 'auth_service.dart';
 /// ============================================================
 
 class ProfileService {
+  static String get _baseUrl {
+    if (kIsWeb) {
+      return 'http://127.0.0.1:8000/api';
+    }
+    return defaultTargetPlatform == TargetPlatform.android
+        ? 'http://10.0.2.2:8000/api'
+        : 'http://127.0.0.1:8000/api';
+  }
+
   // SharedPreferences keys
   static const String _userKey = 'user_data';
 
@@ -47,20 +57,17 @@ class ProfileService {
   // ============================================================
   // UPDATE USER PROFILE - Update data profil
   // ============================================================
-  /// Mengupdate data profil user di local storage
-  /// (Update profile dilakukan di backend Laravel)
+  /// Mengupdate data profil user ke backend Laravel dan local storage.
   ///
   /// Parameters:
   /// - [name] - Nama lengkap (opsional)
   /// - [phone] - Nomor HP (opsional)
-  /// - [address] - Alamat (opsional)
   ///
   /// Returns: Map dengan success dan message
   /// ============================================================
   static Future<Map<String, dynamic>> updateUserProfile({
     String? name,
     String? phone,
-    String? address,
   }) async {
     try {
       // Ambil profile saat ini
@@ -73,28 +80,54 @@ class ProfileService {
         };
       }
 
-      // Build update data
-      final Map<String, dynamic> updateData = Map.from(currentProfile);
-
-      if (name != null && name.trim().isNotEmpty) {
-        updateData['name'] = name.trim();
+      final token = await AuthService.getToken();
+      if (token == null || token.isEmpty) {
+        return {
+          'success': false,
+          'message': 'Sesi login tidak ditemukan. Silakan login ulang.',
+        };
       }
 
-      if (phone != null) {
-        updateData['phone'] = phone.trim();
+      final response = await http.put(
+        Uri.parse('$_baseUrl/auth/profile/update'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          'name': name?.trim().isNotEmpty == true
+              ? name!.trim()
+              : currentProfile['name'],
+          'email': currentProfile['email'],
+          'phone': phone?.trim(),
+        }),
+      );
+
+      final Map<String, dynamic> responseData =
+          jsonDecode(response.body) as Map<String, dynamic>;
+
+      if (response.statusCode != 200 || responseData['success'] != true) {
+        final errors = responseData['errors'] as Map<String, dynamic>?;
+        final firstError = errors?.values.isNotEmpty == true
+            ? errors!.values.first
+            : null;
+        return {
+          'success': false,
+          'message': firstError is List
+              ? firstError.first.toString()
+              : responseData['message'] ?? 'Gagal memperbarui profil.',
+        };
       }
 
-      if (address != null) {
-        updateData['address'] = address.trim();
-      }
-
-      // Update ke SharedPreferences
+      final Map<String, dynamic> updateData =
+          Map<String, dynamic>.from(responseData['user'] as Map);
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_userKey, jsonEncode(updateData));
 
       return {
         'success': true,
-        'message': 'Profil berhasil diperbarui!',
+        'message': responseData['message'] ?? 'Profil berhasil diperbarui!',
       };
     } catch (e) {
       debugPrint('Error updating profile: $e');
@@ -132,14 +165,8 @@ class ProfileService {
       'name': 'Member',
       'email': '-',
       'phone': '-',
-      'address': '-',
       'role': 'member',
       'status': 'aktif',
-      'tier': 'BRONZE',
-      'poin': 0,
-      'totalReports': 0,
-      'completedReports': 0,
-      'processedReports': 0,
     };
   }
 }

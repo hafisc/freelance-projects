@@ -1,6 +1,5 @@
 // lib/services/api_service.dart
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,13 +27,11 @@ class ApiService {
   // ============================================================
   // TOKEN MANAGEMENT
   // ============================================================
-  
+
   static Future<String?> _getToken() async {
   try {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('auth_token');
-
-    print('TOKEN DITEMUKAN = $token');
 
     return token;
   } catch (e) {
@@ -79,7 +76,7 @@ class ApiService {
   // ============================================================
   // MEMBERS API
   // ============================================================
-  
+
   /// Ambil semua member dari database
   static Future<Map<String, dynamic>> getMembers() async {
     try {
@@ -268,7 +265,7 @@ class ApiService {
   // ============================================================
   // WASTE ITEMS API
   // ============================================================
-  
+
   /// Ambil semua data sampah dari database
   static Future<Map<String, dynamic>> getWasteItems() async {
     try {
@@ -460,7 +457,7 @@ class ApiService {
   // ============================================================
   // STATISTICS API
   // ============================================================
-  
+
   /// Ambil statistik dari database
   static Future<Map<String, dynamic>> getStatistics({String period = 'weekly'}) async {
     try {
@@ -505,7 +502,7 @@ class ApiService {
   // ============================================================
   // TPS INFO API
   // ============================================================
-  
+
   /// Ambil info TPS dari database
   static Future<Map<String, dynamic>> getTpsInfo() async {
     try {
@@ -550,7 +547,7 @@ class ApiService {
   // ============================================================
   // WASTE REPORTS API
   // ============================================================
-  
+
   /// Ambil laporan sampah dari database
   static Future<Map<String, dynamic>> getWasteReports() async {
     try {
@@ -592,7 +589,8 @@ class ApiService {
     }
   }
 
-  /// Kirim laporan sampah
+  /// Kirim laporan sampah JSON.
+  /// Backend TPS 3R memakai multipart upload, jadi gunakan submitWasteReport.
   static Future<Map<String, dynamic>> createWasteReport({
     required String location,
     required String description,
@@ -674,9 +672,10 @@ class ApiService {
       final data = _parseResponse(response);
       debugPrint('Edukasi API Response: $data');
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 && data['success'] == true) {
         return {
           'success': true,
+          'data': data,
           'edukasi': data,
         };
       }
@@ -699,7 +698,7 @@ class ApiService {
   // ============================================================
   // HELPER FUNCTIONS
   // ============================================================
-  
+
   static String _getErrorMessage(int statusCode) {
     switch (statusCode) {
       case 400:
@@ -720,18 +719,25 @@ class ApiService {
         return 'Terjadi kesalahan (code: $statusCode).';
     }
   }
-  Future<bool> submitWasteReport({
+  Future<Map<String, dynamic>> submitWasteReport({
     required List<int> photoBytes,
     required String photoName,
     required String location,
     required String category,
     required String description,
-    required String token, // Token dari user yang login
   }) async {
     try {
+      final token = await _getToken();
+      if (token == null || token.isEmpty) {
+        return {
+          'success': false,
+          'message': 'Sesi login tidak ditemukan. Silakan login ulang.',
+        };
+      }
+
       var uri = Uri.parse('$_baseUrl/reports');
       var request = http.MultipartRequest('POST', uri);
-      
+
       // Tambahkan Header
       request.headers.addAll({
         'Authorization': 'Bearer $token',
@@ -743,7 +749,7 @@ class ApiService {
       request.fields['category'] = category;
       request.fields['description'] = description;
 
-      // Tambahkan File Foto
+      // Tambahkan File Foto dari bytes
       var photoFile = http.MultipartFile.fromBytes(
         'photo',
         photoBytes,
@@ -754,16 +760,26 @@ class ApiService {
       // Kirim Request
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
+      final data = _parseResponse(response);
 
-      if (response.statusCode == 201) {
-        return true; // Berhasil
-      } else {
-        print('Gagal upload: ${response.body}');
-        return false; // Gagal
+      if (response.statusCode == 201 && data['success'] == true) {
+        return {
+          'success': true,
+          'message': data['message'] ?? 'Laporan berhasil dikirim',
+          'report': data['data'],
+        };
       }
+
+      return {
+        'success': false,
+        'message': data['message'] ?? _getErrorMessage(response.statusCode),
+      };
     } catch (e) {
-      print('Error submit report: $e');
-      return false;
+      debugPrint('Error submit report: $e');
+      return {
+        'success': false,
+        'message': 'Gagal terhubung ke server',
+      };
     }
   }
 }

@@ -1,6 +1,5 @@
 // lib/models/edukasi_model.dart
 // Model untuk data edukasi dari database (Laravel)
-import 'package:flutter/foundation.dart';
 
 class EdukasiItem {
   final int id;
@@ -27,27 +26,15 @@ class EdukasiItem {
     required this.updatedAt,
   });
 
-  /// URL lengkap thumbnail (dari Laravel accessor atau dinamis sesuai platform)
+  /// URL lengkap thumbnail (dari Laravel accessor atau construite manual)
   String? get thumbnailUrl {
     if (thumbnail == null || thumbnail!.isEmpty) return null;
-    
-    String path = thumbnail!;
-    // Jika berisi full URL, ambil path relatifnya setelah /storage/
-    if (path.contains('/storage/')) {
-      path = path.substring(path.indexOf('/storage/') + 9);
+    // Jika sudah full URL (dari Laravel thumbnail_url accessor), gunakan langsung
+    if (thumbnail!.startsWith('http://') || thumbnail!.startsWith('https://')) {
+      return thumbnail;
     }
-    
-    // Tentukan base storage URL secara dinamis sesuai platform
-    String baseStorageUrl;
-    if (kIsWeb) {
-      baseStorageUrl = 'http://127.0.0.1:8000/storage';
-    } else {
-      baseStorageUrl = defaultTargetPlatform == TargetPlatform.android
-          ? 'http://10.0.2.2:8000/storage'
-          : 'http://127.0.0.1:8000/storage';
-    }
-    
-    return '$baseStorageUrl/$path';
+    // Jika hanya path, kembalikan path tersebut agar resolved secara dinamis oleh UI page
+    return thumbnail;
   }
 
   /// Cek apakah published
@@ -61,7 +48,7 @@ class EdukasiItem {
       id: json['id'] ?? 0,
       title: json['title'] ?? '',
       slug: json['slug'] ?? '',
-      thumbnail: json['thumbnail_url'] ?? json['thumbnail'],
+      thumbnail: json['thumbnail'],
       content: json['content'] ?? '',
       authorId: json['author_id'],
       authorName: json['author_name'] ?? json['author']?['name'] ?? 'Admin',

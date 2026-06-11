@@ -1,8 +1,7 @@
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/foundation.dart';
+import 'dart:typed_data';
 import '../services/api_service.dart';
 import '../services/auth_service.dart';
 
@@ -11,7 +10,7 @@ class WasteReport {
   final String id;
   final String location;
   final String description;
-  final XFile? imageFile;
+  final Uint8List? imageBytes;
   final String? photoUrl;
   final String date;
   final String status;
@@ -21,14 +20,14 @@ class WasteReport {
     required this.id,
     required this.location,
     required this.description,
-    this.imageFile,
+    this.imageBytes,
     this.photoUrl,
     required this.date,
     required this.status,
     required this.createdAt,
   });
 
-  bool get hasImage => imageFile != null || (photoUrl != null && photoUrl!.isNotEmpty);
+  bool get hasImage => imageBytes != null || (photoUrl != null && photoUrl!.isNotEmpty);
 
   factory WasteReport.fromJson(Map<String, dynamic> json) {
     final photoPath = json['photo_path'] as String? ?? '';
@@ -103,12 +102,6 @@ class _WastePageState extends State<WastePage> {
   // Reports
   final List<WasteReport> _reports = [];
 
-  @override
-  void initState() {
-    super.initState();
-    _loadReportsFromApi();
-  }
-
   Future<void> _loadReportsFromApi() async {
     setState(() => _isLoadingReports = true);
     try {
@@ -149,6 +142,7 @@ class _WastePageState extends State<WastePage> {
     try {
       setState(() => _isLoadingImage = true);
 
+      // Web doesn't support camera, use gallery instead
       final ImageSource actualSource = (kIsWeb && source == ImageSource.camera)
           ? ImageSource.gallery
           : source;
@@ -161,7 +155,7 @@ class _WastePageState extends State<WastePage> {
       );
 
       if (pickedFile != null) {
-        final bytes = await pickedFile.readAsBytes();
+        final Uint8List bytes = await pickedFile.readAsBytes();
         setState(() {
           _selectedImageFile = pickedFile;
           _selectedImageBytes = bytes;
@@ -310,16 +304,15 @@ class _WastePageState extends State<WastePage> {
     );
   }
 
-  // Submit report
   Future<void> _submitReport() async {
-    if (_descriptionController.text.isEmpty || _locationController.text.isEmpty || _selectedImageFile == null) {
+    if (_descriptionController.text.trim().isEmpty || _selectedImageBytes == null || _selectedImageFile == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Row(
             children: [
               Icon(Icons.warning_amber, color: Colors.white, size: 20),
               SizedBox(width: 10),
-              Text('Lengkapi deskripsi, lokasi, dan foto!'),
+              Text('Lengkapi deskripsi dan foto laporan sampah.'),
             ],
           ),
           backgroundColor: const Color(0xFFF59E0B),
@@ -332,40 +325,28 @@ class _WastePageState extends State<WastePage> {
 
     setState(() => _isSubmitting = true);
 
-    String? token = await AuthService.getToken();
-    if (token == null) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Sesi telah habis. Silakan login kembali.'))
-        );
-      }
-      setState(() => _isSubmitting = false);
-      return;
-    }
+    final String loc = _locationController.text.trim().isEmpty
+        ? 'Jl. Mawar No. 5'
+        : _locationController.text.trim();
 
-    final ApiService apiService = ApiService();
-    final photoBytes = await _selectedImageFile!.readAsBytes();
-    final photoName = _selectedImageFile!.name;
-
-    bool success = await apiService.submitWasteReport(
-      photoBytes: photoBytes,
-      photoName: photoName,
-      location: _locationController.text,
-      category: 'Sampah Rumah Tangga',
-      description: _descriptionController.text,
-      token: token,
+    final result = await ApiService.submitWasteReport(
+      photoBytes: _selectedImageBytes!,
+      photoName: _selectedImageFile!.name,
+      location: loc,
+      category: 'Lainnya',
+      description: _descriptionController.text.trim(),
     );
 
     setState(() => _isSubmitting = false);
 
-    if (success && mounted) {
+    if (result['success'] == true) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Row(
             children: [
               Icon(Icons.check_circle, color: Colors.white, size: 20),
               SizedBox(width: 10),
-              Text('Laporan berhasil dikirim ke Admin!'),
+              Text('Laporan berhasil dikirim!'),
             ],
           ),
           backgroundColor: const Color(0xFF10B981),
@@ -374,19 +355,30 @@ class _WastePageState extends State<WastePage> {
           duration: const Duration(seconds: 3),
         ),
       );
+
       _descriptionController.clear();
       _locationController.clear();
       setState(() {
         _selectedImageFile = null;
         _selectedImageBytes = null;
       });
-      _loadReportsFromApi(); // reload reports from API
+
+      _loadReportsFromApi(); // reload list
     } else {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Gagal mengirim laporan.'))
-        );
-      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              const Icon(Icons.error_outline, color: Colors.white, size: 20),
+              const SizedBox(width: 10),
+              Expanded(child: Text(result['message'] ?? 'Gagal mengirim laporan.')),
+            ],
+          ),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      );
     }
   }
 
@@ -397,8 +389,7 @@ class _WastePageState extends State<WastePage> {
         id: 'RPT001',
         location: 'Jl. Mawar No. 5',
         description: 'Sampah menumpuk di depan gang sudah 3 hari',
-        imageFile: null,
-        photoUrl: null,
+        imageBytes: null,
         date: '18 Mei 2026 • 14:30',
         status: 'Diproses',
         createdAt: now.subtract(const Duration(days: 1)),
@@ -407,8 +398,7 @@ class _WastePageState extends State<WastePage> {
         id: 'RPT002',
         location: 'Jl. Melati No. 12',
         description: 'Sampah plastik dan kardus di pinggir jalan',
-        imageFile: null,
-        photoUrl: null,
+        imageBytes: null,
         date: '15 Mei 2026 • 09:15',
         status: 'Selesai',
         createdAt: now.subtract(const Duration(days: 4)),
@@ -417,8 +407,7 @@ class _WastePageState extends State<WastePage> {
         id: 'RPT003',
         location: 'Jl. Anggrek RT 03',
         description: 'Sampah organik bau menyengat',
-        imageFile: null,
-        photoUrl: null,
+        imageBytes: null,
         date: '10 Mei 2026 • 16:45',
         status: 'Selesai',
         createdAt: now.subtract(const Duration(days: 9)),
@@ -427,8 +416,7 @@ class _WastePageState extends State<WastePage> {
         id: 'RPT004',
         location: 'Jl. Kenanga RW 02',
         description: 'Kantong sampah robek, sampah berceceran',
-        imageFile: null,
-        photoUrl: null,
+        imageBytes: null,
         date: '5 Mei 2026 • 08:00',
         status: 'Selesai',
         createdAt: now.subtract(const Duration(days: 14)),
@@ -573,7 +561,7 @@ class _WastePageState extends State<WastePage> {
           // Image Upload Area
           GestureDetector(
             onTap: _isLoadingImage ? null : _showImageSourceDialog,
-            child: _selectedImageFile != null
+            child: _selectedImageBytes != null
                 ? _buildImagePreview()
                 : _buildImagePlaceholder(),
           ),
@@ -956,9 +944,7 @@ class _WastePageState extends State<WastePage> {
                 const Center(
                   child: Padding(
                     padding: EdgeInsets.all(32.0),
-                    child: CircularProgressIndicator(
-                      color: Color(0xFF10B981),
-                    ),
+                    child: CircularProgressIndicator(color: Color(0xFF10B981)),
                   ),
                 )
               ]
@@ -987,12 +973,12 @@ class _WastePageState extends State<WastePage> {
                       ),
                     ),
                   ]
-                : _reports.asMap().entries.map((entry) {
-                    final index = entry.key;
-                    final report = entry.value;
-                    return Column(
-                      children: [
-                        _ReportListItem(report: report),
+            : _reports.asMap().entries.map((entry) {
+                final index = entry.key;
+                final report = entry.value;
+                return Column(
+                  children: [
+                    _ReportListItem(report: report),
                     if (index < _reports.length - 1) ...[
                       const SizedBox(height: 10),
                     ],
@@ -1169,50 +1155,29 @@ class _ReportListItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: const Color(0xFFD1FAE5)),
             ),
-            child: report.imageFile != null
+            child: report.hasImage
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(11),
-                    child: kIsWeb
-                        ? Image.network(
-                            report.imageFile!.path,
+                    child: report.imageBytes != null
+                        ? Image.memory(
+                            report.imageBytes!,
                             fit: BoxFit.cover,
                           )
-                        : Image.file(
-                            File(report.imageFile!.path),
+                        : Image.network(
+                            report.photoUrl!,
                             fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) => const Icon(
+                              Icons.broken_image,
+                              color: Colors.red,
+                              size: 24,
+                            ),
                           ),
                   )
-                : report.photoUrl != null
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(11),
-                        child: Image.network(
-                          report.photoUrl!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) => const Icon(
-                            Icons.broken_image,
-                            color: Colors.red,
-                            size: 20,
-                          ),
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return const Center(
-                              child: SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Color(0xFF10B981),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      )
-                    : const Icon(
-                        Icons.image,
-                        color: Color(0xFF10B981),
-                        size: 24,
-                      ),
+                : const Icon(
+                    Icons.image,
+                    color: Color(0xFF10B981),
+                    size: 24,
+                  ),
           ),
           const SizedBox(width: 14),
           // Content
