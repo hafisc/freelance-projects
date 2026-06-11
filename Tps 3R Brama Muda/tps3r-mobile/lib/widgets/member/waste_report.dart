@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../services/api_service.dart';
 
 class WasteReportSection extends StatefulWidget {
@@ -42,35 +41,36 @@ class _WasteReportSectionState extends State<WasteReportSection> {
       return;
     }
 
-    final prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('auth_token');
-
-    if (token == null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Sesi habis, silakan login kembali.')));
-      return;
-    }
-
     setState(() => _isSubmitting = true);
 
     try {
-      bool success = await _apiService.submitWasteReport(
-        photoBytes: _selectedImageBytes!,
-        photoName: 'report_${DateTime.now().millisecondsSinceEpoch}.png',
+      final tempDir = await getTemporaryDirectory();
+      final file = await File('${tempDir.path}/report_${DateTime.now().millisecondsSinceEpoch}.png').create();
+      await file.writeAsBytes(_selectedImageBytes!);
+
+      final result = await _apiService.submitWasteReport(
+        photo: file,
         location: _locationController.text,
         category: 'Sampah Rumah Tangga',
         description: _descriptionController.text,
-        token: token,
       );
 
       if (!mounted) return;
 
-      if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Laporan terkirim!'), backgroundColor: Colors.green));
+      if (result['success'] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['message'] ?? 'Laporan terkirim!'),
+            backgroundColor: Colors.green,
+          ),
+        );
         _descriptionController.clear();
         _locationController.clear();
         setState(() => _selectedImageBytes = null);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Gagal mengirim ke server.')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(result['message'] ?? 'Gagal mengirim ke server.')),
+        );
       }
     } catch (e) {
       if (!mounted) return;

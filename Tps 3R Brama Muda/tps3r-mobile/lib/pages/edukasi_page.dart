@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import '../services/api_service.dart';
 import '../models/edukasi_model.dart';
 
@@ -30,35 +31,35 @@ class _EdukasiPageState extends State<EdukasiPage> {
   }
 
   Future<void> _loadEdukasiData() async {
-  setState(() => _isLoading = true);
+    setState(() => _isLoading = true);
 
-  try {
-    final result = await ApiService.getEdukasi();
+    try {
+      final result = await ApiService.getEdukasi();
 
-    // Sekarang kita mencari key 'data' sesuai struktur Laravel
-    if (result['success'] == true && result['data'] != null) {
-      
-      // result['data'] adalah Map yang berisi key 'data' (List)
-      final Map<String, dynamic> responseData = result['data'];
-      
-      if (responseData.containsKey('data')) {
-        final List<dynamic> listData = responseData['data'];
-        
-        setState(() {
-          // Mapping list dari JSON ke List<EdukasiItem>
-          _edukasiList = listData.map((item) => EdukasiItem.fromJson(item)).toList();
-          _isLoading = false;
-        });
+      // Sekarang kita mencari key 'data' sesuai struktur Laravel
+      if (result['success'] == true && result['data'] != null) {
+
+        // result['data'] adalah Map yang berisi key 'data' (List)
+        final Map<String, dynamic> responseData = result['data'];
+
+        if (responseData.containsKey('data')) {
+          final List<dynamic> listData = responseData['data'];
+
+          setState(() {
+            // Mapping list dari JSON ke List<EdukasiItem>
+            _edukasiList = listData.map((item) => EdukasiItem.fromJson(item)).toList();
+            _isLoading = false;
+          });
+        }
+      } else {
+        debugPrint('Gagal: ${result['message']}');
+        setState(() => _isLoading = false);
       }
-    } else {
-      debugPrint('Gagal: ${result['message']}');
+    } catch (e) {
+      debugPrint('Error: $e');
       setState(() => _isLoading = false);
     }
-  } catch (e) {
-    debugPrint('Error: $e');
-    setState(() => _isLoading = false);
   }
-}
 
   /// Refresh data
   Future<void> _refreshData() async {
@@ -72,6 +73,23 @@ class _EdukasiPageState extends State<EdukasiPage> {
       'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'
     ];
     return '${date.day} ${months[date.month - 1]} ${date.year}';
+  }
+
+  /// ============================================================
+  /// FUNGSI BARU: Helper untuk mendapatkan full URL gambar
+  /// ============================================================
+  String _getFullImageUrl(String path) {
+    if (path.startsWith('http')) return path;
+
+    String baseStorageUrl;
+    if (kIsWeb) {
+      baseStorageUrl = 'http://127.0.0.1:8000/storage';
+    } else {
+      baseStorageUrl = defaultTargetPlatform == TargetPlatform.android
+          ? 'http://10.0.2.2:8000/storage'
+          : 'http://127.0.0.1:8000/storage';
+    }
+    return '$baseStorageUrl/$path';
   }
 
   @override
@@ -237,7 +255,7 @@ class _EdukasiPageState extends State<EdukasiPage> {
                   top: Radius.circular(16),
                 ),
                 child: Image.network(
-                  article.thumbnailUrl!,
+                  _getFullImageUrl(article.thumbnailUrl!), // <--- SUDAH MENGGUNAKAN HELPER
                   height: 160,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -265,7 +283,7 @@ class _EdukasiPageState extends State<EdukasiPage> {
                           strokeWidth: 2,
                           value: loadingProgress.expectedTotalBytes != null
                               ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
+                              loadingProgress.expectedTotalBytes!
                               : null,
                         ),
                       ),
@@ -297,26 +315,22 @@ class _EdukasiPageState extends State<EdukasiPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Status badge
+                  // Badge artikel untuk tampilan user
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: article.isPublished
-                          ? const Color(0xFFECFDF5)
-                          : const Color(0xFFFEF3C7),
+                      color: const Color(0xFFECFDF5),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Text(
-                      article.isPublished ? 'Published' : 'Draft',
+                    child: const Text(
+                      'Artikel',
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w600,
-                        color: article.isPublished
-                            ? const Color(0xFF059669)
-                            : const Color(0xFFF59E0B),
+                        color: Color(0xFF059669),
                       ),
                     ),
                   ),
@@ -434,7 +448,7 @@ class _EdukasiPageState extends State<EdukasiPage> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(16),
                           child: Image.network(
-                            article.thumbnailUrl!,
+                            _getFullImageUrl(article.thumbnailUrl!), // <--- SUDAH MENGGUNAKAN HELPER
                             height: 200,
                             width: double.infinity,
                             fit: BoxFit.cover,
@@ -456,26 +470,22 @@ class _EdukasiPageState extends State<EdukasiPage> {
 
                       const SizedBox(height: 20),
 
-                      // Status badge
+                      // Badge artikel untuk tampilan user
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 12,
                           vertical: 6,
                         ),
                         decoration: BoxDecoration(
-                          color: article.isPublished
-                              ? const Color(0xFFECFDF5)
-                              : const Color(0xFFFEF3C7),
+                          color: const Color(0xFFECFDF5),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: Text(
-                          article.isPublished ? 'Published' : 'Draft',
+                        child: const Text(
+                          'Artikel',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
-                            color: article.isPublished
-                                ? const Color(0xFF059669)
-                                : const Color(0xFFF59E0B),
+                            color: Color(0xFF059669),
                           ),
                         ),
                       ),

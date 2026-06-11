@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 
-/// ============================================================
-/// LoginPage - Halaman Login
-/// ============================================================
-/// Halaman login dengan Firebase Authentication
-/// Setelah login berhasil → langsung ke Dashboard
-///
-/// Author: Claude
-/// ============================================================
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -40,12 +31,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   /// ============================================================
-  /// SUBMIT LOGIN - Login dengan Firebase Auth
+  /// SUBMIT LOGIN - Login dengan Laravel Sanctum API
   /// ============================================================
   /// 1. Validasi input
   /// 2. Panggil AuthService.loginUser()
-  /// 3. Jika berhasil → navigate ke Dashboard (AppShell)
-  /// 4. Jika gagal → tampilkan error message
+  /// 3. Cek role: Jika Admin -> Tolak dan Hapus Token
+  /// 4. Jika berhasil & bukan Admin → navigate ke Dashboard (AppShell)
+  /// 5. Jika gagal → tampilkan error message
   /// ============================================================
   Future<void> _submit() async {
     final email = _emailController.text.trim();
@@ -71,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
       _errorMessage = null;
     });
 
-    // Login dengan Firebase Auth
+    // Login dengan API Sanctum
     final result = await AuthService.loginUser(
       email: email,
       password: password,
@@ -84,10 +76,25 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     if (result['success']) {
-      // Login berhasil → Langsung ke Dashboard
-      Navigator.of(context).pushReplacementNamed('/app');
+      // Ambil data user dari response
+      final user = result['user'] as Map<String, dynamic>?;
+
+      // Ambil role (sesuaikan key 'role' dengan response API Anda, misal: 'role_id' atau 'level')
+      final role = user?['role']?.toString().toLowerCase();
+
+      // CEK ROLE ADMIN
+      if (role == 'admin') {
+        setState(() {
+          _errorMessage = 'Akses ditolak: Akun Admin tidak diizinkan masuk melalui aplikasi member.';
+        });
+        // Hapus token yang terlanjur disimpan karena API menganggap login berhasil
+        await AuthService.logoutUser();
+      } else {
+        // Login berhasil dan bukan admin → Langsung ke Dashboard
+        Navigator.of(context).pushReplacementNamed('/app');
+      }
     } else {
-      // Login gagal → Tampilkan error
+      // Login gagal dari API → Tampilkan error
       setState(() {
         _errorMessage = result['message'];
       });
@@ -393,17 +400,17 @@ class _LoginPageState extends State<LoginPage> {
             prefixIcon: Icon(icon, color: const Color(0xFF059669), size: 20),
             suffixIcon: isPassword
                 ? IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility_off : Icons.visibility,
-                      color: const Color(0xFF9CA3AF),
-                      size: 20,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
-                  )
+              icon: Icon(
+                _obscureText ? Icons.visibility_off : Icons.visibility,
+                color: const Color(0xFF9CA3AF),
+                size: 20,
+              ),
+              onPressed: () {
+                setState(() {
+                  _obscureText = !_obscureText;
+                });
+              },
+            )
                 : null,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
@@ -461,46 +468,46 @@ class _LoginPageState extends State<LoginPage> {
           gradient: _isLoading
               ? null
               : const LinearGradient(
-                  colors: [Color(0xFF10B981), Color(0xFF059669)],
-                ),
+            colors: [Color(0xFF10B981), Color(0xFF059669)],
+          ),
           color: _isLoading ? Colors.grey.shade300 : null,
           borderRadius: BorderRadius.circular(16),
           boxShadow: _isLoading
               ? null
               : [
-                  BoxShadow(
-                    color: const Color(0xFF10B981).withValues(alpha: 0.35),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
+            BoxShadow(
+              color: const Color(0xFF10B981).withValues(alpha: 0.35),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
         child: Center(
           child: _isLoading
               ? const SizedBox(
-                  width: 22,
-                  height: 22,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    strokeWidth: 2.5,
-                  ),
-                )
+            width: 22,
+            height: 22,
+            child: CircularProgressIndicator(
+              color: Colors.white,
+              strokeWidth: 2.5,
+            ),
+          )
               : const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.login, color: Colors.white, size: 18),
-                    SizedBox(width: 8),
-                    Text(
-                      'Masuk',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ],
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.login, color: Colors.white, size: 18),
+              SizedBox(width: 8),
+              Text(
+                'Masuk',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                  letterSpacing: 0.5,
                 ),
+              ),
+            ],
+          ),
         ),
       ),
     );

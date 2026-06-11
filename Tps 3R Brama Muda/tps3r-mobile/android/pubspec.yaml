@@ -5,17 +5,17 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ^3.11.1
 
 dependencies:
   flutter:
     sdk: flutter
 
   # HTTP Client untuk API
-  http: ^1.6.0
+  http: ^1.2.0
 
   # Local Storage untuk Token
-  shared_preferences: ^2.5.3
+  shared_preferences: ^2.2.2
 
   cupertino_icons: ^1.0.8
   provider: ^6.1.2
