@@ -1,0 +1,45 @@
+name: project_whatsapp_adinda
+description: A new Flutter project.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # IMAGE PICKER
+  image_picker: ^1.1.2
+
+  # FILE PICKER
+  file_picker: ^10.1.9
+
+  # API
+  http: ^1.2.2
+
+  # VIDEO PLAYER
+  video_player: ^2.9.5
+
+  # LOCAL STORAGE
+  shared_preferences: ^2.5.3
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/profiles/
+    - assets/images/
+    - assets/icons/
+    - assets/image_status/
+    - assets/video_status/

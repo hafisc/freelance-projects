@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-ringkasan-proyek">
-    <img src="https://img.shields.io/badge/Projects-13_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-14_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -266,6 +266,25 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
         <img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React" />
         <img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white" alt="Flutter" />
         <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+        <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Web_%26_Mobile-orange?style=flat-square" alt="Web & Mobile Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">14</td>
+      <td>
+        <a href="./whatsapp/">
+          <b>🟢 WhatsApp Business Status</b>
+        </a>
+      </td>
+      <td>
+        Aplikasi klon WhatsApp Business multiplatform (Mobile & Desktop) yang fokus pada fitur unggah/lihat status/story, terintegrasi dengan backend API PHP dan database MySQL.
+        <br />
+        <img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white" alt="Flutter" />
+        <img src="https://img.shields.io/badge/Dart-0175C2?style=flat-square&logo=dart&logoColor=white" alt="Dart" />
+        <img src="https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
         <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
       </td>
       <td align="center">
