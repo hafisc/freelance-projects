@@ -1,0 +1,145 @@
+@extends('layouts.dosen')
+
+@section('title', 'Edit Jurnal Mengajar')
+
+@section('content')
+<div class="content-header">
+    <div class="content-title">Edit Jurnal Mengajar</div>
+    <a href="{{ route('dosen.kegiatan') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Kembali
+    </a>
+</div>
+
+<div class="card" style="max-width: 700px; margin: 0 auto;">
+    <div class="card-header">
+        <div class="card-title">Form Edit Jurnal (Dosen: {{ $dosen->nama }})</div>
+    </div>
+    
+    <div class="card-body">
+        <form action="{{ route('dosen.kegiatan.update', $kegiatan->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            
+            <div class="form-group">
+                <label for="jadwal_pembelajaran_id" class="form-label">Jadwal Kelas Anda <span class="text-danger">*</span></label>
+                <select name="jadwal_pembelajaran_id" id="jadwal_pembelajaran_id" class="form-control form-select @error('jadwal_pembelajaran_id') is-invalid @enderror" required>
+                    @foreach($jadwals as $jd)
+                        <option value="{{ $jd->id }}" {{ old('jadwal_pembelajaran_id', $kegiatan->jadwal_pembelajaran_id) == $jd->id ? 'selected' : '' }}>
+                            {{ $jd->hari }}, {{ substr($jd->jam_mulai,0,5) }}-{{ substr($jd->jam_selesai,0,5) }} | Kelas {{ $jd->kelas->nama_kelas }} | {{ $jd->mataKuliah->nama_mk }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('jadwal_pembelajaran_id')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                    <label for="pertemuan_ke" class="form-label">Pertemuan Ke- <span class="text-danger">*</span></label>
+                    <input type="number" name="pertemuan_ke" id="pertemuan_ke" class="form-control @error('pertemuan_ke') is-invalid @enderror" value="{{ old('pertemuan_ke', $kegiatan->pertemuan_ke) }}" required min="1" max="16">
+                    @error('pertemuan_ke')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggal" class="form-label">Tanggal Kegiatan <span class="text-danger">*</span></label>
+                    <input type="date" name="tanggal" id="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ old('tanggal', $kegiatan->tanggal) }}" required>
+                    @error('tanggal')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="materi" class="form-label">Materi Pembelajaran <span class="text-danger">*</span></label>
+                <input type="text" name="materi" id="materi" class="form-control @error('materi') is-invalid @enderror" value="{{ old('materi', $kegiatan->materi) }}" required>
+                @error('materi')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                    <label for="metode_pembelajaran" class="form-label">Metode Pembelajaran <span class="text-danger">*</span></label>
+                    <input type="text" name="metode_pembelajaran" id="metode_pembelajaran" class="form-control @error('metode_pembelajaran') is-invalid @enderror" value="{{ old('metode_pembelajaran', $kegiatan->metode_pembelajaran) }}" required>
+                    @error('metode_pembelajaran')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="status" class="form-label">Status Pertemuan <span class="text-danger">*</span></label>
+                    <select name="status" id="status" class="form-control form-select @error('status') is-invalid @enderror" required>
+                        <option value="terjadwal" {{ old('status', $kegiatan->status) == 'terjadwal' ? 'selected' : '' }}>Terjadwal</option>
+                        <option value="berlangsung" {{ old('status', $kegiatan->status) == 'berlangsung' ? 'selected' : '' }}>Berlangsung</option>
+                        <option value="selesai" {{ old('status', $kegiatan->status) == 'selesai' ? 'selected' : '' }}>Selesai</option>
+                    </select>
+                    @error('status')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+
+            <!-- Absensi Mahasiswa -->
+            <div style="border-top: 1px dashed var(--border); padding-top: 20px; margin-top: 20px; margin-bottom: 20px;">
+                <h4 style="font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 12px;"><i class="fas fa-user-check"></i> Absensi Kehadiran Mahasiswa</h4>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="kehadiran_hadir" class="form-label" style="font-size: 12px;">Hadir</label>
+                        <input type="number" name="kehadiran_hadir" id="kehadiran_hadir" class="form-control @error('kehadiran_hadir') is-invalid @enderror" value="{{ old('kehadiran_hadir', $kegiatan->kehadiran_hadir ?? 0) }}" min="0">
+                        @error('kehadiran_hadir')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="kehadiran_sakit" class="form-label" style="font-size: 12px; color: var(--warning);">Sakit</label>
+                        <input type="number" name="kehadiran_sakit" id="kehadiran_sakit" class="form-control @error('kehadiran_sakit') is-invalid @enderror" value="{{ old('kehadiran_sakit', $kegiatan->kehadiran_sakit ?? 0) }}" min="0">
+                        @error('kehadiran_sakit')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="kehadiran_izin" class="form-label" style="font-size: 12px; color: var(--primary);">Izin</label>
+                        <input type="number" name="kehadiran_izin" id="kehadiran_izin" class="form-control @error('kehadiran_izin') is-invalid @enderror" value="{{ old('kehadiran_izin', $kegiatan->kehadiran_izin ?? 0) }}" min="0">
+                        @error('kehadiran_izin')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="kehadiran_alfa" class="form-label" style="font-size: 12px; color: var(--danger);">Alfa</label>
+                        <input type="number" name="kehadiran_alfa" id="kehadiran_alfa" class="form-control @error('kehadiran_alfa') is-invalid @enderror" value="{{ old('kehadiran_alfa', $kegiatan->kehadiran_alfa ?? 0) }}" min="0">
+                        @error('kehadiran_alfa')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="tugas" class="form-label">Tugas Kuliah yang Diberikan (Opsional)</label>
+                <textarea name="tugas" id="tugas" class="form-control @error('tugas') is-invalid @enderror" rows="3">{{ old('tugas', $kegiatan->tugas) }}</textarea>
+                @error('tugas')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="catatan" class="form-label">Catatan Perkuliahan (Opsional)</label>
+                <textarea name="catatan" id="catatan" class="form-control @error('catatan') is-invalid @enderror" rows="3">{{ old('catatan', $kegiatan->catatan) }}</textarea>
+                @error('catatan')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="d-flex justify-content-end gap-2" style="margin-top: 32px; border-top: 1px solid var(--border); padding-top: 20px;">
+                <a href="{{ route('dosen.kegiatan') }}" class="btn btn-secondary">Batal</a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Simpan Perubahan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

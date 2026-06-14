@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-ringkasan-proyek">
-    <img src="https://img.shields.io/badge/Projects-14_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-16_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -163,7 +163,7 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
     <tr>
       <td align="center">8</td>
       <td>
-        <a href="./PustakaLink/">
+        <a href="./pustaka-link/">
           <b>📚 PustakaLink - Sistem Perpustakaan</b>
         </a>
       </td>
@@ -237,7 +237,7 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
     <tr>
       <td align="center">12</td>
       <td>
-        <a href="./RoomMonitor/">
+        <a href="./room-monitor/">
           <b>📱 RoomMonitor - Pemantau Penggunaan Ruangan</b>
         </a>
       </td>
@@ -285,6 +285,44 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
         <img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white" alt="Flutter" />
         <img src="https://img.shields.io/badge/Dart-0175C2?style=flat-square&logo=dart&logoColor=white" alt="Dart" />
         <img src="https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
+        <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Web_%26_Mobile-orange?style=flat-square" alt="Web & Mobile Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">15</td>
+      <td>
+        <a href="./edumanage/">
+          <b>🏫 EduManage - Akademik & Jurnal</b>
+        </a>
+      </td>
+      <td>
+        Website sistem manajemen kegiatan perkuliahan, jadwal kelas, absensi, dan jurnal kegiatan belajar mengajar akademik kampus.
+        <br />
+        <img src="https://img.shields.io/badge/Laravel_13-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
+        <img src="https://img.shields.io/badge/PHP_8.3-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
+        <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+        <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Web_App-red?style=flat-square" alt="Web App Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">16</td>
+      <td>
+        <a href="./gloria-job/">
+          <b>💼 Gloria Job - Portal Lowongan Kerja</b>
+        </a>
+      </td>
+      <td>
+        Platform pencarian lowongan kerja terintegrasi dengan backend API Laravel, admin panel Filament/web, dan aplikasi mobile Flutter.
+        <br />
+        <img src="https://img.shields.io/badge/Laravel_13-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
+        <img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white" alt="Flutter" />
+        <img src="https://img.shields.io/badge/PHP_8.3-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
         <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
       </td>
       <td align="center">
