@@ -1,0 +1,14 @@
+# Konfigurasi Prometheus
+global:
+  scrape_interval: 5s # Mengambil metrik setiap 5 detik agar respons lebih real-time di Grafana
+
+scrape_configs:
+  # Konfigurasi scrape untuk Node Exporter (Monitoring Host)
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+
+  # Konfigurasi scrape untuk cAdvisor (Monitoring Container)
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']

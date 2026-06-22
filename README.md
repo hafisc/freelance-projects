@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-ringkasan-proyek">
-    <img src="https://img.shields.io/badge/Projects-16_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-18_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -327,6 +327,47 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
       </td>
       <td align="center">
         <img src="https://img.shields.io/badge/Web_%26_Mobile-orange?style=flat-square" alt="Web & Mobile Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">17</td>
+      <td>
+        <a href="./realtime-ride-hailing-chat/">
+          <b>🚕 Go-AFL3 Ride-Hailing & Chat</b>
+        </a>
+      </td>
+      <td>
+        Aplikasi simulasi ride-hailing dan chat real-time menggunakan arsitektur Microservices dengan Docker.
+        <br />
+        <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker" />
+        <img src="https://img.shields.io/badge/Traefik-24A1C1?style=flat-square&logo=traefik&logoColor=white" alt="Traefik" />
+        <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js" />
+        <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB" />
+        <img src="https://img.shields.io/badge/Prometheus-E6522C?style=flat-square&logo=prometheus&logoColor=white" alt="Prometheus" />
+        <img src="https://img.shields.io/badge/Grafana-F46800?style=flat-square&logo=grafana&logoColor=white" alt="Grafana" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Microservices-2496ED?style=flat-square" alt="Microservices Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">18</td>
+      <td>
+        <a href="./e-merchandise-catalog/">
+          <b>🛍️ Cresta Mandala Merch</b>
+        </a>
+      </td>
+      <td>
+        Sistem E-Commerce katalog merchandise Cresta Mandala Bhakti dengan integrasi pembayaran Midtrans.
+        <br />
+        <img src="https://img.shields.io/badge/Laravel_10-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
+        <img src="https://img.shields.io/badge/PHP_8.1+-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
+        <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
+        <img src="https://img.shields.io/badge/Midtrans-003B57?style=flat-square" alt="Midtrans" />
+        <img src="https://img.shields.io/badge/Vanilla_CSS-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Web_App-red?style=flat-square" alt="Web App Badge" />
       </td>
     </tr>
   </tbody>

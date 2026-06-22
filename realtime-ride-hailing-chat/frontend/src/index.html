@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Go-AFL3 | Platform Ride-Hailing & Chat Real-Time</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Socket.io Client Library -->
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  
+  <style>
+    /* --------------------------------------------------
+       DESIGN SYSTEM & GLOBAL STYLES
+       -------------------------------------------------- */
+    :root {
+      --bg-dark: #080c14;
+      --bg-panel: rgba(13, 20, 35, 0.45);
+      --bg-card: rgba(17, 24, 39, 0.55);
+      --border-color: rgba(255, 255, 255, 0.06);
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --secondary: #10b981;
+      --secondary-hover: #059669;
+      --accent: #f59e0b;
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+      --text-main: #f3f4f6;
+      --text-muted: #94a3b8;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Glow Elements in Background */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(0,0,0,0) 70%);
+      top: -200px;
+      left: -200px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(0,0,0,0) 70%);
+      bottom: -200px;
+      right: -200px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Scrollbar Style */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(17, 24, 39, 0.3);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Header Styling */
+    header {
+      background: rgba(11, 16, 27, 0.75);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 99;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      font-weight: 800;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+    }
+
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #60a5fa, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .user-info-header {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .badge-role {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      letter-spacing: 0.75px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .badge-customer {
+      background-color: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+    }
+
+    .badge-driver {
+      background-color: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+      padding: 0.45rem 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .btn-logout:hover {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: #ef4444;
+      color: #ef4444;
+      transform: translateY(-1px);
+    }
+
+    /* --------------------------------------------------
+       AUTH WRAPPER (Full-screen Centered Login/Register)
+       -------------------------------------------------- */
+    .auth-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #0d1527 0%, #060910 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+
+    .auth-wrapper::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(0,0,0,0) 70%);
+      top: 15%;
+      left: 20%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .auth-wrapper::after {
+      content: '';
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, rgba(0,0,0,0) 70%);
+      bottom: 15%;
+      right: 20%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .auth-wrapper.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: scale(1.02);
+    }
+
+    .auth-card-container {
+      width: 100%;
+      max-width: 450px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .auth-logo-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .auth-logo-header .logo-badge {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .auth-logo-header .logo-text {
+      font-size: 1.6rem;
+    }
+
+    .auth-subtitle {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-bottom: 2.25rem;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .auth-card-container .card {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    /* --------------------------------------------------
+       LAYOUT CONTAINERS
+       -------------------------------------------------- */
+    main {
+      flex: 1;
+      display: flex;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+      gap: 2.5rem;
+    }
+
+    .left-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      min-width: 380px;
+    }
+
+    .right-panel {
+      flex: 1.3;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* Glassmorphic Card Style */
+    .card {
+      background: var(--bg-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 1.75rem;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 1rem;
+      color: white;
+    }
+
+    /* --------------------------------------------------
+       FORMS & INPUTS
+       -------------------------------------------------- */
+    .form-group {
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input, select {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      color: white;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary);
+      background: rgba(15, 23, 42, 0.8);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    input::placeholder {
+      color: #475569;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0.85rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+      background: linear-gradient(135deg, #4f46e5 0%, var(--primary) 100%);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: none;
+      color: #e2e8f0;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(51, 65, 85, 0.8);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: none;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, var(--secondary) 0%, #047857 100%);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(135deg, #34d399 0%, var(--secondary) 100%);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .form-switch {
+      text-align: center;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .form-switch a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .form-switch a:hover {
+      color: #60a5fa;
+      text-decoration: underline;
+    }
+
+    /* --------------------------------------------------
+       MAP SIMULATOR CANVAS
+       -------------------------------------------------- */
+    .map-container {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background-color: #0b0e17;
+      aspect-ratio: 4/3;
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* --------------------------------------------------
+       LIVE CHAT SYSTEM
+       -------------------------------------------------- */
+    .chat-box {
+      display: flex;
+      flex-direction: column;
+      height: 380px;
+      background: rgba(11, 16, 27, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 1.25rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .chat-bubble {
+      max-width: 80%;
+      padding: 0.75rem 1.1rem;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      animation: messageSlide 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    @keyframes messageSlide {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .chat-bubble.sent {
+      background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 3px;
+    }
+
+    .chat-bubble.received {
+      background: rgba(30, 41, 59, 0.85);
+      color: #f1f5f9;
+      align-self: flex-start;
+      border-bottom-left-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .sender-name {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 0.25rem;
+      text-transform: capitalize;
+    }
+
+    .chat-time {
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.35);
+      text-align: right;
+      margin-top: 0.3rem;
+    }
+
+    .chat-input-area {
+      display: flex;
+      padding: 0.85rem;
+      background: rgba(15, 23, 42, 0.85);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      padding: 0.65rem 1.1rem;
+      font-size: 0.9rem;
+      border-radius: 12px;
+    }
+
+    .chat-input-area button {
+      padding: 0.65rem 1.25rem;
+      font-size: 0.9rem;
+      border-radius: 12px;
+    }
+
+    /* --------------------------------------------------
+       DASHBOARDS & RIDE FLOWS
+       -------------------------------------------------- */
+    .trip-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+    }
+
+    .trip-item {
+      background: rgba(30, 41, 59, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .trip-item:hover {
+      background: rgba(30, 41, 59, 0.7);
+      border-color: rgba(59, 130, 246, 0.2);
+      transform: translateX(4px);
+    }
+
+    .trip-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .trip-locations {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .trip-price {
+      font-size: 0.85rem;
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    .trip-passenger {
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+
+    /* Loading Pulse for Searching */
+    .searching-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 0;
+      gap: 1.25rem;
+      background: rgba(30, 41, 59, 0.2);
+      border-radius: 12px;
+      border: 1px dashed rgba(255, 255, 255, 0.06);
+    }
+
+    .pulse-ring {
+      width: 64px;
+      height: 64px;
+      border: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: pulse 1.6s infinite ease-in-out;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.75); opacity: 0.4; }
+      50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); }
+      100% { transform: scale(0.75); opacity: 0.4; }
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(16, 185, 129, 0.95);
+      color: white;
+      padding: 1.1rem 1.75rem;
+      border-radius: 12px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      z-index: 1001;
+      transform: translateY(180%);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+    }
+
+    .toast.error {
+      background: rgba(239, 68, 68, 0.95);
+    }
+
+    /* Utilities */
+    .hidden {
+      display: none !important;
+    }
+
+    .status-text {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #60a5fa;
+      text-transform: capitalize;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      background: rgba(96, 165, 250, 0.1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      main {
+        flex-direction: column;
+        padding: 1.5rem 1rem;
+        gap: 1.5rem;
+      }
+      .left-panel, .right-panel {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ==================================================
+       AUTH WRAPPER (Centered full-screen overlay for Login & Register)
+       ================================================== -->
+  <div id="authWrapper" class="auth-wrapper">
+    <div class="auth-card-container">
+      <div class="auth-logo-header">
+        <div class="logo-badge">AFL3</div>
+        <div class="logo-text">Go-Microservices</div>
+      </div>
+      <div class="auth-subtitle">Platform Ride-Hailing & Chat Real-Time</div>
+      
+      <!-- CARD: LOGIN -->
+      <div class="card" id="cardLogin">
+        <div class="card-title">Masuk ke Akun</div>
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" placeholder="nama@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Kata Sandi</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn" style="width: 100%;">Masuk</button>
+          <div class="form-switch">
+            Belum punya akun? <a href="#" onclick="switchAuthForm('register')">Daftar Sekarang</a>
+          </div>
+        </form>
+      </div>
+
+      <!-- CARD: REGISTER -->
+      <div class="card hidden" id="cardRegister">
+        <div class="card-title">Daftar Akun Baru</div>
+        <form onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label for="regName">Nama Lengkap</label>
+            <input type="text" id="regName" placeholder="Contoh: Budi Santoso" required>
+          </div>
+          <div class="form-group">
+            <label for="regEmail">Email</label>
+            <input type="email" id="regEmail" placeholder="nama@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="regPassword">Kata Sandi</label>
+            <input type="password" id="regPassword" placeholder="Minimal 6 karakter" required>
+          </div>
+          <div class="form-group">
+            <label for="regRole">Mendaftar Sebagai</label>
+            <select id="regRole" required>
+              <option value="customer">Penumpang (Customer)</option>
+              <option value="driver">Pengemudi (Driver)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success" style="width: 100%;">Daftar</button>
+          <div class="form-switch">
+            Sudah punya akun? <a href="#" onclick="switchAuthForm('login')">Masuk</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================================================
+       HEADER
+       ================================================== -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-badge">AFL3</div>
+      <div class="logo-text">Go-Microservices</div>
+    </div>
+    
+    <div class="user-info-header hidden" id="userInfoHeader">
+      <span id="headerUserName" style="font-weight: 500;">Nama Pengguna</span>
+      <span class="badge-role" id="headerUserRole">Role</span>
+      <button class="btn-logout" onclick="logout()">Keluar</button>
+    </div>
+  </header>
+
+  <!-- ==================================================
+       MAIN CONTENT
+       ================================================== -->
+  <main>
+    <!-- LEFT PANEL: Auth, Booking Form, Active Order, Chat -->
+    <div class="left-panel">
+      
+      
+
+      <!-- CARD: CUSTOMER - BOOKING RIDE -->
+      <div class="card hidden" id="cardCustomerBooking">
+        <div class="card-title">Pesan Perjalanan Baru</div>
+        <form onsubmit="handleCreateTrip(event)">
+          <div class="form-group">
+            <label for="tripPickup">Titik Penjemputan</label>
+            <select id="tripPickup" onchange="calculatePrice()" required>
+              <!-- Dinamis via JS -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tripDestination">Titik Tujuan</label>
+            <select id="tripDestination" onchange="calculatePrice()" required>
+              <!-- Dinamis via JS -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Estimasi Tarif</label>
+            <div id="tripPriceDisplay" style="font-size: 1.3rem; font-weight: 700; color: #10b981; margin: 0.2rem 0;">Rp 0</div>
+          </div>
+          <button type="submit" class="btn" style="width: 100%;" id="btnOrderTrip">Pesan Sekarang</button>
+        </form>
+      </div>
+
+      <!-- CARD: CUSTOMER - ACTIVE TRIP STATUS -->
+      <div class="card hidden" id="cardCustomerActiveTrip">
+        <div class="card-title">Detail Perjalanan Aktif</div>
+        <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: #9ca3af; font-size: 0.85rem;">Status:</span>
+            <span class="status-text" id="custTripStatus">Mencari Pengemudi...</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: #9ca3af; font-size: 0.85rem;">Pengemudi:</span>
+            <span id="custTripDriver" style="font-weight: 600;">-</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: #9ca3af; font-size: 0.85rem;">Rute:</span>
+            <span id="custTripRoute" style="font-size: 0.85rem; text-align: right; max-width: 70%;">Jemput -> Tujuan</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: #9ca3af; font-size: 0.85rem;">Tarif:</span>
+            <span id="custTripPrice" style="font-weight: 600; color: #10b981;">Rp 0</span>
+          </div>
+        </div>
+
+        <div class="searching-container" id="custSearchingProgress">
+          <div class="pulse-ring"></div>
+          <span style="color: #9ca3af; font-size: 0.85rem;">Menghubungkan ke pengemudi terdekat...</span>
+        </div>
+      </div>
+
+      <!-- CARD: DRIVER - JOB BOARD -->
+      <div class="card hidden" id="cardDriverBoard">
+        <div class="card-title">Orderan Masuk Sekitar Anda</div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+          <button class="btn btn-secondary" onclick="fetchAvailableTrips()" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Segarkan Data</button>
+        </div>
+        <div class="trip-list" id="driverTripList">
+          <div style="color: #9ca3af; text-align: center; padding: 1.5rem; font-size: 0.85rem;">Tidak ada orderan aktif saat ini.</div>
+        </div>
+      </div>
+
+      <!-- CARD: DRIVER - ACTIVE JOB CONTROL -->
+      <div class="card hidden" id="cardDriverActiveJob">
+        <div class="card-title">Pekerjaan Aktif</div>
+        <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: #9ca3af; font-size: 0.85rem;">Status:</span>
+            <span class="status-text" id="driverJobStatus" style="color: #10b981;">Diambil</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: #9ca3af; font-size: 0.85rem;">Penumpang:</span>
+            <span id="driverJobPassenger" style="font-weight: 600;">-</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: #9ca3af; font-size: 0.85rem;">Rute:</span>
+            <span id="driverJobRoute" style="font-size: 0.85rem; text-align: right; max-width: 70%;">Jemput -> Tujuan</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: #9ca3af; font-size: 0.85rem;">Tarif Bersih:</span>
+            <span id="driverJobPrice" style="font-weight: 600; color: #10b981;">Rp 0</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;" id="driverControlButtons">
+          <button class="btn btn-success" id="btnStartTrip" onclick="updateJobStatus('ongoing')">Mulai Perjalanan</button>
+          <button class="btn btn-success hidden" id="btnCompleteTrip" onclick="updateJobStatus('completed')">Selesaikan Perjalanan</button>
+        </div>
+      </div>
+
+      <!-- CARD: LIVE CHAT (TAMPIL HANYA BILA TRIP AKTIF) -->
+      <div class="card hidden" id="cardChatBox">
+        <div class="card-title">Live Chat dengan Pengemudi/Penumpang</div>
+        <div class="chat-box">
+          <div class="chat-messages" id="chatMessages">
+            <!-- Pesan chat mengalir di sini -->
+          </div>
+          <form class="chat-input-area" onsubmit="sendChatMessage(event)">
+            <input type="text" id="chatInputMessage" placeholder="Ketik pesan..." required autocomplete="off">
+            <button type="submit" class="btn">Kirim</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANEL: Map Simulator & Instructions -->
+    <div class="right-panel">
+      <!-- CARD: SIMULATOR PETA JAKARTA -->
+      <div class="card">
+        <div class="card-title">Simulator Peta Real-Time Jakarta</div>
+        <div class="map-container">
+          <canvas id="mapCanvas"></canvas>
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #9ca3af; line-height: 1.5;">
+          <strong>Legenda:</strong> 
+          <span style="color: #3b82f6; font-weight: bold; margin-left: 0.5rem;">● Titik Jemput</span> | 
+          <span style="color: #ef4444; font-weight: bold; margin-left: 0.5rem;">■ Titik Tujuan</span> | 
+          <span style="color: #10b981; font-weight: bold; margin-left: 0.5rem;">▲ Driver (Mobil)</span>
+          <br>
+          <span style="color: #f59e0b;">* Simulator ini terhubung via WebSocket. Pergerakan Driver di layar Driver akan otomatis ter-sinkronisasi ke layar Penumpang secara real-time.</span>
+        </div>
+      </div>
+
+      <!-- CARD: INTEGRATION INFO & METRICS -->
+      <div class="card">
+        <div class="card-title">Informasi Sistem Microservice</div>
+        <div style="font-size: 0.85rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.8rem;">
+          <p>Sistem ini berjalan dengan arsitektur microservices terdistribusi:</p>
+          <ul style="margin-left: 1.5rem; display: flex; flex-direction: column; gap: 0.4rem;">
+            <li><strong>Traefik Gateway</strong> menerima request di port <code>80</code> lalu menyebarkannya sesuai path.</li>
+            <li><strong>REST API</strong> digunakan untuk transaksi data (Auth & Trip Booking).</li>
+            <li><strong>WebSockets (Socket.io)</strong> digunakan untuk pertukaran pesan chat secara instan serta pembaruan GPS Driver.</li>
+            <li><strong>Monitoring Stack</strong>: Anda dapat mengakses visualisasi Grafika Dashboard untuk Host & Container di rute <a href="/grafana" target="_blank" style="color: #3b82f6; font-weight: bold; text-decoration: underline;">/grafana</a>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast">Notifikasi berhasil</div>
+
+  <!-- ==================================================
+       JAVASCRIPT SYSTEM LOGIC
+       ================================================== -->
+  <script>
+    // --------------------------------------------------
+    // KONFIGURASI LOKASI JAKARTA
+    // --------------------------------------------------
+    const locations = [
+      { id: 'monas', name: 'Monumen Nasional (Monas)', lat: -6.1754, lng: 106.8272, x: 250, y: 80 },
+      { id: 'gi', name: 'Grand Indonesia Mall', lat: -6.1950, lng: 106.8230, x: 210, y: 190 },
+      { id: 'sudirman', name: 'Stasiun Sudirman', lat: -6.2023, lng: 106.8228, x: 210, y: 260 },
+      { id: 'gbk', name: 'Stadion GBK Senayan', lat: -6.2185, lng: 106.8018, x: 80, y: 360 },
+      { id: 'hi', name: 'Bundaran HI', lat: -6.1950, lng: 106.8240, x: 250, y: 190 },
+      { id: 'gambir', name: 'Stasiun Gambir', lat: -6.1767, lng: 106.8306, x: 320, y: 90 },
+      { id: 'senayan', name: 'Senayan City Mall', lat: -6.2235, lng: 106.7989, x: 60, y: 400 }
+    ];
+
+    // --------------------------------------------------
+    // GLOBAL STATE
+    // --------------------------------------------------
+    let token = localStorage.getItem('jwt_token') || null;
+    let user = JSON.parse(localStorage.getItem('user_data')) || null;
+    let socket = null;
+    let activeTrip = null;
+    let availableTrips = [];
+    
+    // State koordinat driver untuk simulator
+    let driverPos = { x: 320, y: 90 }; // Posisi awal driver (Stasiun Gambir)
+    let pickupPos = null;
+    let mapPulse = 0; // Animasi denyut peta
+    let destinationPos = null;
+    let isDriving = false;
+    let driverAngle = -Math.PI / 2; // Arah hadap driver
+    let driveTarget = null; // 'pickup' atau 'destination'
+    let driveSpeed = 1.5;
+
+    // --------------------------------------------------
+    // CANVAS SIMULATOR MAP INITIALIZATION
+    // --------------------------------------------------
+    const canvas = document.getElementById('mapCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Menyetel resolusi internal canvas agar tajam
+    function resizeCanvas() {
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.width * 0.75; // Aspect ratio 4:3
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Loop render canvas untuk simulator peta
+    function drawMap() {
+      mapPulse = (mapPulse + 0.04) % (Math.PI * 2);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // 1. Skala gambar berdasarkan ukuran canvas saat ini
+      const scaleX = canvas.width / 500;
+      const scaleY = canvas.height / 500;
+
+      // 2. Gambar Grid Kota (Subtle Background)
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < canvas.width; i += 40) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvas.height);
+        ctx.stroke();
+      }
+      for (let j = 0; j < canvas.height; j += 40) {
+        ctx.beginPath();
+        ctx.moveTo(0, j);
+        ctx.lineTo(canvas.width, j);
+        ctx.stroke();
+      }
+
+      // 3. Gambar Jalan Raya Utama (Menghubungkan titik-titik)
+      // Base jalan luar (Dark slate border)
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 16 * scaleX;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      // Rute Jalan Monas -> Gambir -> Bundaran HI -> Sudirman -> GBK -> Senayan
+      ctx.beginPath();
+      ctx.moveTo(250 * scaleX, 80 * scaleY); // Monas
+      ctx.lineTo(320 * scaleX, 90 * scaleY); // Gambir
+      ctx.lineTo(250 * scaleX, 190 * scaleY); // Bundaran HI
+      ctx.lineTo(210 * scaleX, 190 * scaleY); // GI
+      ctx.lineTo(210 * scaleX, 260 * scaleY); // Sudirman
+      ctx.lineTo(80 * scaleX, 360 * scaleY); // GBK
+      ctx.lineTo(60 * scaleX, 400 * scaleY); // Senayan
+      ctx.stroke();
+
+      // Jalan dalam (Sleek deep blue)
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 10 * scaleX;
+      ctx.stroke();
+
+      // Tambahkan garis tengah putus-putus pada jalan (Neon cyan dash)
+      ctx.strokeStyle = 'rgba(59, 130, 246, 0.6)';
+      ctx.lineWidth = 1.5 * scaleX;
+      ctx.setLineDash([6 * scaleX, 10 * scaleX]);
+      ctx.stroke();
+      ctx.setLineDash([]); // Reset line dash
+
+      // 4. Gambar Landmark Kota (Tempat/Gedung)
+      locations.forEach(loc => {
+        const x = loc.x * scaleX;
+        const y = loc.y * scaleY;
+
+        const isPickupNode = pickupPos && Math.abs(pickupPos.x - loc.x) < 2 && Math.abs(pickupPos.y - loc.y) < 2;
+        const isDestNode = destinationPos && Math.abs(destinationPos.x - loc.x) < 2 && Math.abs(destinationPos.y - loc.y) < 2;
+
+        // Draw pulsing rings for selected nodes
+        if (isPickupNode) {
+          ctx.strokeStyle = 'rgba(59, 130, 246, ' + (0.8 - Math.sin(mapPulse) * 0.3) + ')';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(x, y, (8 + Math.sin(mapPulse) * 5) * scaleX, 0, Math.PI * 2);
+          ctx.stroke();
+        } else if (isDestNode) {
+          ctx.strokeStyle = 'rgba(239, 68, 68, ' + (0.8 - Math.sin(mapPulse) * 0.3) + ')';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(x, y, (8 + Math.sin(mapPulse) * 5) * scaleX, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        // Draw node
+        ctx.fillStyle = isPickupNode ? '#2563eb' : (isDestNode ? '#dc2626' : '#1e293b');
+        ctx.strokeStyle = isPickupNode ? '#60a5fa' : (isDestNode ? '#f87171' : 'rgba(255, 255, 255, 0.25)');
+        ctx.lineWidth = 2 * scaleX;
+        ctx.beginPath();
+        ctx.arc(x, y, 7 * scaleX, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Nama Landmark
+        ctx.fillStyle = isPickupNode ? '#60a5fa' : (isDestNode ? '#f87171' : '#94a3b8');
+        ctx.font = isPickupNode || isDestNode ? `bold ${10 * scaleX}px Inter` : `${9 * scaleX}px Inter`;
+        ctx.textAlign = 'center';
+        ctx.fillText(loc.name.split(' (')[0], x, y - 14 * scaleY);
+      });
+
+      // 5. Gambar Titik Penjemputan (Jika ada Trip Aktif)
+      if (pickupPos) {
+        const x = pickupPos.x * scaleX;
+        const y = pickupPos.y * scaleY;
+        ctx.fillStyle = '#3b82f6';
+        ctx.shadowColor = '#3b82f6';
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.arc(x, y, 10 * scaleX, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0; // Reset shadow
+
+        // Label Jemput
+        ctx.fillStyle = '#ffffff';
+        ctx.font = `bold ${8 * scaleX}px Inter`;
+        ctx.fillText('JEMPUT', x, y + 4 * scaleY);
+      }
+
+      // 6. Gambar Titik Tujuan (Jika ada Trip Aktif)
+      if (destinationPos) {
+        const x = destinationPos.x * scaleX;
+        const y = destinationPos.y * scaleY;
+        ctx.fillStyle = '#ef4444';
+        ctx.shadowColor = '#ef4444';
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.rect(x - 8 * scaleX, y - 8 * scaleY, 16 * scaleX, 16 * scaleX);
+        ctx.fill();
+        ctx.shadowBlur = 0; // Reset shadow
+
+        // Label Tujuan
+        ctx.fillStyle = '#ffffff';
+        ctx.font = `bold ${8 * scaleX}px Inter`;
+        ctx.fillText('TUJUAN', x, y + 4 * scaleY);
+      }
+
+      // 7. Gambar Posisi Driver (Jika trip diterima/ongoing)
+      if (activeTrip && (activeTrip.status === 'accepted' || activeTrip.status === 'ongoing')) {
+        const x = driverPos.x * scaleX;
+        const y = driverPos.y * scaleY;
+
+        // Pulse halo under driver
+        ctx.fillStyle = 'rgba(16, 185, 129, ' + (0.2 + Math.sin(mapPulse * 2) * 0.1) + ')';
+        ctx.beginPath();
+        ctx.arc(x, y, 16 * scaleX, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw rotated vehicle chevron
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(driverAngle + Math.PI / 2); // rotate chevron
+
+        ctx.fillStyle = '#10b981';
+        ctx.shadowColor = '#10b981';
+        ctx.shadowBlur = 15;
+        ctx.beginPath();
+        // Modern chevron path pointing up
+        ctx.moveTo(0, -9 * scaleY);
+        ctx.lineTo(7 * scaleX, 7 * scaleY);
+        ctx.lineTo(0, 3 * scaleY);
+        ctx.lineTo(-7 * scaleX, 7 * scaleY);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+        ctx.shadowBlur = 0; // Reset shadow
+
+        // Label Driver
+        ctx.fillStyle = '#34d399';
+        ctx.font = `bold ${8 * scaleX}px Inter`;
+        ctx.fillText(activeTrip.driverName || 'DRIVER', x, y - 16 * scaleY);
+      }
+
+      requestAnimationFrame(drawMap);
+    }
+    drawMap();
+
+    // Jalankan Simulasi Pergerakan Driver di Sisi Driver, lalu pancarkan koordinatnya
+    function simulateDriverMovement() {
+      if (!isDriving || !activeTrip) return;
+
+      let targetPos = null;
+      if (driveTarget === 'pickup' && pickupPos) {
+        targetPos = pickupPos;
+      } else if (driveTarget === 'destination' && destinationPos) {
+        targetPos = destinationPos;
+      }
+
+      if (!targetPos) return;
+
+      const dx = targetPos.x - driverPos.x;
+      const dy = targetPos.y - driverPos.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance > driveSpeed) {
+        // Driver berjalan menuju target koordinat
+        driverPos.x += (dx / distance) * driveSpeed;
+        driverPos.y += (dy / distance) * driveSpeed;
+        driverAngle = Math.atan2(dy, dx); // Set rotation angle
+
+        // Kirim update koordinat ke penumpang via WebSocket
+        if (socket && user.role === 'driver') {
+          socket.emit('update_trip_status', {
+            tripId: activeTrip._id,
+            status: activeTrip.status,
+            trip: {
+              ...activeTrip,
+              driverPos: driverPos
+            }
+          });
+        }
+      } else {
+        // Driver sampai di target koordinat
+        driverPos.x = targetPos.x;
+        driverPos.y = targetPos.y;
+        isDriving = false;
+        
+        if (driveTarget === 'pickup') {
+          showToast('Anda telah sampai di lokasi penjemputan penumpang!');
+          // Tombol driver bisa diupdate atau user menunggu aksi
+        } else if (driveTarget === 'destination') {
+          showToast('Anda telah sampai di tujuan! Silakan selesaikan perjalanan.');
+        }
+      }
+    }
+    setInterval(simulateDriverMovement, 100);
+
+    // --------------------------------------------------
+    // CORE UI NAVIGATION & AUTHENTICATION
+    // --------------------------------------------------
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.innerText = message;
+      toast.className = 'toast show' + (isError ? ' error' : '');
+      setTimeout(() => {
+        toast.className = 'toast';
+      }, 3500);
+    }
+
+    function switchAuthForm(formName) {
+      if (formName === 'login') {
+        document.getElementById('cardLogin').classList.remove('hidden');
+        document.getElementById('cardRegister').classList.add('hidden');
+      } else {
+        document.getElementById('cardLogin').classList.add('hidden');
+        document.getElementById('cardRegister').classList.remove('hidden');
+      }
+    }
+
+    // Inisialisasi daftar lokasi drop-down
+    function initLocationSelectors() {
+      const pickupSelect = document.getElementById('tripPickup');
+      const destSelect = document.getElementById('tripDestination');
+      
+      pickupSelect.innerHTML = '<option value="">-- Pilih Titik Jemput --</option>';
+      destSelect.innerHTML = '<option value="">-- Pilih Titik Tujuan --</option>';
+
+      locations.forEach(loc => {
+        pickupSelect.innerHTML += `<option value="${loc.id}">${loc.name}</option>`;
+        destSelect.innerHTML += `<option value="${loc.id}">${loc.name}</option>`;
+      });
+    }
+    initLocationSelectors();
+
+    // Kalkulasi tarif statis Rp 5.000 per lompatan node
+    function calculatePrice() {
+      const pickupVal = document.getElementById('tripPickup').value;
+      const destVal = document.getElementById('tripDestination').value;
+      
+      if (!pickupVal || !destVal) {
+        document.getElementById('tripPriceDisplay').innerText = 'Rp 0';
+        return 0;
+      }
+
+      if (pickupVal === destVal) {
+        document.getElementById('tripPriceDisplay').innerText = 'Lokasi sama!';
+        return 0;
+      }
+
+      // Hitung jarak fiktif berdasarkan koordinat x,y
+      const pNode = locations.find(l => l.id === pickupVal);
+      const dNode = locations.find(l => l.id === destVal);
+      const dx = dNode.x - pNode.x;
+      const dy = dNode.y - pNode.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const price = Math.round(dist * 75); // Rp 75 per piksel koordinat
+
+      document.getElementById('tripPriceDisplay').innerText = `Rp ${price.toLocaleString('id-ID')}`;
+      return price;
+    }
+
+    // Handle Login Pengguna
+    async function handleLogin(event) {
+      event.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Login gagal');
+        }
+
+        token = data.token;
+        user = data.user;
+        localStorage.setItem('jwt_token', token);
+        localStorage.setItem('user_data', JSON.stringify(user));
+
+        showToast('Login berhasil! Selamat datang.');
+        setupAuthenticatedUI();
+      } catch (err) {
+        showToast(err.message, true);
+      }
+    }
+
+    // Handle Registrasi Pengguna
+    async function handleRegister(event) {
+      event.preventDefault();
+      const name = document.getElementById('regName').value;
+      const email = document.getElementById('regEmail').value;
+      const password = document.getElementById('regPassword').value;
+      const role = document.getElementById('regRole').value;
+
+      try {
+        const response = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password, role })
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Pendaftaran gagal');
+        }
+
+        showToast('Registrasi berhasil! Silakan masuk.');
+        switchAuthForm('login');
+      } catch (err) {
+        showToast(err.message, true);
+      }
+    }
+
+    // Setup Layout Setelah User Terautentikasi
+    function setupAuthenticatedUI() {
+      // 1. Sembunyikan Wrapper Auth
+      document.getElementById('authWrapper').classList.add('hidden');
+      document.getElementById('cardLogin').classList.add('hidden');
+      document.getElementById('cardRegister').classList.add('hidden');
+
+      // 2. Tampilkan Info Header
+      document.getElementById('userInfoHeader').classList.remove('hidden');
+      document.getElementById('headerUserName').innerText = user.name;
+      document.getElementById('headerUserRole').innerText = user.role === 'customer' ? 'Penumpang' : 'Pengemudi';
+      document.getElementById('headerUserRole').className = 'badge-role ' + (user.role === 'customer' ? 'badge-customer' : 'badge-driver');
+
+      // 3. Tampilkan Panel Khusus berdasarkan Role
+      if (user.role === 'customer') {
+        document.getElementById('cardCustomerBooking').classList.remove('hidden');
+        document.getElementById('cardCustomerActiveTrip').classList.add('hidden');
+        document.getElementById('cardDriverBoard').classList.add('hidden');
+        document.getElementById('cardDriverActiveJob').classList.add('hidden');
+      } else {
+        document.getElementById('cardCustomerBooking').classList.add('hidden');
+        document.getElementById('cardCustomerActiveTrip').classList.add('hidden');
+        document.getElementById('cardDriverBoard').classList.remove('hidden');
+        document.getElementById('cardDriverActiveJob').classList.add('hidden');
+        fetchAvailableTrips();
+      }
+
+      // 4. Inisialisasi Koneksi Real-time WebSocket
+      initWebSocketConnection();
+      
+      // Ambil trip aktif user jika ada
+      checkActiveTrip();
+    }
+
+    // Logout Pengguna
+    function logout() {
+      // Putuskan socket
+      if (socket) {
+        socket.disconnect();
+        socket = null;
+      }
+      
+      localStorage.removeItem('jwt_token');
+      localStorage.removeItem('user_data');
+      token = null;
+      user = null;
+      activeTrip = null;
+
+      // Reset peta
+      pickupPos = null;
+      destinationPos = null;
+      isDriving = false;
+
+      // Sembunyikan elemen
+      document.getElementById('userInfoHeader').classList.add('hidden');
+      document.getElementById('cardCustomerBooking').classList.add('hidden');
+      document.getElementById('cardCustomerActiveTrip').classList.add('hidden');
+      document.getElementById('cardDriverBoard').classList.add('hidden');
+      document.getElementById('cardDriverActiveJob').classList.add('hidden');
+      document.getElementById('cardChatBox').classList.add('hidden');
+
+      // Tampilkan login
+      document.getElementById('authWrapper').classList.remove('hidden');
+      switchAuthForm('login');
+      showToast('Anda telah keluar.');
+    }
+
+    // --------------------------------------------------
+    // WEBSOCKETS (SOCKET.IO) CONNECTION & LOGIC
+    // --------------------------------------------------
+    function initWebSocketConnection() {
+      // Hubungkan ke endpoint root server chat (Traefik gateway akan meneruskannya ke /socket.io)
+      socket = io('/', {
+        path: '/socket.io',
+        auth: { token: token }
+      });
+
+      socket.on('connect', () => {
+        console.log('Tersambung ke server WebSockets Chat & Tracking');
+      });
+
+      socket.on('connect_error', (err) => {
+        console.error('Koneksi WebSocket error:', err.message);
+      });
+
+      // Menerima Pesan Chat
+      socket.on('receive_message', (data) => {
+        appendChatMessage(data);
+      });
+
+      // Menerima Sinkronisasi Pergerakan & Status Trip
+      socket.on('trip_status_changed', (data) => {
+        console.log('Trip status updated via WebSocket:', data);
+        
+        // Update data trip lokal
+        if (activeTrip && activeTrip._id === data.tripId) {
+          activeTrip.status = data.status;
+          
+          if (data.trip) {
+            activeTrip.driverName = data.trip.driverName;
+            activeTrip.driverId = data.trip.driverId;
+            
+            // Sinkronkan posisi koordinat driver dari server (khusus penumpang)
+            if (user.role === 'customer' && data.trip.driverPos) {
+              // Hitung angle untuk rotasi mobil di sisi penumpang
+              const dx = data.trip.driverPos.x - driverPos.x;
+              const dy = data.trip.driverPos.y - driverPos.y;
+              if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+                driverAngle = Math.atan2(dy, dx);
+              }
+              driverPos = data.trip.driverPos;
+            }
+          }
+
+          updateTripUI();
+        }
+      });
+    }
+
+    // --------------------------------------------------
+    // TRIP FLOW & API CALLS
+    // --------------------------------------------------
+    
+    // Cek apakah pengguna memiliki trip aktif yang belum diselesaikan
+    async function checkActiveTrip() {
+      try {
+        const response = await fetch('/api/trips', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+        
+        if (response.ok && data.trips && data.trips.length > 0) {
+          // Cari trip pertama yang statusnya bukan completed / cancelled
+          const active = data.trips.find(t => ['searching', 'accepted', 'ongoing'].includes(t.status));
+          if (active) {
+            activeTrip = active;
+            
+            // Konfigurasikan koordinat di simulator
+            const pNode = locations.find(l => l.name === active.pickup.name);
+            const dNode = locations.find(l => l.name === active.destination.name);
+            pickupPos = pNode ? { x: pNode.x, y: pNode.y } : null;
+            destinationPos = dNode ? { x: dNode.x, y: dNode.y } : null;
+            
+            // Bergabung ke room chat Socket.io
+            if (socket) {
+              socket.emit('join_trip', { tripId: activeTrip._id });
+            }
+            
+            // Ambil riwayat chat sebelumnya
+            fetchChatHistory(activeTrip._id);
+
+            updateTripUI();
+          }
+        }
+      } catch (err) {
+        console.error('Gagal mengambil status perjalanan aktif:', err);
+      }
+    }
+
+    // Buat Order Trip Baru (Customer)
+    async function handleCreateTrip(event) {
+      event.preventDefault();
+      const pickupVal = document.getElementById('tripPickup').value;
+      const destVal = document.getElementById('tripDestination').value;
+      const price = calculatePrice();
+
+      if (!pickupVal || !destVal) {
+        showToast('Pilih lokasi jemput dan tujuan terlebih dahulu!', true);
+        return;
+      }
+
+      if (pickupVal === destVal) {
+        showToast('Titik jemput dan tujuan tidak boleh sama!', true);
+        return;
+      }
+
+      const pickupNode = locations.find(l => l.id === pickupVal);
+      const destNode = locations.find(l => l.id === destVal);
+
+      try {
+        const response = await fetch('/api/trips', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            pickup: { name: pickupNode.name, lat: pickupNode.lat, lng: pickupNode.lng },
+            destination: { name: destNode.name, lat: destNode.lat, lng: destNode.lng },
+            price: price
+          })
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Gagal memesan perjalanan');
+        }
+
+        activeTrip = data.trip;
+        pickupPos = { x: pickupNode.x, y: pickupNode.y };
+        destinationPos = { x: destNode.x, y: destNode.y };
+        driverPos = { x: 320, y: 90 }; // Set posisi awal driver fiktif (Stasiun Gambir)
+
+        // Hubungkan ke room Socket.io untuk chat
+        if (socket) {
+          socket.emit('join_trip', { tripId: activeTrip._id });
+        }
+
+        showToast('Mencari driver terdekat...');
+        updateTripUI();
+      } catch (err) {
+        showToast(err.message, true);
+      }
+    }
+
+    // Ambil Daftar Orderan Aktif untuk Driver
+    async function fetchAvailableTrips() {
+      try {
+        const response = await fetch('/api/trips/searching', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          availableTrips = data.trips;
+          renderDriverJobBoard();
+        }
+      } catch (err) {
+        console.error('Gagal mengambil daftar orderan:', err);
+      }
+    }
+
+    // Render Daftar Orderan Fiktif di Driver Board
+    function renderDriverJobBoard() {
+      const container = document.getElementById('driverTripList');
+      container.innerHTML = '';
+
+      if (availableTrips.length === 0) {
+        container.innerHTML = '<div style="color: #9ca3af; text-align: center; padding: 1.5rem; font-size: 0.85rem;">Tidak ada orderan aktif saat ini.</div>';
+        return;
+      }
+
+      availableTrips.forEach(trip => {
+        container.innerHTML += `
+          <div class="trip-item">
+            <div class="trip-details">
+              <div class="trip-locations">${trip.pickup.name.split(' (')[0]} ➔ ${trip.destination.name.split(' (')[0]}</div>
+              <div class="trip-passenger">Penumpang: ${trip.customerName}</div>
+              <div class="trip-price">Rp ${trip.price.toLocaleString('id-ID')}</div>
+            </div>
+            <button class="btn btn-success" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="acceptTrip('${trip._id}')">Terima</button>
+          </div>
+        `;
+      });
+    }
+
+    // Driver Menerima Order Perjalanan
+    async function acceptTrip(tripId) {
+      try {
+        const response = await fetch(`/api/trips/${tripId}/accept`, {
+          method: 'PUT',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Gagal menerima orderan');
+        }
+
+        activeTrip = data.trip;
+        
+        // Cari koordinat titik jemput dan tujuan untuk dipetakan
+        const pNode = locations.find(l => l.name === activeTrip.pickup.name);
+        const dNode = locations.find(l => l.name === activeTrip.destination.name);
+        pickupPos = pNode ? { x: pNode.x, y: pNode.y } : null;
+        destinationPos = dNode ? { x: dNode.x, y: dNode.y } : null;
+        
+        // Driver mulai dari posisi default Gambir
+        driverPos = { x: 320, y: 90 }; 
+
+        // Hubungkan ke room WebSocket
+        if (socket) {
+          socket.emit('join_trip', { tripId: activeTrip._id });
+          // Pancarkan event status terupdate agar penumpang langsung tersinkron
+          socket.emit('update_trip_status', { 
+            tripId: activeTrip._id, 
+            status: 'accepted',
+            trip: {
+              ...activeTrip,
+              driverPos: driverPos
+            }
+          });
+        }
+
+        showToast('Orderan berhasil diambil! Hubungi penumpang via live chat.');
+        
+        // Simulasikan driver bergerak secara otomatis dari Gambir menuju titik penjemputan penumpang
+        driveTarget = 'pickup';
+        isDriving = true;
+
+        // Ambil riwayat chat
+        fetchChatHistory(activeTrip._id);
+
+        updateTripUI();
+      } catch (err) {
+        showToast(err.message, true);
+      }
+    }
+
+    // Driver Mengubah Status Perjalanan (Mulai / Selesai)
+    async function updateJobStatus(newStatus) {
+      try {
+        const response = await fetch(`/api/trips/${activeTrip._id}/status`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ status: newStatus })
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Gagal memperbarui status');
+        }
+
+        activeTrip = data.trip;
+
+        // Mulai simulasi mengemudi dari titik jemput ke tujuan jika status berubah menjadi 'ongoing'
+        if (newStatus === 'ongoing') {
+          driveTarget = 'destination';
+          isDriving = true;
+          showToast('Perjalanan dimulai! Mengantar penumpang ke tujuan.');
+        } else if (newStatus === 'completed') {
+          showToast('Perjalanan selesai! Selamat atas komisi Anda.');
+          pickupPos = null;
+          destinationPos = null;
+          isDriving = false;
+        }
+
+        // Kabari penumpang secara real-time via WebSocket
+        if (socket) {
+          socket.emit('update_trip_status', { 
+            tripId: activeTrip._id, 
+            status: newStatus,
+            trip: {
+              ...activeTrip,
+              driverPos: driverPos
+            }
+          });
+        }
+
+        updateTripUI();
+      } catch (err) {
+        showToast(err.message, true);
+      }
+    }
+
+    // Update Seluruh Render UI berdasarkan status trip
+    function updateTripUI() {
+      if (!user) return;
+
+      const isSearching = activeTrip && activeTrip.status === 'searching';
+      const isAccepted = activeTrip && activeTrip.status === 'accepted';
+      const isOngoing = activeTrip && activeTrip.status === 'ongoing';
+      const isActive = activeTrip && ['searching', 'accepted', 'ongoing'].includes(activeTrip.status);
+
+      if (user.role === 'customer') {
+        if (isActive) {
+          document.getElementById('cardCustomerBooking').classList.add('hidden');
+          document.getElementById('cardCustomerActiveTrip').classList.remove('hidden');
+          
+          document.getElementById('custTripStatus').innerText = 
+            activeTrip.status === 'searching' ? 'Mencari Driver...' :
+            activeTrip.status === 'accepted' ? 'Driver Menjemput Anda' : 'Dalam Perjalanan';
+          
+          document.getElementById('custTripDriver').innerText = activeTrip.driverName || 'Mencari...';
+          document.getElementById('custTripRoute').innerText = `${activeTrip.pickup.name.split(' (')[0]} ➔ ${activeTrip.destination.name.split(' (')[0]}`;
+          document.getElementById('custTripPrice').innerText = `Rp ${activeTrip.price.toLocaleString('id-ID')}`;
+
+          if (isSearching) {
+            document.getElementById('custSearchingProgress').classList.remove('hidden');
+          } else {
+            document.getElementById('custSearchingProgress').classList.add('hidden');
+          }
+
+          // Tampilkan chat jika driver sudah menerima
+          if (isAccepted || isOngoing) {
+            document.getElementById('cardChatBox').classList.remove('hidden');
+          } else {
+            document.getElementById('cardChatBox').classList.add('hidden');
+          }
+        } else {
+          // Tidak ada trip aktif
+          document.getElementById('cardCustomerBooking').classList.remove('hidden');
+          document.getElementById('cardCustomerActiveTrip').classList.add('hidden');
+          document.getElementById('cardChatBox').classList.add('hidden');
+          activeTrip = null;
+          pickupPos = null;
+          destinationPos = null;
+        }
+      } 
+      
+      else if (user.role === 'driver') {
+        if (isActive) {
+          document.getElementById('cardDriverBoard').classList.add('hidden');
+          document.getElementById('cardDriverActiveJob').classList.remove('hidden');
+          document.getElementById('cardChatBox').classList.remove('hidden');
+
+          document.getElementById('driverJobStatus').innerText = 
+            activeTrip.status === 'accepted' ? 'Menuju Titik Penjemputan' : 'Mengantar Penumpang';
+          document.getElementById('driverJobPassenger').innerText = activeTrip.customerName;
+          document.getElementById('driverJobRoute').innerText = `${activeTrip.pickup.name.split(' (')[0]} ➔ ${activeTrip.destination.name.split(' (')[0]}`;
+          document.getElementById('driverJobPrice').innerText = `Rp ${activeTrip.price.toLocaleString('id-ID')}`;
+
+          // Atur tombol driver
+          if (isAccepted) {
+            document.getElementById('btnStartTrip').classList.remove('hidden');
+            document.getElementById('btnCompleteTrip').classList.add('hidden');
+          } else if (isOngoing) {
+            document.getElementById('btnStartTrip').classList.add('hidden');
+            document.getElementById('btnCompleteTrip').classList.remove('hidden');
+          }
+        } else {
+          // Tidak ada job aktif
+          document.getElementById('cardDriverBoard').classList.remove('hidden');
+          document.getElementById('cardDriverActiveJob').classList.add('hidden');
+          document.getElementById('cardChatBox').classList.add('hidden');
+          activeTrip = null;
+          pickupPos = null;
+          destinationPos = null;
+          fetchAvailableTrips();
+        }
+      }
+    }
+
+    // --------------------------------------------------
+    // LIVE CHAT COMMUNICATIONS
+    // --------------------------------------------------
+    
+    // Ambit Riwayat Chat dari Database
+    async function fetchChatHistory(tripId) {
+      try {
+        const response = await fetch(`/api/chat/history/${tripId}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+        
+        const container = document.getElementById('chatMessages');
+        container.innerHTML = '';
+
+        if (response.ok && data.messages) {
+          data.messages.forEach(msg => {
+            appendChatMessage(msg);
+          });
+        }
+      } catch (err) {
+        console.error('Gagal memuat riwayat chat:', err);
+      }
+    }
+
+    // Menempelkan chat ke panel
+    function appendChatMessage(data) {
+      const container = document.getElementById('chatMessages');
+      const isSent = data.senderId === user.id;
+
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${isSent ? 'sent' : 'received'}`;
+      
+      const timeString = new Date(data.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+      bubble.innerHTML = `
+        <div class="sender-name">${isSent ? 'Anda' : data.senderName}</div>
+        <div>${data.message}</div>
+        <div class="chat-time">${timeString}</div>
+      `;
+
+      container.appendChild(bubble);
+      // Scroll otomatis ke bawah
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // Mengirim Pesan Chat Baru
+    function sendChatMessage(event) {
+      event.preventDefault();
+      const input = document.getElementById('chatInputMessage');
+      const message = input.value.trim();
+
+      if (!message || !activeTrip || !socket) return;
+
+      // Pancarkan pesan lewat WebSocket
+      socket.emit('send_message', {
+        tripId: activeTrip._id,
+        message: message
+      });
+
+      // Kosongkan input form
+      input.value = '';
+    }
+
+    // --------------------------------------------------
+    // APPLICATION INITIALIZATION
+    // --------------------------------------------------
+    if (token && user) {
+      setupAuthenticatedUI();
+    } else {
+      switchAuthForm('login');
+    }
+  </script>
+</body>
+</html>

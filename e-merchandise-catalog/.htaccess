@@ -1,0 +1,16 @@
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Exclude test.php from redirection
+  RewriteCond %{REQUEST_URI} !^/test.php$
+
+  # Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Redirect everything else to public/ if not already there
+  RewriteCond %{REQUEST_URI} !^/public/
+  RewriteRule ^(.*)$ /public/$1 [NC,L,QSA]
+</IfModule>

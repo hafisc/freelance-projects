@@ -1,0 +1,231 @@
+version: '3.8'
+
+services:
+  # ==================================================
+  # 1. API GATEWAY: Traefik
+  # ==================================================
+  traefik:
+    image: traefik:v2.11
+    container_name: gateway-traefik
+    restart: always
+    ports:
+      - "80:80"       # Port HTTP Utama untuk seluruh aplikasi
+      - "8080:8080"   # Port Dashboard Traefik (Insecure Mode)
+    environment:
+      - DOCKER_API_VERSION=1.40
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+    networks:
+      - afl3-network
+    depends_on:
+      - frontend
+      - auth-service
+      - trip-service
+      - chat-service
+      - grafana
+
+  # ==================================================
+  # 2. DATABASES: MongoDB (Auth & Trip)
+  # ==================================================
+  db-auth:
+    image: mongo:6.0
+    container_name: db-auth-mongo
+    restart: always
+    volumes:
+      - db-auth-data:/data/db
+    networks:
+      - afl3-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  db-trip:
+    image: mongo:6.0
+    container_name: db-trip-mongo
+    restart: always
+    volumes:
+      - db-trip-data:/data/db
+    networks:
+      - afl3-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # ==================================================
+  # 3. BACKEND MICROSERVICES
+  # ==================================================
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: svc-auth
+    restart: always
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://db-auth:27017/authdb
+      - JWT_SECRET=afl3_secret_key_123
+    networks:
+      - afl3-network
+    depends_on:
+      db-auth:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.auth-service.rule=PathPrefix(`/api/auth`)"
+      - "traefik.http.routers.auth-service.entrypoints=web"
+      - "traefik.http.services.auth-service.loadbalancer.server.port=3000"
+
+  trip-service:
+    build:
+      context: ./trip-service
+      dockerfile: Dockerfile
+    container_name: svc-trip
+    restart: always
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://db-trip:27017/tripdb
+      - JWT_SECRET=afl3_secret_key_123
+    networks:
+      - afl3-network
+    depends_on:
+      db-trip:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.trip-service.rule=PathPrefix(`/api/trips`)"
+      - "traefik.http.routers.trip-service.entrypoints=web"
+      - "traefik.http.services.trip-service.loadbalancer.server.port=3000"
+
+  chat-service:
+    build:
+      context: ./chat-service
+      dockerfile: Dockerfile
+    container_name: svc-chat
+    restart: always
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://db-trip:27017/tripdb
+      - JWT_SECRET=afl3_secret_key_123
+    networks:
+      - afl3-network
+    depends_on:
+      db-trip:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      # Route untuk WS (WebSocket connection path)
+      - "traefik.http.routers.chat-ws.rule=PathPrefix(`/socket.io`)"
+      - "traefik.http.routers.chat-ws.entrypoints=web"
+      - "traefik.http.routers.chat-ws.service=chat-ws"
+      - "traefik.http.services.chat-ws.loadbalancer.server.port=3000"
+      # Route untuk HTTP API (history chat)
+      - "traefik.http.routers.chat-api.rule=PathPrefix(`/api/chat`)"
+      - "traefik.http.routers.chat-api.entrypoints=web"
+      - "traefik.http.routers.chat-api.service=chat-api"
+      - "traefik.http.services.chat-api.loadbalancer.server.port=3000"
+
+  # ==================================================
+  # 4. FRONTEND APPLICATION (Nginx)
+  # ==================================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: web-frontend
+    restart: always
+    networks:
+      - afl3-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.routers.frontend.priority=1" # Prioritas rendah agar tidak menimpa API path
+      - "traefik.http.services.frontend.loadbalancer.server.port=80"
+
+  # ==================================================
+  # 5. MONITORING STACK
+  # ==================================================
+  node-exporter:
+    image: prom/node-exporter:v1.8.1
+    container_name: monitor-node-exporter
+    restart: always
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - afl3-network
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.49.1
+    container_name: monitor-cadvisor
+    restart: always
+    privileged: true
+    devices:
+      - "/dev/kmsg:/dev/kmsg"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - afl3-network
+
+  prometheus:
+    image: prom/prometheus:v2.52.0
+    container_name: monitor-prometheus
+    restart: always
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - afl3-network
+    depends_on:
+      - node-exporter
+      - cadvisor
+
+  grafana:
+    image: grafana/grafana:10.4.2
+    container_name: monitor-grafana
+    restart: always
+    environment:
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - afl3-network
+    depends_on:
+      - prometheus
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=PathPrefix(`/grafana`)"
+      - "traefik.http.routers.grafana.entrypoints=web"
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+
+# ==================================================
+# NETWORKS & VOLUMES DEFINITION
+# ==================================================
+networks:
+  afl3-network:
+    driver: bridge
+
+volumes:
+  db-auth-data:
+  db-trip-data:
+  prometheus-data:
+  grafana-data:

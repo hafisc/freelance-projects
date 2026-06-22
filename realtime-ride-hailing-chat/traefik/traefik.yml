@@ -1,0 +1,13 @@
+# Konfigurasi Statis Traefik
+api:
+  dashboard: true
+  insecure: true # Mengaktifkan dashboard Traefik secara langsung (port 8080)
+
+entryPoints:
+  web:
+    address: ":80" # Port utama HTTP untuk menerima request dari luar
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock" # Menghubungkan Traefik dengan socket Docker
+    exposedByDefault: false # Hanya ekspos container yang memiliki label traefik.enable=true
