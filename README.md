@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-ringkasan-proyek">
-    <img src="https://img.shields.io/badge/Projects-18_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-19_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -365,6 +365,25 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
         <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
         <img src="https://img.shields.io/badge/Midtrans-003B57?style=flat-square" alt="Midtrans" />
         <img src="https://img.shields.io/badge/Vanilla_CSS-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Web_App-red?style=flat-square" alt="Web App Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">19</td>
+      <td>
+        <a href="./greenhaven/">
+          <b>🍃 GreenHaven Plant Shop</b>
+        </a>
+      </td>
+      <td>
+        Aplikasi web toko tanaman hias premium berbasis PHP Native dengan visual bersih bergaya editorial, checkout via WhatsApp, dan panel admin CRUD.
+        <br />
+        <img src="https://img.shields.io/badge/PHP_8.2+-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
+        <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
+        <img src="https://img.shields.io/badge/Vanilla_CSS-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS" />
+        <img src="https://img.shields.io/badge/Vanilla_JS-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript" />
       </td>
       <td align="center">
         <img src="https://img.shields.io/badge/Web_App-red?style=flat-square" alt="Web App Badge" />

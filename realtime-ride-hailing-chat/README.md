@@ -38,3 +38,8 @@ Untuk mencoba simulasi pemesanan, GPS tracking, dan chat secara real-time:
 9. **monitor-cadvisor**: Monitor Resource Container
 10. **monitor-prometheus**: Mengumpulkan Data Metrics
 11. **monitor-grafana**: Visualisasi Dashboard Monitoring
+
+## Diagram Arsitektur Microservices
+Berikut adalah diagram arsitektur microservices untuk aplikasi ini:
+
+![Diagram Arsitektur Microservices](microservices_architecture.png)
