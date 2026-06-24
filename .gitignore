@@ -5,3 +5,7 @@ logs/
 *.log
 *.log.*
 .DS_Store
+
+# Java
+*.class
+bin/
