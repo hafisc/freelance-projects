@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-ringkasan-proyek">
-    <img src="https://img.shields.io/badge/Projects-20_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-21_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -405,6 +405,25 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
       </td>
       <td align="center">
         <img src="https://img.shields.io/badge/Desktop_App-blue?style=flat-square" alt="Desktop App Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">21</td>
+      <td>
+        <a href="./SI%20PBM/">
+          <b>🏫 SI PBM - Sistem Informasi Proses Belajar Mengajar</b>
+        </a>
+      </td>
+      <td>
+        Sistem informasi akademik proses belajar mengajar dengan manajemen hak akses multi-user (Admin, Operator, Dosen, Mahasiswa), KRS plotting, penjadwalan kelas, unggah materi/tugas, dan rekap absensi.
+        <br />
+        <img src="https://img.shields.io/badge/Laravel_13-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
+        <img src="https://img.shields.io/badge/PHP_8.3-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP" />
+        <img src="https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+        <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Web_App-red?style=flat-square" alt="Web App Badge" />
       </td>
     </tr>
   </tbody>
