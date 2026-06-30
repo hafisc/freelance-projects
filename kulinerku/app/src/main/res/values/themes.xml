@@ -1,0 +1,59 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Kulinerku" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Global font family (Plus Jakarta Sans) -->
+        <item name="fontFamily">@font/plus_jakarta_sans</item>
+
+        <!-- Material3 Primary Palette overrides -->
+        <item name="colorPrimary">?attr/colorAppPrimary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">?attr/colorAppSecondary</item>
+        <item name="android:windowBackground">?attr/colorAppBackground</item>
+    </style>
+
+    <!-- Light Theme configuration -->
+    <style name="Theme.Kulinerku" parent="Base.Theme.Kulinerku">
+        <item name="colorAppBackground">@color/bg_light</item>
+        <item name="colorAppText">@color/text_light</item>
+        <item name="colorAppPrimary">@color/primary_light</item>
+        <item name="colorAppSecondary">@color/secondary_light</item>
+        <item name="colorAppSurface">@color/surface_light</item>
+        <item name="colorAppSurfaceGlass">@color/glass_surface_light</item>
+        <item name="colorAppStrokeGlass">@color/glass_stroke_light</item>
+        <item name="colorSecondaryContainer">@android:color/transparent</item>
+    </style>
+
+    <!-- Custom Shape Appearance for Editorial Meal Card -->
+    <style name="ShapeAppearanceOverlay.Kulinerku.MealCard" parent="">
+        <item name="cornerSizeTopLeft">24dp</item>
+        <item name="cornerSizeBottomRight">24dp</item>
+        <item name="cornerSizeTopRight">4dp</item>
+        <item name="cornerSizeBottomLeft">4dp</item>
+    </style>
+
+    <!-- Custom Shape Appearance for Meal Card Image (only top corners rounded) -->
+    <style name="ShapeAppearanceOverlay.Kulinerku.MealCard.Image" parent="">
+        <item name="cornerSizeTopLeft">24dp</item>
+        <item name="cornerSizeTopRight">4dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="Widget.Kulinerku.BottomNav.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:width">44dp</item>
+        <item name="android:height">24dp</item>
+    </style>
+
+    <!-- Bottom Nav theme overlay to remove active indicator background capsule -->
+    <style name="ThemeOverlay.Kulinerku.BottomNav" parent="ThemeOverlay.Material3">
+        <item name="colorSecondaryContainer">@android:color/transparent</item>
+        <!-- Highlight color for selected items -->
+        <item name="colorPrimary">?attr/colorAppPrimary</item>
+    </style>
+
+    <!-- Custom text appearance for bottom nav labels -->
+    <style name="TextAppearance.Kulinerku.BottomNav" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/plus_jakarta_sans</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+</resources>

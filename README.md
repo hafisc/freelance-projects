@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-ringkasan-proyek">
-    <img src="https://img.shields.io/badge/Projects-21_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-22_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -424,6 +424,24 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
       </td>
       <td align="center">
         <img src="https://img.shields.io/badge/Web_App-red?style=flat-square" alt="Web App Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">22</td>
+      <td>
+        <a href="./kulinerku/">
+          <b>🥘 KulinerKu - Resep Masakan Nusantara</b>
+        </a>
+      </td>
+      <td>
+        Aplikasi Android native untuk menjelajahi resep masakan khas Nusantara dengan sinkronisasi SQLite offline dan dual tema (Dark/Light).
+        <br />
+        <img src="https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white" alt="Java" />
+        <img src="https://img.shields.io/badge/Android_SDK-3DDC84?style=flat-square&logo=android&logoColor=white" alt="Android SDK" />
+        <img src="https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white" alt="SQLite" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Mobile_App-blue?style=flat-square" alt="Mobile App Badge" />
       </td>
     </tr>
   </tbody>

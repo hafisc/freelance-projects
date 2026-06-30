@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bottom_nav_selected">#FF6B3D</color> <!-- primary_dark -->
+    <color name="bottom_nav_unselected">#F4ECE1</color> <!-- text_dark -->
+</resources>

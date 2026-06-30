@@ -1,0 +1,25 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Plate base line -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="?attr/colorAppText"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M2,19h20" />
+    <!-- Dome cover -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="?attr/colorAppText"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M4,19c0,-4.42 3.58,-8 8,-8s8,3.58 8,8" />
+    <!-- Handle on top -->
+    <path
+        android:fillColor="?attr/colorAppPrimary"
+        android:pathData="M12,7c0.83,0 1.5,-0.67 1.5,-1.5S12.83,4 12,4S10.5,4.67 10.5,5.5S11.17,7 12,7z" />
+</vector>

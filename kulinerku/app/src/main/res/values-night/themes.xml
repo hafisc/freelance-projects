@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Dark Theme configuration -->
+    <style name="Theme.Kulinerku" parent="Base.Theme.Kulinerku">
+        <item name="colorAppBackground">@color/bg_dark</item>
+        <item name="colorAppText">@color/text_dark</item>
+        <item name="colorAppPrimary">@color/primary_dark</item>
+        <item name="colorAppSecondary">@color/secondary_dark</item>
+        <item name="colorAppSurface">@color/surface_dark</item>
+        <item name="colorAppSurfaceGlass">@color/glass_surface_dark</item>
+        <item name="colorAppStrokeGlass">@color/glass_stroke_dark</item>
+        <item name="colorSecondaryContainer">@android:color/transparent</item>
+    </style>
+</resources>

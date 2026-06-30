@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorAppBackground"
+    tools:context=".activity.DetailActivity">
+
+    <!-- Loading Indicator -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <!-- Error State Layout -->
+    <LinearLayout
+        android:id="@+id/layout_error_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gagal Memuat Resep"
+            android:textColor="?attr/colorAppText"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/fraunces"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resep gagal diambil dari server. Pastikan Anda memiliki koneksi internet aktif."
+            android:textColor="?attr/colorAppText"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btn_retry_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coba Lagi"
+            android:backgroundTint="?attr/colorAppPrimary"
+            android:textColor="@color/white"
+            android:fontFamily="@font/plus_jakarta_sans"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp" />
+    </LinearLayout>
+
+    <!-- Main Content Container (AppBarLayout + CollapsingToolbar for full-bleed poster scrolling) -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="?attr/colorAppSurface"
+            app:titleEnabled="false">
+
+            <!-- Full-bleed poster image -->
+            <ImageView
+                android:id="@+id/iv_meal_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                android:contentDescription="Poster Makanan" />
+
+            <!-- Dark scrim for top action bar readability -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/bg_gradient_scrim"
+                android:rotation="180"
+                app:layout_collapseMode="pin" />
+
+            <!-- Custom back button toolbar -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/detail_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_back"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Content Area -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_detail_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tv_meal_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama Makanan Gourmet"
+                android:textColor="?attr/colorAppText"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/fraunces" />
+
+            <!-- Category outlined chip -->
+            <TextView
+                android:id="@+id/tv_meal_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_category_chip"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="5dp"
+                android:textColor="?attr/colorAppPrimary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:text="Kategori" />
+
+            <!-- Separator -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/colorAppSecondary"
+                android:alpha="0.2"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Ingredients Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bahan-Bahan"
+                android:textColor="?attr/colorAppPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/fraunces"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Dynamic vertical layout for listing ingredients -->
+            <LinearLayout
+                android:id="@+id/layout_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Separator -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/colorAppSecondary"
+                android:alpha="0.2"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Instructions Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Langkah Pembuatan"
+                android:textColor="?attr/colorAppPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/fraunces"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Text instructions -->
+            <TextView
+                android:id="@+id/tv_meal_instructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorAppText"
+                android:textSize="15sp"
+                android:lineSpacingExtra="5dp"
+                android:layout_marginBottom="100dp"
+                android:text="Instruksi pembuatan resep akan tampil di sini secara rinci." />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Floating Action Button for Favorite Toggle -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:fabSize="normal"
+        app:elevation="4dp"
+        app:backgroundTint="?attr/colorAppSurface"
+        app:tint="?attr/colorAppPrimary"
+        android:src="@drawable/ic_favorite"
+        android:contentDescription="Tombol Favorit" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

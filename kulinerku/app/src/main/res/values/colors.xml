@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light Theme Colors -->
+    <color name="bg_light">#FDF6EC</color>
+    <color name="text_light">#2B2118</color>
+    <color name="primary_light">#D9572B</color>
+    <color name="secondary_light">#7C9070</color>
+    <color name="surface_light">#FFFDF9</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="bg_dark">#181210</color>
+    <color name="text_dark">#F4ECE1</color>
+    <color name="primary_dark">#FF6B3D</color>
+    <color name="secondary_dark">#D4A24C</color>
+    <color name="surface_dark">#251C19</color>
+
+    <!-- Semantic Common Colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="scrim_gradient">#99000000</color>
+    <color name="gray_muted">#8A8A8A</color>
+    <color name="error_red">#D32F2F</color>
+
+    <!-- Glassmorphism Color Definitions -->
+    <color name="glass_surface_light">#E6FFFDF9</color> <!-- 90% opacity surface_light -->
+    <color name="glass_stroke_light">#B3FFFFFF</color> <!-- 70% opacity white -->
+    <color name="glass_surface_dark">#CC181210</color> <!-- 80% opacity bg_dark -->
+    <color name="glass_stroke_dark">#33FFFFFF</color> <!-- 20% opacity white -->
+
+    <!-- Bottom Nav Colors (Resolved compile-time) -->
+    <color name="bottom_nav_selected">#D9572B</color> <!-- primary_light -->
+    <color name="bottom_nav_unselected">#2B2118</color> <!-- text_light -->
+</resources>
