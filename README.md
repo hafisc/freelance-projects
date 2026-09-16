@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#-ringkasan-proyek">
-    <img src="https://img.shields.io/badge/Projects-22_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
+    <img src="https://img.shields.io/badge/Projects-23_Active-brightgreen?style=for-the-badge&logo=github&color=2ea44f" alt="Projects" />
   </a>
   <img src="https://img.shields.io/badge/Developer-Hafisc-blue?style=for-the-badge&logo=visual-studio-code&color=007acc" alt="Developer" />
   <img src="https://img.shields.io/badge/Status-Completed-orange?style=for-the-badge" alt="Status" />
@@ -442,6 +442,97 @@ Berikut adalah direktori singkat dari semua proyek yang tersedia di repositori i
       </td>
       <td align="center">
         <img src="https://img.shields.io/badge/Mobile_App-blue?style=flat-square" alt="Mobile App Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">23</td>
+      <td>
+        <a href="./equichem/">
+          <b>🧪 EquiChem - Virtual Chem Lab</b>
+        </a>
+      </td>
+      <td>
+        Website interaktif simulasi laboratorium kimia untuk reaksi kesetimbangan, tabel periodik, kalkulator mol, stoikiometri, dan kuis, dengan visualisasi dan animasi interaktif.
+        <br />
+        <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
+        <img src="https://img.shields.io/badge/React_19-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React" />
+        <img src="https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+        <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=flat-square&logo=framer&logoColor=white" alt="Framer Motion" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/EdTech_%26_Web-green?style=flat-square" alt="EdTech & Web Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">24</td>
+      <td>
+        <a href="./freshpulse/">
+          <b>♻️ FreshPulse - Food Waste & Stock Management</b>
+        </a>
+      </td>
+      <td>
+        Aplikasi mobile berbasis Flutter untuk membantu UMKM kuliner mengelola stok bahan, mencegah pembusukan, mencatat limbah makanan, dan memantau emisi karbon (CO2).
+        <br />
+        <img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white" alt="Flutter" />
+        <img src="https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white" alt="SQLite" />
+        <img src="https://img.shields.io/badge/Midtrans-003B57?style=flat-square" alt="Midtrans" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Mobile_App-blue?style=flat-square" alt="Mobile App Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">25</td>
+      <td>
+        <a href="./tomi-rental/">
+          <b>🚗 Tomi Rental - Landing Page</b>
+        </a>
+      </td>
+      <td>
+        Website landing page penyewaan kendaraan dengan desain UI yang bersih dan responsif.
+        <br />
+        <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5" />
+        <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Web_App-red?style=flat-square" alt="Web App Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">26</td>
+      <td>
+        <a href="./tyara/">
+          <b>🎂 Tyara Birthday Website</b>
+        </a>
+      </td>
+      <td>
+        Website interaktif ucapan selamat ulang tahun dengan tema luar angkasa, animasi neon, elemen 3D (Three.js), kembang api, dan sinkronisasi lirik musik (lyric sync).
+        <br />
+        <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5" />
+        <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3" />
+        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript" />
+        <img src="https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=threedotjs&logoColor=white" alt="Three.js" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Web_App-red?style=flat-square" alt="Web App Badge" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">27</td>
+      <td>
+        <a href="./universe/">
+          <b>🌌 My Whole Universe</b>
+        </a>
+      </td>
+      <td>
+        Website interaktif estetik dengan tema semesta dan audio background, menggunakan efek visual modern untuk ucapan spesial.
+        <br />
+        <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5" />
+        <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3" />
+        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript" />
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Web_App-red?style=flat-square" alt="Web App Badge" />
       </td>
     </tr>
   </tbody>

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             AdminSeeder::class,
             JobSeeder::class,
+            JobApplicationSeeder::class,
         ]);
 
         // 4. Buat Notifikasi Dummy Awal untuk User Fulan (user@gloria.com)

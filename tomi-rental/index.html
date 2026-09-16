@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomi Rental - Landing Page</title>
+    <style>
+/* =========================================
+   RESET & VARIABLES
+========================================= */
+:root {
+    --primary: #d98e3e;
+    --primary-hover: #b9601e;
+    --bg-main: #fdf6ec;
+    --bg-alt: #f4ede4;
+    --bg-card: #ffffff;
+    --text-dark: #3b2418;
+    --text-light: #5a3c1e;
+    --border-color: #e0c9a6;
+    --navbar-bg: #ead9c3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* =========================================
+   LOGIN VIEW (CSS Trick Pindah Halaman)
+========================================= */
+.login-view {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    padding: 20px;
+}
+.login-box {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(80, 50, 20, 0.15);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+.login-box h2 {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+.login-box p {
+    margin-bottom: 25px;
+    color: #5a3c1e;
+    font-size: 0.95rem;
+}
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.input-group input:focus {
+    border-color: var(--primary);
+}
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary);
+    color: var(--text-dark);
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    margin-top: 10px;
+}
+.btn-submit:hover {
+    background-color: var(--primary-hover);
+    color: #ffffff;
+}
+.back-link {
+    display: inline-block;
+    margin-top: 25px;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.back-link:hover {
+    color: var(--primary-hover);
+}
+
+/* Jika URL mengandung #login, tampilkan halaman login & sembunyikan sisanya */
+#login:target {
+    display: flex;
+}
+#login:target ~ .site-wrapper {
+    display: none;
+}
+
+.site-wrapper {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.section-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =========================================
+   1. NAVBAR
+========================================= */
+.navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--navbar-bg);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    text-decoration: none;
+}
+.logo span {
+    color: var(--primary-hover);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.nav-links a:hover {
+    color: var(--primary-hover);
+}
+
+.nav-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-outline, .btn-solid {
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.btn-outline {
+    color: var(--text-dark);
+    border: 1px solid var(--text-dark);
+}
+.btn-outline:hover {
+    background: var(--text-dark);
+    color: #fff;
+}
+
+.btn-solid {
+    background: var(--primary);
+    color: var(--text-dark);
+    border: 1px solid var(--primary-hover);
+}
+.btn-solid:hover {
+    background: var(--primary-hover);
+    color: #fff;
+}
+
+/* =========================================
+   2. HERO SECTION
+========================================= */
+.hero {
+    width: 100%;
+    background-color: var(--text-dark);
+    color: #f5e6cf;
+    padding: 80px 20px;
+    text-align: center;
+    scroll-margin-top: 60px;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: #e3c9a3;
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+.btn-primary {
+    display: inline-block;
+    background-color: var(--primary);
+    color: var(--text-dark);
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    color: #fff;
+}
+
+/* =========================================
+   3. SECTION: ARMADA KAMI
+========================================= */
+.armada-section {
+    padding: 60px 0;
+    background-color: var(--bg-main);
+    scroll-margin-top: 60px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.section-header h2 {
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+.section-header p {
+    color: var(--text-light);
+}
+
+.content-row {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.sidebar {
+    flex: 0 0 300px;
+}
+
+.menu-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.radio-menu {
+    display: none;
+}
+
+.menu-list label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.menu-list label:hover {
+    border-color: var(--primary);
+    background-color: #fff8ea;
+}
+
+.car-name {
+    font-weight: bold;
+}
+.harga-mini {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.radio-menu:checked + label {
+    background-color: var(--primary);
+    border-color: var(--primary-hover);
+    color: #fff;
+}
+.radio-menu:checked + label .harga-mini {
+    color: #fff;
+}
+
+.detail-container {
+    flex: 1;
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 30px;
+    min-height: 300px;
+}
+
+.panel {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.panel-header {
+    text-align: center;
+}
+.panel-header .emoji {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+.title-wrap h3 {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+}
+
+.panel-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.panel-body .desc {
+    text-align: center;
+    font-size: 1.05rem;
+    color: var(--text-light);
+    max-width: 80%;
+}
+
+.price-box {
+    background-color: #fff8ea;
+    border: 1.5px dashed var(--primary);
+    padding: 15px 30px;
+    border-radius: 8px;
+    text-align: center;
+}
+.price-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-hover);
+}
+.price-value small {
+    font-size: 1rem;
+    color: var(--text-light);
+}
+
+.site-wrapper:has(#kopi1:checked) #panel-kopi1 { display: flex; }
+.site-wrapper:has(#kopi2:checked) #panel-kopi2 { display: flex; }
+.site-wrapper:has(#kopi3:checked) #panel-kopi3 { display: flex; }
+.site-wrapper:has(#kopi4:checked) #panel-kopi4 { display: flex; }
+.site-wrapper:has(#kopi5:checked) #panel-kopi5 { display: flex; }
+.site-wrapper:has(#kopi6:checked) #panel-kopi6 { display: flex; }
+.site-wrapper:has(#kopi7:checked) #panel-kopi7 { display: flex; }
+
+/* =========================================
+   4. SECTION: TENTANG KAMI
+========================================= */
+.tentang-section {
+    padding: 60px 0;
+    background-color: var(--bg-alt);
+    scroll-margin-top: 60px;
+}
+
+.tentang-content {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.tentang-text {
+    flex: 2;
+}
+.tentang-text p {
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+    color: var(--text-light);
+}
+
+.promo-box {
+    flex: 1;
+    background-color: var(--text-dark);
+    color: #e3c9a3;
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid var(--primary);
+}
+.promo-box h3 {
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+/* =========================================
+   5. PLACEHOLDER (LOGIN & PROFIL)
+========================================= */
+.placeholder-section {
+    padding: 80px 20px;
+    background-color: var(--bg-alt);
+    scroll-margin-top: 60px;
+}
+.placeholder-box {
+    background: #fff8ea;
+    padding: 40px;
+    border-radius: 12px;
+    border: 2px solid var(--primary);
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+.placeholder-box h2 {
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+/* =========================================
+   6. SECTION: KONTAK & FOOTER
+========================================= */
+.footer {
+    background-color: var(--text-dark);
+    color: #e3c9a3;
+    padding: 50px 0 20px 0;
+    scroll-margin-top: 60px;
+}
+
+.footer-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-info h3 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+.footer-info h3 span {
+    color: var(--primary);
+}
+.footer-info p {
+    max-width: 300px;
+}
+
+.footer-contact h4 {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+.footer-contact p {
+    margin-bottom: 8px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #5a3c1e;
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+@media (max-width: 768px) {
+    .content-row {
+        flex-direction: column;
+    }
+    .sidebar {
+        flex: 1;
+        width: 100%;
+    }
+    .tentang-content {
+        flex-direction: column;
+    }
+    .footer-grid {
+        flex-direction: column;
+    }
+    .nav-links {
+        display: none;
+    }
+}
+
+/* =========================================
+   FLOATING WHATSAPP BUTTON
+========================================= */
+.wa-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366;
+    color: #ffffff;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.wa-float:hover {
+    transform: scale(1.1);
+    box-shadow: 2px 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.wa-icon {
+    width: 35px;
+    height: 35px;
+    fill: currentColor;
+}
+    </style>
+</head>
+<body>
+    <!-- ============ LOGIN VIEW (Halaman Terpisah Tanpa Beda File) ============ -->
+    <div id="login" class="login-view">
+        <div class="login-box">
+            <h2>Selamat Datang</h2>
+            <p>Silakan masuk ke akun Tomi Rental Anda.</p>
+            <form action="#beranda">
+                <div class="input-group">
+                    <label for="email">Alamat Email</label>
+                    <input type="email" id="email" name="email" placeholder="Masukkan email Anda" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Kata Sandi</label>
+                    <input type="password" id="password" name="password" placeholder="Masukkan kata sandi" required>
+                </div>
+                <button type="submit" class="btn-submit">Masuk</button>
+            </form>
+            <a href="#beranda" class="back-link">← Kembali ke Beranda</a>
+        </div>
+    </div>
+
+    <!-- SITE-WRAPPER: Container utama untuk Landing Page -->
+    <div class="site-wrapper">
+        
+        <!-- ============ NAVBAR ============ -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#beranda" class="logo">Tomi<span>Rental</span></a>
+                <div class="nav-links">
+                    <a href="#beranda">Beranda</a>
+                    <a href="#tentang">Tentang Kami</a>
+                    <a href="#menu">Armada</a>
+                    <a href="#kontak">Kontak</a>
+                </div>
+                <div class="nav-actions">
+                    <a href="#login" class="btn-solid">Login</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ============ SECTION: HERO (BERANDA) ============ -->
+        <section class="hero" id="beranda">
+            <div class="hero-content">
+                <h1>Perjalanan Nyaman, Harga Aman.</h1>
+                <p>Melayani tour, travel, sewa mobil dengan driver, ataupun lepas kunci. Temukan kendaraan yang tepat untuk kebutuhan Anda.</p>
+                <a href="#menu" class="btn-primary">Lihat Armada Kami</a>
+            </div>
+        </section>
+
+        <!-- ============ SECTION: TENTANG KAMI ============ -->
+        <section class="tentang-section" id="tentang">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Tentang Kami</h2>
+                </div>
+                <div class="tentang-content">
+                    <div class="tentang-text">
+                        <p>Sejak tahun 2019, <strong>Tomi Rental</strong> telah melayani ribuan pelanggan dengan armada terawat dan layanan profesional. Kami menyediakan berbagai pilihan sewa mobil dengan driver ataupun lepas kunci, disesuaikan dengan kebutuhan Anda.</p>
+                        <p>Kenyamanan dan keselamatan penumpang adalah prioritas utama kami. Oleh karena itu, setiap armada selalu melalui proses pengecekan berkala sebelum digunakan.</p>
+                    </div>
+                    <div class="promo-box">
+                        <h3>Promo Spesial!</h3>
+                        <p>Diskon 20% untuk penyewaan pertama Anda. Gunakan kode <b>MOBIL20</b> saat checkout.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ SECTION: ARMADA (MENU MOBIL) ============ -->
+        <section class="armada-section" id="menu">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Armada Kami</h2>
+                    <p>Pilih kendaraan yang paling sesuai dengan kebutuhan perjalanan Anda.</p>
+                </div>
+
+                <div class="content-row">
+                    <!-- SIDEBAR: Menu Radio -->
+                    <aside class="sidebar">
+                        <ul class="menu-list">
+                            <li>
+                                <input type="radio" name="pilihan-mobil" id="kopi1" class="radio-menu" checked>
+                                <label for="kopi1">
+                                    <span class="car-name">Innova Reborn</span>
+                                    <span class="harga-mini">Rp 500rb</span>
+                                </label>
+                            </li>
+                            <li>
+                                <input type="radio" name="pilihan-mobil" id="kopi2" class="radio-menu">
+                                <label for="kopi2">
+                                    <span class="car-name">Brio</span>
+                                    <span class="harga-mini">Rp 400rb</span>
+                                </label>
+                            </li>
+                            <li>
+                                <input type="radio" name="pilihan-mobil" id="kopi3" class="radio-menu">
+                                <label for="kopi3">
+                                    <span class="car-name">Avanza Robot</span>
+                                    <span class="harga-mini">Rp 400rb</span>
+                                </label>
+                            </li>
+                            <li>
+                                <input type="radio" name="pilihan-mobil" id="kopi4" class="radio-menu">
+                                <label for="kopi4">
+                                    <span class="car-name">Avanza Biasa</span>
+                                    <span class="harga-mini">Rp 300rb</span>
+                                </label>
+                            </li>
+                            <li>
+                                <input type="radio" name="pilihan-mobil" id="kopi5" class="radio-menu">
+                                <label for="kopi5">
+                                    <span class="car-name">Sigra</span>
+                                    <span class="harga-mini">Rp 300rb</span>
+                                </label>
+                            </li>
+                            <li>
+                                <input type="radio" name="pilihan-mobil" id="kopi6" class="radio-menu">
+                                <label for="kopi6">
+                                    <span class="car-name">Pick Up</span>
+                                    <span class="harga-mini">Rp 300rb</span>
+                                </label>
+                            </li>
+                            <li>
+                                <input type="radio" name="pilihan-mobil" id="kopi7" class="radio-menu">
+                                <label for="kopi7">
+                                    <span class="car-name">Hiace</span>
+                                    <span class="harga-mini">Rp 1.2jt</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </aside>
+
+                    <!-- KONTEN KANAN (PANEL MOBIL) -->
+                    <div class="detail-container">
+                        
+                        <!-- Panel Innova Reborn -->
+                        <div class="panel" id="panel-kopi1">
+                            <div class="panel-header">
+                                <div class="emoji">🚐</div>
+                                <div class="title-wrap">
+                                    <h3>Innova Reborn</h3>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <p class="desc">Mobil keluarga dengan kabin luas dan nyaman. Menggunakan bahan bakar mesin diesel (solar) yang sangat efisien untuk perjalanan jarak jauh maupun dekat.</p>
+                                <div class="price-box">
+                                    <span class="price-value">Rp 500.000<small>/hari</small></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel Brio -->
+                        <div class="panel" id="panel-kopi2">
+                            <div class="panel-header">
+                                <div class="emoji">🚗</div>
+                                <div class="title-wrap">
+                                    <h3>Honda Brio</h3>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <p class="desc">City car yang minimalis, gesit, dan sangat hemat bahan bakar. Cocok untuk mobilitas tinggi di dalam kota dengan kemudahan bermanuver.</p>
+                                <div class="price-box">
+                                    <span class="price-value">Rp 400.000<small>/hari</small></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel Avanza Robot -->
+                        <div class="panel" id="panel-kopi3">
+                            <div class="panel-header">
+                                <div class="emoji">🚙</div>
+                                <div class="title-wrap">
+                                    <h3>Avanza Robot</h3>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <p class="desc">Mobil keluarga (MPV) yang lega, tangguh, dan sangat nyaman. Pilihan andalan keluarga Indonesia untuk berbagai macam kebutuhan perjalanan.</p>
+                                <div class="price-box">
+                                    <span class="price-value">Rp 400.000<small>/hari</small></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel Avanza Biasa -->
+                        <div class="panel" id="panel-kopi4">
+                            <div class="panel-header">
+                                <div class="emoji">🚙</div>
+                                <div class="title-wrap">
+                                    <h3>Avanza Biasa</h3>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <p class="desc">Generasi klasik dari Avanza yang tetap memberikan kenyamanan khas mobil keluarga dengan harga sewa yang jauh lebih bersahabat di kantong Anda.</p>
+                                <div class="price-box">
+                                    <span class="price-value">Rp 300.000<small>/hari</small></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel Sigra -->
+                        <div class="panel" id="panel-kopi5">
+                            <div class="panel-header">
+                                <div class="emoji">🚕</div>
+                                <div class="title-wrap">
+                                    <h3>Daihatsu Sigra</h3>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <p class="desc">Kendaraan LCGC 7-seater yang terkenal luar biasa irit bahan bakar. Solusi cerdas dan hemat untuk bepergian bersama teman atau keluarga kecil.</p>
+                                <div class="price-box">
+                                    <span class="price-value">Rp 300.000<small>/hari</small></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel Pick Up -->
+                        <div class="panel" id="panel-kopi6">
+                            <div class="panel-header">
+                                <div class="emoji">🛻</div>
+                                <div class="title-wrap">
+                                    <h3>Mobil Pick Up</h3>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <p class="desc">Kendaraan niaga ringan yang tangguh. Sangat direkomendasikan untuk keperluan pindahan, logistik, atau mengangkut muatan barang yang cukup berat.</p>
+                                <div class="price-box">
+                                    <span class="price-value">Rp 300.000<small>/hari</small></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel Hiace -->
+                        <div class="panel" id="panel-kopi7">
+                            <div class="panel-header">
+                                <div class="emoji">🚐</div>
+                                <div class="title-wrap">
+                                    <h3>Toyota Hiace</h3>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <p class="desc">Kendaraan komersial eksklusif dengan kapasitas besar. Sanggup memuat 15 hingga 20 orang dengan tingkat kenyamanan premium layaknya bus mini.</p>
+                                <div class="price-box">
+                                    <span class="price-value">Rp 1.200.000<small>/hari</small></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> <!-- End detail-container -->
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ============ SECTION: KONTAK & FOOTER ============ -->
+        <footer class="footer" id="kontak">
+            <div class="section-container">
+                <div class="footer-grid">
+                    <div class="footer-info">
+                        <h3>Tomi<span>Rental</span></h3>
+                        <p>Layanan rental mobil terpercaya di Cirebon dan sekitarnya.</p>
+                    </div>
+                    <div class="footer-contact">
+                        <h4>Hubungi Kami</h4>
+                        <p>📍 Jl. Raya Cirebon No. 123, Jawa Barat</p>
+                        <p>📞 <a href="https://wa.me/628978467107" target="_blank" style="color: #e3c9a3; text-decoration: none;">0897-8467-107 (WhatsApp)</a></p>
+                        <p>✉️ info@tomirental.com</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    &copy; 2026 Hak Cipta Kota Cirebon. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+    </div> <!-- End site-wrapper -->
+
+    <!-- ============ FLOATING WHATSAPP BUTTON ============ -->
+    <a href="https://wa.me/628978467107" class="wa-float" target="_blank" title="Hubungi kami via WhatsApp">
+        <!-- Logo WhatsApp menggunakan SVG agar rapi dan tidak pecah -->
+        <svg class="wa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 413.2c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 334.1l-4.4-7.1c-18.4-29.6-28.1-64-28.1-99 0-101.5 82.5-184 184.4-184 56.4 0 109.4 22 149.3 61.9 39.9 39.9 61.8 93 61.8 149.4 0 101.5-82.5 184-184.4 184h-.1zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+        </svg>
+    </a>
+</body>
+</html>

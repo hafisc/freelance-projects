@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['user_id', 'job_id', 'full_name', 'email', 'phone', 'address', 'note', 'status', 'admin_note'])]
+#[Fillable(['user_id', 'job_id', 'full_name', 'email', 'phone', 'address', 'note', 'status', 'admin_note', 'cv_path', 'cv_shared_at'])]
 class JobApplication extends Model
 {
     use HasFactory;
@@ -21,5 +21,19 @@ class JobApplication extends Model
     public function job()
     {
         return $this->belongsTo(Job::class, 'job_id');
+    }
+
+    // Mendapatkan URL berkas CV snapshot
+    public function getCvSnapshotUrlAttribute()
+    {
+        return $this->cv_path ? asset('storage/' . $this->cv_path) : null;
+    }
+
+    // Cast untuk tipe data kolom
+    protected function casts(): array
+    {
+        return [
+            'cv_shared_at' => 'datetime',
+        ];
     }
 }

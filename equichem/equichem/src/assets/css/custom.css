@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --eq-primary: #003db3;     /* Darker blue from the cover */
+  --eq-secondary: #ffc107;   /* Yellow */
+  --eq-bg: #f8f9fa;
+  --eq-text: #333333;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--eq-bg);
+  color: var(--eq-text);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .brand-text {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Page flip wrapper styling */
+.flipbook-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 2vh;
+  /* Beri background seperti meja atau warna yang elegan */
+  background: radial-gradient(circle at center, #f0f2f5 0%, #d1d5db 100%);
+  overflow: hidden;
+}
+
+/* Wrapper to force aspect ratio and limit size */
+.flipbook-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 1000px; /* max double page width based on 500px page */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* Center the book when it's closed on the front cover (page 0) */
+.flipbook-wrapper.book-closed-front {
+  transform: translateX(-25%);
+}
+
+/* Center the book when it's closed on the back cover (last page) */
+.flipbook-wrapper.book-closed-back {
+  transform: translateX(25%);
+}
+
+@media (max-width: 768px) {
+  .flipbook-wrapper.book-closed-front,
+  .flipbook-wrapper.book-closed-back {
+    transform: translateX(0);
+  }
+}
+
+/* Base page styling for flipbook */
+.page {
+  background-color: #fefefe; /* Sedikit off-white seperti kertas asli */
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- EFEK REALISTIS BUKU (SPINE & EDGES) --- */
+
+/* Efek lipatan tengah (Spine) pada halaman kiri */
+.stf__block--left .page::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  /* Gradient gelap di kanan (spine), terang di kiri (edge) */
+  background: linear-gradient(to left, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.04) 6%, rgba(255,255,255,0) 30%, rgba(255,255,255,0.4) 97%, rgba(0,0,0,0.06) 100%);
+  pointer-events: none;
+  z-index: 50;
+  border-left: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Efek lipatan tengah (Spine) pada halaman kanan */
+.stf__block--right .page::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  /* Gradient gelap di kiri (spine), terang di kanan (edge) */
+  background: linear-gradient(to right, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.04) 6%, rgba(255,255,255,0) 30%, rgba(255,255,255,0.4) 97%, rgba(0,0,0,0.06) 100%);
+  pointer-events: none;
+  z-index: 50;
+  border-right: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Bayangan nyata untuk seluruh buku (Dihapus dari wrapper agar tidak membayangi area kosong) */
+.stf__wrapper {
+  overflow: hidden !important;
+  box-sizing: content-box !important;
+}
+
+/* Fix react-pageflip block constraints */
+.stf__block {
+  overflow: hidden !important;
+  box-sizing: content-box !important;
+  /* Tambahkan shadow tipis di tiap blok (halaman) agar buku tetap terlihat 3D tanpa area kosong */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* Content wrapper */
+.page-content-wrapper {
+  padding: 0;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+/* Specific Cover Page Styles */
+.page-cover {
+  background-color: white;
+}
+
+/* Fix react-pageflip leaking elements */
+.stf__wrapper, .stf__block {
+  overflow: hidden !important;
+  box-sizing: content-box !important;
+}
+
+.bg-curve-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 65%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-curve-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cover-content {
+  position: relative;
+  z-index: 1;
+  padding: 40px;
+  padding: 40px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cover-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 2rem;
+}
+
+.cover-logo i {
+  font-size: 2.5rem;
+  color: var(--eq-secondary);
+}
+
+.cover-logo h2 {
+  margin: 0;
+  color: var(--eq-primary);
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.cover-logo .tagline {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: -5px;
+  display: block;
+}
+
+.badge-custom {
+  background-color: var(--eq-secondary);
+  color: var(--eq-primary);
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.title-main {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--eq-primary);
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+.title-sub {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--eq-secondary);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+
+.desc-text {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 80%;
+}
+
+.cover-hero-img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 2rem;
+  transform: scale(1.1);
+}
+
+.feature-box {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  height: 100%;
+  border: 1px solid #f0f0f0;
+}
+
+.feature-icon {
+  width: 50px;
+  height: 50px;
+  background-color: var(--eq-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-size: 1.5rem;
+}
+
+.feature-icon.yellow {
+  background-color: var(--eq-secondary);
+  color: var(--eq-primary);
+}
+
+.feature-box h6 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: var(--eq-primary);
+}
+
+.feature-box p {
+  font-size: 0.7rem;
+  color: #777;
+  margin: 0;
+}
+
+.cover-footer {
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.target-audience-btn {
+  background-color: var(--eq-primary);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+}
+
+.quote-box {
+  border-left: 4px solid var(--eq-primary);
+  padding-left: 15px;
+  font-size: 0.85rem;
+  color: #555;
+  font-style: italic;
+}

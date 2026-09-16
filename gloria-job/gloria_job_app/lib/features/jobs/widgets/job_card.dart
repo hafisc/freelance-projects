@@ -66,7 +66,7 @@ class JobCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            job.companyName,
+                            job.companyDisplayName,
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
@@ -236,6 +236,38 @@ class JobCard extends StatelessWidget {
                         ],
                       ),
                     ),
+
+                    // Gaji Badge (tampil jika ada info gaji)
+                    if (job.hasSalaryInfo)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffd1fae5),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.payments_outlined,
+                              size: 12,
+                              color: Color(0xff059669),
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              job.formattedSalary,
+                              style: const TextStyle(
+                                fontSize: 11,
+                                color: Color(0xff059669),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                   ],
                 ),
               ],

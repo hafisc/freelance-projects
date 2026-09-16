@@ -22,8 +22,9 @@
                 <tr class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                     <th class="px-6 py-4">POSISI PEKERJAAN</th>
                     <th class="px-6 py-4">PERUSAHAAN</th>
+                    <th class="px-6 py-4">GAJI</th>
                     <th class="px-6 py-4">LOKASI</th>
-                    <th class="px-6 py-4">BATAS WAKTU (DEADLINE)</th>
+                    <th class="px-6 py-4">BATAS WAKTU</th>
                     <th class="px-6 py-4">STATUS</th>
                     <th class="px-6 py-4 text-center">AKSI</th>
                 </tr>
@@ -33,9 +34,23 @@
                     <tr class="hover:bg-slate-50/50 transition-colors duration-150 text-sm">
                         <td class="px-6 py-4">
                             <div class="font-bold text-slate-800">{{ $job->title }}</div>
-                            <div class="text-xs text-slate-400">Ditambahkan: {{ $job->created_at->format('d M Y') }}</div>
+                            <div class="text-xs text-slate-400">{{ $job->category ?? '' }} · {{ $job->job_type ?? '' }}</div>
                         </td>
-                        <td class="px-6 py-4 font-semibold text-slate-500">{{ $job->company_name }}</td>
+                        <td class="px-6 py-4">
+                            <div class="font-semibold text-slate-700">{{ $job->company_display_name }}</div>
+                            @if($job->company)
+                                <div class="text-xs text-slate-400">{{ $job->company->industry ?? '' }}</div>
+                            @endif
+                        </td>
+                        <td class="px-6 py-4">
+                            @if($job->salary_category || $job->salary_min)
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-100">
+                                    <i class="fa-solid fa-money-bill-wave"></i> {{ $job->salary_display }}
+                                </span>
+                            @else
+                                <span class="text-slate-300 text-xs italic">-</span>
+                            @endif
+                        </td>
                         <td class="px-6 py-4 text-slate-500">
                             <span class="inline-flex items-center gap-1">
                                 <i class="fa-solid fa-location-dot text-rose-500"></i> {{ $job->location }}
@@ -76,7 +91,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="px-6 py-12 text-center text-slate-400">
+                        <td colspan="7" class="px-6 py-12 text-center text-slate-400">
                             <i class="fa-regular fa-folder-open text-4xl mb-3 block text-slate-300"></i>
                             <span class="font-medium text-sm">Belum ada lowongan pekerjaan yang diposting.</span>
                         </td>

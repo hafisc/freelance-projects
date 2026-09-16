@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "804696280587",
+    "project_id": "freshpulse",
+    "storage_bucket": "freshpulse.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804696280587:android:e2ce438ba14126e5ac410e",
+        "android_client_info": {
+          "package_name": "com.freshpulse.freshpulse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "804696280587-ujj5o2v6qcsno2ofeg1dql8h3gmm4bgu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freshpulse.freshpulse",
+            "certificate_hash": "f8ab60420a6c6b72546a1a92a0a6d428350819f9"
+          }
+        },
+        {
+          "client_id": "804696280587-373qsoaak6pj5jict30o0q8hs0bpf6ds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcgwroGANUexLq9FL030aesgvTBEMG3lk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "804696280587-373qsoaak6pj5jict30o0q8hs0bpf6ds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

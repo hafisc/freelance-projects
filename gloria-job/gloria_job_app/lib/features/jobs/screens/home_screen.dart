@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String _selectedCategory = 'Semua';
   String _selectedLocation = 'Semua';
+  String _selectedSalary = 'Semua';
 
   final List<String> _categories = [
     'Semua',
@@ -37,6 +38,16 @@ class _HomeScreenState extends State<HomeScreen> {
     'F&B/Retail',
     'Operasional/Lapangan',
     'Teknologi/IT',
+  ];
+
+  final List<String> _salaryCategories = [
+    'Semua',
+    '< Rp 3 Juta',
+    'Rp 3-5 Juta',
+    'Rp 5-8 Juta',
+    'Rp 8-15 Juta',
+    '> Rp 15 Juta',
+    'Negosiasi',
   ];
 
   final List<String> _locations = [
@@ -162,6 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           setSheetState(() {
                             _selectedCategory = 'Semua';
                             _selectedLocation = 'Semua';
+                            _selectedSalary = 'Semua';
                           });
                         },
                         style: TextButton.styleFrom(
@@ -217,6 +229,50 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(10),
                           side: BorderSide(
                             color: isSelected ? AppTheme.primaryBlue : Colors.transparent,
+                          ),
+                        ),
+                        showCheckmark: false,
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Filter Rentang Gaji
+                  const Text(
+                    'RENTANG GAJI',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.textSecondary,
+                      letterSpacing: 0.8,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: _salaryCategories.map((sal) {
+                      final isSelected = _selectedSalary == sal;
+                      return ChoiceChip(
+                        label: Text(sal),
+                        selected: isSelected,
+                        onSelected: (selected) {
+                          setSheetState(() {
+                            _selectedSalary = sal;
+                          });
+                        },
+                        selectedColor: const Color(0xff059669),
+                        backgroundColor: const Color(0xfff1f5f9),
+                        labelStyle: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: isSelected ? Colors.white : AppTheme.textSecondary,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: BorderSide(
+                            color: isSelected ? const Color(0xff059669) : Colors.transparent,
                           ),
                         ),
                         showCheckmark: false,
@@ -568,7 +624,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       // Active Dismissible Filter Tags (Tag Filter Aktif)
-                      if (_selectedCategory != 'Semua' || _selectedLocation != 'Semua') ...[
+                      if (_selectedCategory != 'Semua' || _selectedLocation != 'Semua' || _selectedSalary != 'Semua') ...[
                         const SizedBox(height: 16),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
@@ -615,6 +671,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                       color: AppTheme.primaryBlue,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      side: BorderSide.none,
+                                    ),
+                                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                  ),
+                                ),
+                              if (_selectedSalary != 'Semua')
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Chip(
+                                    label: Text('Gaji: $_selectedSalary'),
+                                    onDeleted: () {
+                                      setState(() {
+                                        _selectedSalary = 'Semua';
+                                      });
+                                    },
+                                    deleteIconColor: AppTheme.danger,
+                                    backgroundColor: const Color(0xff059669).withOpacity(0.08),
+                                    labelStyle: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xff059669),
                                     ),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12),
@@ -702,7 +782,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   // Local filtering logic
                   final filteredJobs = jobs.where((job) {
                     final matchesSearch = job.title.toLowerCase().contains(searchQuery) ||
-                        job.companyName.toLowerCase().contains(searchQuery) ||
+                        job.companyDisplayName.toLowerCase().contains(searchQuery) ||
                         job.location.toLowerCase().contains(searchQuery) ||
                         job.qualification.toLowerCase().contains(searchQuery);
 
@@ -714,7 +794,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     final matchesLocation = _selectedLocation == 'Semua' ||
                         job.location.toLowerCase().contains(_selectedLocation.toLowerCase());
 
-                    return matchesSearch && matchesCategory && matchesLocation;
+                    final matchesSalary = _selectedSalary == 'Semua' ||
+                        (job.salaryCategory != null &&
+                            job.salaryCategory!.toLowerCase() == _selectedSalary.toLowerCase());
+
+                    return matchesSearch && matchesCategory && matchesLocation && matchesSalary;
                   }).toList();
 
                   if (filteredJobs.isEmpty) {

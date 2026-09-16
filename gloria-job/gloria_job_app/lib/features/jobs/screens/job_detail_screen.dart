@@ -154,11 +154,11 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                 ),
                 const TextSpan(text: ' di '),
                 TextSpan(
-                  text: '${widget.job.companyName}?\n\n',
+                  text: '${widget.job.companyDisplayName}?\n\n',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const TextSpan(
-                  text: 'Data diri lengkap beserta dokumen CV Anda yang terdaftar di profil akan otomatis dikirimkan.',
+                  text: 'CV Anda akan otomatis tersimpan sebagai snapshot dan dikirimkan ke perusahaan.',
                   style: TextStyle(color: AppTheme.textSecondary, fontSize: 13),
                 ),
               ],
@@ -530,7 +530,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        widget.job.companyName,
+                        widget.job.companyDisplayName,
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -562,6 +562,14 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                               widget.job.category,
                               const Color(0xff0d9488),
                               const Color(0xfff0fdfa),
+                            ),
+                          // Salary chip — hanya tampil jika ada info gaji
+                          if (widget.job.hasSalaryInfo)
+                            _buildInfoChip(
+                              Icons.payments_outlined,
+                              widget.job.formattedSalary,
+                              const Color(0xff059669),
+                              const Color(0xffd1fae5),
                             ),
                         ],
                       ),

@@ -1,6 +1,6 @@
 class ApiConstants {
   // Base URL (Menggunakan 10.0.2.2 untuk emulator Android)
-  static const String baseUrl = 'http://10.0.2.2:8000/api';
+  static const String baseUrl = 'https://gloria-job.dzkritch.web.id/api';
 
   // Endpoints
   static const String register = '/register';
@@ -15,5 +15,11 @@ class ApiConstants {
   
   static const String notifications = '/notifications';
   static const String notificationsMarkAllRead = '/notifications/mark-all-read';
+
+  // Companies
+  static const String companies = '/companies';
+
+  // Share CV (digunakan admin, tidak dipanggil langsung dari mobile)
+  static const String shareApplication = '/applications'; // + '/{id}/share'
 }
 

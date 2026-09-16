@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Job;
 use App\Models\JobApplication;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ApplicationController extends Controller
@@ -56,6 +57,17 @@ class ApplicationController extends Controller
             ], 400);
         }
 
+        // Snapshot CV: salin berkas CV user saat ini ke folder lamaran
+        $user = $request->user();
+        $cvSnapshotPath = null;
+
+        if ($user->cv && Storage::disk('public')->exists($user->cv)) {
+            $extension = pathinfo($user->cv, PATHINFO_EXTENSION);
+            $snapshotName = 'application-cv/' . time() . '_' . uniqid() . '.' . $extension;
+            Storage::disk('public')->copy($user->cv, $snapshotName);
+            $cvSnapshotPath = $snapshotName;
+        }
+
         $application = JobApplication::create([
             'user_id' => $userId,
             'job_id' => $jobId,
@@ -65,6 +77,7 @@ class ApplicationController extends Controller
             'address' => $request->address,
             'note' => $request->note,
             'status' => 'Menunggu', // Status awal
+            'cv_path' => $cvSnapshotPath,
         ]);
 
         return response()->json([
@@ -79,7 +92,7 @@ class ApplicationController extends Controller
     {
         $userId = $request->user()->id;
 
-        $applications = JobApplication::with('job')
+        $applications = JobApplication::with(['job.company'])
             ->where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->get();

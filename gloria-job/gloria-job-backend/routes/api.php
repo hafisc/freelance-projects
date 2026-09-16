@@ -20,6 +20,10 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/jobs', [JobController::class, 'index']);
 Route::get('/jobs/{id}', [JobController::class, 'show']);
 
+// Companies Public Routes
+Route::get('/companies', [JobController::class, 'companies']);
+Route::get('/companies/{id}', [JobController::class, 'companyDetail']);
+
 // Protected Routes (Butuh Token Bearer dari login/register)
 Route::middleware('auth:sanctum')->group(function () {
     // Auth Protected
@@ -36,4 +40,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead']);
     Route::put('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
 });
-
